@@ -82,7 +82,8 @@ public class UpdateMaterialServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
-	String mateID = request.getParameter("mateSku");
+	String mateID = request.getParameter("mateID");
+	System.out.println(mateID);
 	String mateName = request.getParameter("mateName");
 	String mateDesc = request.getParameter("mateDesc");
 	String raw_price = request.getParameter("price");

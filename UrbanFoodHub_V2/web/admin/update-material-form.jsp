@@ -11,7 +11,7 @@
 <div class="col-sm-12 col-xl-12">
     <form action="update-material" method="post" class="bg-light rounded h-100 p-4">
         <h6 class="mb-4">Update material</h6>
-        <input type="text" value="${materialUpdate.mateSku}" style="display: none" name="mateID"/>
+        <input type="hidden" value="${materialUpdate.mateSku}" name="mateID"/>
         <div class="form-floating mb-3">
             
             <input value="${materialUpdate.mateName}" name="mateName" type="text" class="form-control" id="floatingInput"

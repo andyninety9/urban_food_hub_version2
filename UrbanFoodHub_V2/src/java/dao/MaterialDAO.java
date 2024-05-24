@@ -80,6 +80,7 @@ public class MaterialDAO {
 				rs.getString("MateDesc"), rs.getDouble("Price"), rs.getString("PackagingSpec"),
 				rs.getDouble("Stock"), rs.getDate("CreatedDate"), rs.getBytes("MateImg"),
 				rs.getInt("MateStatus"));
+			System.out.println(m);
 		    }
 		}
 	    }
