@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/duyma/Documents/PRJ301/assignment_project_SU2024/urban_food_hub_version2/UrbanFoodHub_V2/web/admin/update-material-form.jsp</file>
-            <file>file:/C:/Users/duyma/Documents/PRJ301/assignment_project_SU2024/urban_food_hub_version2/UrbanFoodHub_V2/src/java/dto/Material.java</file>
-            <file>file:/C:/Users/duyma/Documents/PRJ301/assignment_project_SU2024/urban_food_hub_version2/UrbanFoodHub_V2/src/java/dao/MaterialDAO.java</file>
-            <file>file:/C:/Users/duyma/Documents/PRJ301/assignment_project_SU2024/urban_food_hub_version2/UrbanFoodHub_V2/web/admin/add-new-material-form.jsp</file>
-            <file>file:/C:/Users/duyma/Documents/PRJ301/assignment_project_SU2024/urban_food_hub_version2/UrbanFoodHub_V2/src/java/controller/admin/products/AddNewMaterialServlet.java</file>
-            <file>file:/C:/Users/duyma/Documents/PRJ301/assignment_project_SU2024/urban_food_hub_version2/UrbanFoodHub_V2/web/admin/table-material.jsp</file>
-            <file>file:/C:/Users/duyma/Documents/PRJ301/assignment_project_SU2024/urban_food_hub_version2/UrbanFoodHub_V2/src/java/controller/admin/products/HideMaterialServlet.java</file>
-            <file>file:/C:/Users/duyma/Documents/PRJ301/assignment_project_SU2024/urban_food_hub_version2/UrbanFoodHub_V2/src/java/controller/admin/products/UpdateMaterialServlet.java</file>
-            <file>file:/C:/Users/duyma/Documents/PRJ301/assignment_project_SU2024/urban_food_hub_version2/UrbanFoodHub_V2/web/WEB-INF/web.xml</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

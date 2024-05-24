@@ -66,21 +66,38 @@ public class ManageProductsServlet extends HttpServlet {
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
 	String cateID = request.getParameter("cateID");
+	String raw_page = request.getParameter("page");
 	MaterialDAO materialDAO = new MaterialDAO();
 	CategoryDAO categoryDAO = new CategoryDAO();
 	List<Category> listCategories = categoryDAO.getAllCategory();
 	List<Material> listAllMaterial = materialDAO.getAllMaterial(cateID);
-	HttpSession session = request.getSession();
-	session.removeAttribute("selectedCate");
+	int numPerPage = 10, page = 1, size = listAllMaterial.size();
+//	System.out.println(size);
+	if (raw_page == null) {
+	    page = 1;
+	} else {
+	    try {
+		page = Integer.parseInt(raw_page);
+	    } catch (NumberFormatException e) {
+		e.printStackTrace();
+	    }
+	}
+	int start, end;
+	start = (page - 1) * numPerPage;
+	end = Math.min(page * numPerPage, size);
+	List<Material> listPerPage = materialDAO.getListByPage(listAllMaterial, start, end);
+	request.removeAttribute("selectedCate");
+//	HttpSession session = request.getSession();
+//	session.removeAttribute("selectedCate");
 	for (Category category : listCategories) {
 	    if (category.getCateID().equals(cateID)) {
-		session.setAttribute("selectedCate", category.getCateName());
+		request.setAttribute("selectedCate", category.getCateName());
 		break;
 	    }
 	}
-
-	session.setAttribute("allMaterial", listAllMaterial);
-	session.setAttribute("allCategory", listCategories);
+	request.setAttribute("sizeMaterial", size);
+	request.setAttribute("allMaterial", listPerPage);
+	request.setAttribute("allCategory", listCategories);
 	request.getRequestDispatcher("admin/view-all-products.jsp").forward(request, response);
     }
 

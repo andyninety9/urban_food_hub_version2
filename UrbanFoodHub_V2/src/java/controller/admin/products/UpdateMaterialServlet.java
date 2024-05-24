@@ -5,11 +5,14 @@
 
 package controller.admin.products;
 
+import dao.CategoryDAO;
 import dao.MaterialDAO;
+import dto.Category;
 import dto.Material;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -64,7 +67,10 @@ public class UpdateMaterialServlet extends HttpServlet {
 	response.setCharacterEncoding("UTF-8");
 	String mateID = request.getParameter("mateID");
 	MaterialDAO materialDAO = new MaterialDAO();
+	CategoryDAO categoryDAO = new CategoryDAO();
+	List<Category> listCate = categoryDAO.getAllCategory();
 	Material m = materialDAO.getMaterialByID(mateID);
+	request.setAttribute("allCategory", listCate);
 	request.setAttribute("material", m);
 	request.getRequestDispatcher("admin/update-material-layout.jsp").forward(request, response);
     }

@@ -6,10 +6,10 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="allCategory" value="${sessionScope.allCategory}"/>
+<c:set var="allCategory" value="${requestScope.allCategory}"/>
 <div class="col-sm-12 col-xl-12">
     <form action="add-new-material" method="post" class="bg-light rounded h-100 p-4">
-        <h6 class="mb-4">Add new material</h6>
+        <!--<h6 class="mb-4">Add new material</h6>-->
         <div class="form-floating mb-3">
             <input name="mateName" type="text" class="form-control" id="floatingInput"
                 placeholder="Cá hồi...">

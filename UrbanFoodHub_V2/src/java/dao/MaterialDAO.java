@@ -207,4 +207,12 @@ public class MaterialDAO {
 	return rs;
     }
 
+    public List<Material> getListByPage(List<Material> list, int start, int end) {
+	List<Material> result = new ArrayList<>();
+	for (int i = start; i < end; i++) {
+	    result.add(list.get(i));
+	}
+	return result;
+    }
+
 }

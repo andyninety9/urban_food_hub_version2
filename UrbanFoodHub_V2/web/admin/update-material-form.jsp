@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="allCategory" value="${sessionScope.allCategory}"/>
+<c:set var="allCategory" value="${requestScope.allCategory}"/>
 <c:set var="materialUpdate" value="${requestScope.material}"/>
 <div class="col-sm-12 col-xl-12">
     <form action="update-material" method="post" class="bg-light rounded h-100 p-4">
@@ -31,7 +31,7 @@
         <div class="form-floating mb-3">
             <select name="cateID" class="form-select" id="floatingSelect"
                 aria-label="Floating label select example">
-                <option selected>Category</option>
+                <option value="0">Category</option>
                 <c:if test="${allCategory != null}" >
                     <c:forEach var="category" items="${allCategory}" >
                         <option
