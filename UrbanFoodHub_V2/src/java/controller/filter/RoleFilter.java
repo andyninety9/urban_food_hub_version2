@@ -114,7 +114,14 @@ public class RoleFilter implements Filter {
 	    }
 	    switch (role) {
 	    case "1": {
-		req.getRequestDispatcher("dashboard").forward(request, response);
+		String path = req.getContextPath();
+		switch (path) {
+		case "dashboard": {
+		    req.getRequestDispatcher("dashboard").forward(request, response);
+		    break;
+		}
+		}
+
 		break;
 	    }
 	    default: {

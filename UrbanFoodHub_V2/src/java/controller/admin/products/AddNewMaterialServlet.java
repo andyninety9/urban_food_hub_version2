@@ -3,26 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.authen;
+package controller.admin.products;
 
-import dao.AccountDao;
-import dao.UserDAO;
-import dto.Account;
-import dto.User;
+import dao.MaterialDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import utils.MyLibs;
 
 /**
  *
  * @author duyma
  */
-public class LoginServlet extends HttpServlet {
+public class AddNewMaterialServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +38,10 @@ public class LoginServlet extends HttpServlet {
 	    out.println("<!DOCTYPE html>");
 	    out.println("<html>");
 	    out.println("<head>");
-	    out.println("<title>Servlet LoginServlet</title>");
+	    out.println("<title>Servlet AddNewMaterialServlet</title>");
 	    out.println("</head>");
 	    out.println("<body>");
-	    out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+	    out.println("<h1>Servlet AddNewMaterialServlet at " + request.getContextPath() + "</h1>");
 	    out.println("</body>");
 	    out.println("</html>");
 	}
@@ -63,7 +60,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	request.getRequestDispatcher("login-form.jsp").forward(request, response);
+	request.getRequestDispatcher("admin/add-new-material-layout.jsp").forward(request, response);
     }
 
     /**
@@ -77,36 +74,36 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	String username = request.getParameter("username");
-	String password = request.getParameter("password");
-	boolean rem = "on".equals(request.getParameter("rem"));
-
-	UserDAO userDao = new UserDAO();
-	User userLogin = userDao.getUser(username, password);
-	if (userLogin != null) {
-	    AccountDao accountDao = new AccountDao();
-	    Account acc = accountDao.getAccountByID(userLogin.getAccID());
-	    HttpSession session = request.getSession();
-	    session.setAttribute("user", acc);
-	    response.addCookie(new Cookie("role", String.valueOf(userLogin.getRoleID())));
-
-	    if (rem) {
-		response.addCookie(new Cookie("username", username));
-		response.addCookie(new Cookie("password", password));
-		response.addCookie(new Cookie("rem", request.getParameter("rem")));
+	String sku = MyLibs.generateID("SKU");
+	String mateName = request.getParameter("mateName");
+	String mateDesc = request.getParameter("mateDesc");
+	String raw_price = request.getParameter("price");
+	String cateID = request.getParameter("cateID");
+	String packaging = request.getParameter("packaging");
+	String raw_status = request.getParameter("status");
+	String raw_stock = request.getParameter("stock");
+	byte[] mateImg = null;
+	double price, stock;
+	int status;
+	try {
+	    price = Double.parseDouble(raw_price);
+	    stock = Double.parseDouble(raw_stock);
+	    if (raw_status != null && raw_status.equals("1")) {
+		status = Integer.parseInt(raw_status);
 	    } else {
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-		    if (cookie.getName().equals("username") || cookie.getName().equals("password")) {
-			cookie.setMaxAge(0);
-			response.addCookie(cookie);
-		    }
-		}
+		status = 3;
 	    }
-	    response.sendRedirect("home");
-	} else {
-	    request.setAttribute("error", "Invalid username or password");
-	    request.getRequestDispatcher("login-form.jsp").forward(request, response);
+	    Date createdDate = new Date(System.currentTimeMillis());
+	    MaterialDAO materialDAO = new MaterialDAO();
+	    int rs = materialDAO.addMaterial(sku, cateID, mateName, mateDesc, price, packaging, stock, createdDate,
+		    mateImg, status);
+	    if (rs > 0) {
+		response.sendRedirect("manage-products");
+	    } else {
+		response.sendRedirect("access-denied");
+	    }
+	} catch (NumberFormatException e) {
+	    e.printStackTrace();
 	}
     }
 

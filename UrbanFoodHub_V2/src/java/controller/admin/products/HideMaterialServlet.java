@@ -3,26 +3,21 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package controller.authen;
+package controller.admin.products;
 
-import dao.AccountDao;
-import dao.UserDAO;
-import dto.Account;
-import dto.User;
+import dao.MaterialDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author duyma
  */
-public class LoginServlet extends HttpServlet {
+public class HideMaterialServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +36,10 @@ public class LoginServlet extends HttpServlet {
 	    out.println("<!DOCTYPE html>");
 	    out.println("<html>");
 	    out.println("<head>");
-	    out.println("<title>Servlet LoginServlet</title>");
+	    out.println("<title>Servlet HideMaterialServlet</title>");
 	    out.println("</head>");
 	    out.println("<body>");
-	    out.println("<h1>Servlet LoginServlet at " + request.getContextPath() + "</h1>");
+	    out.println("<h1>Servlet HideMaterialServlet at " + request.getContextPath() + "</h1>");
 	    out.println("</body>");
 	    out.println("</html>");
 	}
@@ -63,7 +58,27 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	request.getRequestDispatcher("login-form.jsp").forward(request, response);
+	String mateID = request.getParameter("mateID");
+	String raw_status = request.getParameter("statusID");
+	int statusID;
+	try {
+	    statusID = Integer.parseInt(raw_status);
+	    if (statusID < 3) {
+		statusID++;
+	    } else {
+		statusID = 1;
+	    }
+	    MaterialDAO materialDAO = new MaterialDAO();
+	    int rs = materialDAO.updateStatus(mateID, statusID);
+	    if (rs > 0) {
+		response.sendRedirect("manage-products");
+	    } else {
+		request.setAttribute("errorTableMaterial", "Cannot hide this material");
+		request.getRequestDispatcher("manage-products").forward(request, response);
+	    }
+	} catch (NumberFormatException e) {
+	    e.printStackTrace();
+	}
     }
 
     /**
@@ -77,37 +92,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	String username = request.getParameter("username");
-	String password = request.getParameter("password");
-	boolean rem = "on".equals(request.getParameter("rem"));
-
-	UserDAO userDao = new UserDAO();
-	User userLogin = userDao.getUser(username, password);
-	if (userLogin != null) {
-	    AccountDao accountDao = new AccountDao();
-	    Account acc = accountDao.getAccountByID(userLogin.getAccID());
-	    HttpSession session = request.getSession();
-	    session.setAttribute("user", acc);
-	    response.addCookie(new Cookie("role", String.valueOf(userLogin.getRoleID())));
-
-	    if (rem) {
-		response.addCookie(new Cookie("username", username));
-		response.addCookie(new Cookie("password", password));
-		response.addCookie(new Cookie("rem", request.getParameter("rem")));
-	    } else {
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-		    if (cookie.getName().equals("username") || cookie.getName().equals("password")) {
-			cookie.setMaxAge(0);
-			response.addCookie(cookie);
-		    }
-		}
-	    }
-	    response.sendRedirect("home");
-	} else {
-	    request.setAttribute("error", "Invalid username or password");
-	    request.getRequestDispatcher("login-form.jsp").forward(request, response);
-	}
+	processRequest(request, response);
     }
 
     /**

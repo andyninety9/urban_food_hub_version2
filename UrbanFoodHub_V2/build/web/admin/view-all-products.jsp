@@ -10,9 +10,9 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Dashboard</title>
+        <title>All products</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href="img/favicon.ico" rel="icon" />
+                <link href="img/favicon.ico" rel="icon" />
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -61,7 +61,7 @@
             <!-- Sidebar Start -->
             <div class="sidebar pe-4 pb-3">
                 <nav class="navbar bg-light navbar-light">
-                    <a href="index.html" class="navbar-brand mx-4 mb-3">
+                    <a href="manage-products" class="navbar-brand mx-4 mb-3">
                         <h3 class="text-black-50">
                             <i class="fa fa-hashtag me-2"></i>Dashboard
                         </h3>
@@ -100,12 +100,12 @@
             <div class="content">
                 <!-- Navbar Start -->
                 <jsp:include page="header-dashboard.jsp"/>
+                <!-- Navbar End -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
-                        <jsp:include page="../widget/calendar.jsp"/>
+                        <jsp:include page="table-material.jsp"/>
                     </div>
                 </div>
-                <!-- Navbar End -->
             </div>
             <!-- Content End -->
 
@@ -128,5 +128,7 @@
 
         <!-- Template Javascript -->
         <script src="js-dashboard/main.js"></script>
+        <script src="js-dashboard/handleSelectCategory.js"></script>
+        
     </body>
 </html>

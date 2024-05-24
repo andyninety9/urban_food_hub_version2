@@ -13,8 +13,8 @@
         <filter-class>controller.filter.RoleFilter</filter-class>
     </filter>
     <filter-mapping>
-        <filter-name>RoleFilter</filter-name>
-        <url-pattern>/dashboard</url-pattern>
+        <filter-name>HomeFilter</filter-name>
+        <url-pattern>/*</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>Authorization</filter-name>
@@ -24,9 +24,14 @@
         <url-pattern>/update-account</url-pattern>
     </filter-mapping>
     <filter-mapping>
-        <filter-name>HomeFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <filter-name>RoleFilter</filter-name>
+        <url-pattern>/dashboard</url-pattern>
+        <url-pattern>/manage-products</url-pattern>
+        <url-pattern>/add-new-material</url-pattern>
+        <url-pattern>/update-material</url-pattern>
     </filter-mapping>
+
+
     <servlet>
         <servlet-name>HomepageServlet</servlet-name>
         <servlet-class>controller.homepage.HomepageServlet</servlet-class>
@@ -59,6 +64,22 @@
         <servlet-name>DashboardServlet</servlet-name>
         <servlet-class>controller.dashboard.DashboardServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageProductsServlet</servlet-name>
+        <servlet-class>controller.admin.products.ManageProductsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewMaterialServlet</servlet-name>
+        <servlet-class>controller.admin.products.AddNewMaterialServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HideMaterialServlet</servlet-name>
+        <servlet-class>controller.admin.products.HideMaterialServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateMaterialServlet</servlet-name>
+        <servlet-class>controller.admin.products.UpdateMaterialServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomepageServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -90,6 +111,22 @@
     <servlet-mapping>
         <servlet-name>DashboardServlet</servlet-name>
         <url-pattern>/dashboard</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageProductsServlet</servlet-name>
+        <url-pattern>/manage-products</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewMaterialServlet</servlet-name>
+        <url-pattern>/add-new-material</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HideMaterialServlet</servlet-name>
+        <url-pattern>/hide-material</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateMaterialServlet</servlet-name>
+        <url-pattern>/update-material</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

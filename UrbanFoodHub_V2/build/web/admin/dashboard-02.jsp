@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Dashboard</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-                <link href="img/favicon.ico" rel="icon" />
+        <link href="img/favicon.ico" rel="icon" />
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -79,12 +79,12 @@
                         </c:if>
                     </div>
                     <div class="navbar-nav w-100">
-                        <a href="index.html" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+                        <a href="dashboard" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
                         <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-carrot me-2"></i>Materials</a>
+                            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-mortar-pestle me-2"></i>Products</a>
                             <div class="dropdown-menu bg-transparent border-0">
-                                <a href="#" class="dropdown-item"><i class="fa-solid fa-plus me-2"></i>Add new</a>
-                                <a href="#" class="dropdown-item"><i class="fa-solid fa-list me-2"></i>View all</a>
+                                <a href="#" class="dropdown-item"><i class="fa-solid fa-plus me-2"></i>Add new material</a>
+                                <a href="manage-products" class="dropdown-item"><i class="fa-solid fa-list me-2"></i>View all products</a>
                             </div>
                         </div>
                         <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Manage Plans</a>
@@ -100,6 +100,11 @@
             <div class="content">
                 <!-- Navbar Start -->
                 <jsp:include page="header-dashboard.jsp"/>
+                <div class="container-fluid pt-4 px-4">
+                    <div class="row g-4">
+                        <jsp:include page="../widget/calendar.jsp"/>
+                    </div>
+                </div>
                 <!-- Navbar End -->
             </div>
             <!-- Content End -->
