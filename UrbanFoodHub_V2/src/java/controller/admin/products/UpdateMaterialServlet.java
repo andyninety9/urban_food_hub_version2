@@ -60,6 +60,8 @@ public class UpdateMaterialServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
 	String mateID = request.getParameter("mateID");
 	MaterialDAO materialDAO = new MaterialDAO();
 	Material m = materialDAO.getMaterialByID(mateID);
@@ -78,6 +80,8 @@ public class UpdateMaterialServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
 	String mateID = request.getParameter("mateSku");
 	String mateName = request.getParameter("mateName");
 	String mateDesc = request.getParameter("mateDesc");

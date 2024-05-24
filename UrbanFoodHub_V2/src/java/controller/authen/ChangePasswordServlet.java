@@ -75,6 +75,8 @@ public class ChangePasswordServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
 	HttpSession session = request.getSession();
 	String accID = ((Account) session.getAttribute("user")).getAccID();
 	if (session.getAttribute("user") != null) {

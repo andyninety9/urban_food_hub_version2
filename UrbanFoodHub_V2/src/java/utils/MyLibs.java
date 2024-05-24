@@ -23,7 +23,7 @@ public class MyLibs {
 	String db = "URBAN_FOOD_HUB_V2";
 	String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	String url = "jdbc:sqlserver://" + IP + "\\" + instanceName + ":" + port + ";databasename=" + db + ";user="
-		+ uid + ";password=" + pwd;
+		+ uid + ";password=" + pwd + ";useUnicode=true;characterEncoding=UTF-8";
 	Class.forName(driver);
 	cn = DriverManager.getConnection(url);
 	return cn;

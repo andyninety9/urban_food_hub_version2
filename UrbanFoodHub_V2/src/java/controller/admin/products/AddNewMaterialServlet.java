@@ -74,6 +74,8 @@ public class AddNewMaterialServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	request.setCharacterEncoding("UTF-8");
+	response.setCharacterEncoding("UTF-8");
 	String sku = MyLibs.generateID("SKU");
 	String mateName = request.getParameter("mateName");
 	String mateDesc = request.getParameter("mateDesc");
