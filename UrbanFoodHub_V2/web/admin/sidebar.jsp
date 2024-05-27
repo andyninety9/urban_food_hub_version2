@@ -23,10 +23,11 @@
             <div class="nav-item dropdown">
                 <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-mortar-pestle me-2"></i>Products</a>
                 <div class="dropdown-menu bg-transparent border-0">
-                    <a href="add-new-material" class="dropdown-item"><i class="fa-solid fa-plus me-2"></i>Add new material</a>
-                    <a href="manage-products" class="dropdown-item"><i class="fa-solid fa-list me-2"></i>View all products</a>
+                    <!--<a href="manage-category-material" class="dropdown-item"><i class="fa-solid fa-layer-group me-2"></i>View all categories</a>-->
+                    <a style="padding: 5px 10px; text-align: center" href="manage-products" class="dropdown-item"><i class="fa-solid fa-list me-2"></i>View all products</a>
                 </div>
             </div>
+            <a href="manage-foods?action=all" class="nav-item nav-link"><i class="fa-solid fa-utensils me-2"></i>Manage Foods</a>
             <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Manage Plans</a>
             <a href="#" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping me-2"></i>Manage Order</a>
             <a href="#" class="nav-item nav-link"><i class="fa-solid fa-truck me-2"></i>Manage Delivery</a>

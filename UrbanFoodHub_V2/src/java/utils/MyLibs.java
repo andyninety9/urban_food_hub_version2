@@ -7,6 +7,8 @@ package utils;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -55,6 +57,14 @@ public class MyLibs {
 	    return false;
 	}
 	return true;
+    }
+
+    public static <T> List<T> pagination(List<T> list, int start, int end) {
+	List<T> result = new ArrayList<>();
+	for (int i = start; i < end; i++) {
+	    result.add(list.get(i));
+	}
+	return result;
     }
 
 }

@@ -29,6 +29,7 @@ public class MaterialDAO {
 	if (cateID != null && !cateID.equals("all")) {
 	    sql += (" WHERE Material.CateID = '" + cateID + "'");
 	}
+	sql += " ORDER BY [MateStatus] ASC, [MateName] ASC, [CreatedDate] DESC ";
 	Connection cn = null;
 	try {
 	    cn = MyLibs.makeConnection();
@@ -213,6 +214,50 @@ public class MaterialDAO {
 	    result.add(list.get(i));
 	}
 	return result;
+    }
+
+    public List<Material> searchMaterial(String keyword) {
+	List<Material> list = null;
+	String sql = "SELECT [MateSKU]\n" + "      ,[CateName]\n" + "      ,[MateName]\n" + "      ,[MateDesc]\n"
+		+ "      ,[Price]\n" + "      ,[PackagingSpec]\n" + "      ,[Stock]\n" + "      ,[CreatedDate]\n"
+		+ "      ,[MateImg]\n" + "      ,[MateStatus]\n"
+		+ "  FROM [dbo].[Material] INNER JOIN CategoryMaterial ON Material.CateID = CategoryMaterial.CateID"
+		+ "  WHERE [MateSKU] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%'\n"
+		+ "     OR [MateName] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%'\n"
+		+ "     OR [CateName] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%'\n";
+	sql += " ORDER BY [MateStatus] ASC, [MateName] ASC, [CreatedDate] DESC ";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		for (int i = 1; i <= 3; i++) {
+		    st.setString(i, keyword);
+		}
+		ResultSet rs = st.executeQuery();
+		if (rs != null) {
+		    list = new ArrayList<>();
+		    while (rs.next()) {
+			Material m = new Material(rs.getString("MateSKU"), rs.getString("CateName"),
+				rs.getString("MateName"), rs.getString("MateDesc"), rs.getDouble("Price"),
+				rs.getString("PackagingSpec"), rs.getDouble("Stock"), rs.getDate("CreatedDate"),
+				rs.getBytes("MateImg"), rs.getInt("MateStatus"));
+			list.add(m);
+		    }
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return list;
     }
 
 }

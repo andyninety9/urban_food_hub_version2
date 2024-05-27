@@ -29,9 +29,11 @@
         <url-pattern>/manage-products</url-pattern>
         <url-pattern>/add-new-material</url-pattern>
         <url-pattern>/update-material</url-pattern>
+        <url-pattern>/manage-foods</url-pattern>
+        <url-pattern>/add-material-to-meal</url-pattern>
+        <url-pattern>/add-new-meal</url-pattern>
+        <url-pattern>/update-meal</url-pattern>
     </filter-mapping>
-
-
     <servlet>
         <servlet-name>HomepageServlet</servlet-name>
         <servlet-class>controller.homepage.HomepageServlet</servlet-class>
@@ -80,6 +82,62 @@
         <servlet-name>UpdateMaterialServlet</servlet-name>
         <servlet-class>controller.admin.products.UpdateMaterialServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateStatusCategory</servlet-name>
+        <servlet-class>controller.admin.products.UpdateStatusCategory</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCategoryMateServlet</servlet-name>
+        <servlet-class>controller.admin.products.AddCategoryMateServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchMaterialServlet</servlet-name>
+        <servlet-class>controller.admin.products.SearchMaterialServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <servlet-class>controller.admin.products.UpdateCategoryServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageFoodsServlet</servlet-name>
+        <servlet-class>controller.admin.foods.ManageFoodsServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStatusMealServlet</servlet-name>
+        <servlet-class>controller.admin.foods.UpdateStatusMealServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddMaterialToMealServlet</servlet-name>
+        <servlet-class>controller.admin.foods.AddMaterialToMealServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HandleAddMaterialServlet</servlet-name>
+        <servlet-class>controller.admin.foods.HandleAddMaterialServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditMaterialServlet</servlet-name>
+        <servlet-class>controller.admin.foods.EditMaterialServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddNewMealServlet</servlet-name>
+        <servlet-class>controller.admin.foods.AddNewMealServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateMealServlet</servlet-name>
+        <servlet-class>controller.admin.foods.UpdateMealServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddCateMealServlet</servlet-name>
+        <servlet-class>controller.admin.foods.AddCateMealServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateStatusCateMealServlet</servlet-name>
+        <servlet-class>controller.admin.foods.UpdateStatusCateMealServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCateMealServlet</servlet-name>
+        <servlet-class>controller.admin.foods.UpdateCateMealServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomepageServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -127,6 +185,62 @@
     <servlet-mapping>
         <servlet-name>UpdateMaterialServlet</servlet-name>
         <url-pattern>/update-material</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStatusCategory</servlet-name>
+        <url-pattern>/change-status-category-material</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCategoryMateServlet</servlet-name>
+        <url-pattern>/add-cate-material</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchMaterialServlet</servlet-name>
+        <url-pattern>/search-material</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCategoryServlet</servlet-name>
+        <url-pattern>/update-material-category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageFoodsServlet</servlet-name>
+        <url-pattern>/manage-foods</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStatusMealServlet</servlet-name>
+        <url-pattern>/update-status-meal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddMaterialToMealServlet</servlet-name>
+        <url-pattern>/add-material-to-meal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HandleAddMaterialServlet</servlet-name>
+        <url-pattern>/add-to-meal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditMaterialServlet</servlet-name>
+        <url-pattern>/edit-material-in-meal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddNewMealServlet</servlet-name>
+        <url-pattern>/add-new-meal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateMealServlet</servlet-name>
+        <url-pattern>/update-meal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddCateMealServlet</servlet-name>
+        <url-pattern>/add-category-meal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateStatusCateMealServlet</servlet-name>
+        <url-pattern>/update-status-cate-meal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCateMealServlet</servlet-name>
+        <url-pattern>/update-cate-meal</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

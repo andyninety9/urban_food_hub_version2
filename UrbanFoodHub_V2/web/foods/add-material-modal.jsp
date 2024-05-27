@@ -1,18 +1,22 @@
 <%-- 
-    Document   : test
-    Created on : May 22, 2024, 11:02:39 PM
+    Document   : testModalBody
+    Created on : May 24, 2024, 3:08:02 PM
     Author     : duyma
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="selectedMeal" value="${requestScope.selectedMeal}"/>
+<c:set var="mealDetails" value="${requestScope.mealDetails}"/>
+<c:set var="listMaterial" value="${requestScope.listMaterial}"/>
+
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Dashboard</title>
+        <title>Edit material in meal</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link href="img/favicon.ico" rel="icon" />
+                <link href="img/favicon.ico" rel="icon" />
 
         <!-- Google Web Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -43,7 +47,7 @@
         <!-- Template Stylesheet -->
         <link href="css-dashboard/style.css" rel="stylesheet" />
     </head>
-   <body>
+    <body>
         <div class="container-xxl position-relative bg-white d-flex p-0">
             <!-- Spinner Start -->
             <div
@@ -59,19 +63,21 @@
             <!-- Spinner End -->
 
             <!-- Sidebar Start -->
-            <jsp:include page="sidebar.jsp"/>
+            <jsp:include page="../admin/sidebar.jsp"/>
             <!-- Sidebar End -->
 
             <!-- Content Start -->
             <div class="content">
                 <!-- Navbar Start -->
-                <jsp:include page="header-dashboard.jsp"/>
+                <jsp:include page="../admin/header-dashboard.jsp"/>
+                <!-- Navbar End -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
-                        <jsp:include page="add-new-material-form.jsp"/>
+                        <h5 class="modal-title" id="exampleModalLabel">#${selectedMeal.mealName}</h5>
+                        <jsp:include page="list-material-view.jsp"/>
+                        <jsp:include page="table-material.jsp"/>
                     </div>
                 </div>
-                <!-- Navbar End -->
             </div>
             <!-- Content End -->
 
@@ -80,7 +86,6 @@
                 ><i class="bi bi-arrow-up"></i
             ></a>
         </div>
-
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -94,5 +99,10 @@
 
         <!-- Template Javascript -->
         <script src="js-dashboard/main.js"></script>
+        <!--<script src="js-dashboard/handleSelectCategory.js"></script>-->
     </body>
 </html>
+<!-- Modal -->
+
+      
+      

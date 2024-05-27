@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utils.MyLibs;
 
 /**
  *
@@ -67,11 +68,22 @@ public class ManageProductsServlet extends HttpServlet {
 	response.setCharacterEncoding("UTF-8");
 	String cateID = request.getParameter("cateID");
 	String raw_page = request.getParameter("page");
+	String keyword = request.getParameter("keyword");
 	MaterialDAO materialDAO = new MaterialDAO();
 	CategoryDAO categoryDAO = new CategoryDAO();
 	List<Category> listCategories = categoryDAO.getAllCategory();
-	List<Material> listAllMaterial = materialDAO.getAllMaterial(cateID);
-	int numPerPage = 10, page = 1, size = listAllMaterial.size();
+	List<Material> listAllMaterial = null;
+	if (keyword == null) {
+	    listAllMaterial = materialDAO.getAllMaterial(cateID);
+	} else {
+	    listAllMaterial = materialDAO.searchMaterial(keyword);
+	    System.out.println(keyword);
+	}
+
+	int numPerPage = 10, page = 1, size = 0;
+	if (listAllMaterial != null) {
+	    size = listAllMaterial.size();
+	}
 //	System.out.println(size);
 	if (raw_page == null) {
 	    page = 1;
@@ -85,7 +97,7 @@ public class ManageProductsServlet extends HttpServlet {
 	int start, end;
 	start = (page - 1) * numPerPage;
 	end = Math.min(page * numPerPage, size);
-	List<Material> listPerPage = materialDAO.getListByPage(listAllMaterial, start, end);
+	List<Material> listPerPage = MyLibs.pagination(listAllMaterial, start, end);
 	request.removeAttribute("selectedCate");
 //	HttpSession session = request.getSession();
 //	session.removeAttribute("selectedCate");

@@ -31,7 +31,9 @@
                 <option selected>Category</option>
                 <c:if test="${allCategory != null}" >
                     <c:forEach var="category" items="${allCategory}" >
-                        <option value="${category.cateID}">${category.cateName}</option>
+                        <c:if test="${category.cateStatus == 1}">
+                            <option value="${category.cateID}">${category.cateName}</option>
+                        </c:if>
                     </c:forEach>
                 </c:if>
             </select>

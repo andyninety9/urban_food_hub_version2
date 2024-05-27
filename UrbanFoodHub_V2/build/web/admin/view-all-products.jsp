@@ -83,9 +83,8 @@
                 <!-- Navbar End -->
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
+                        <jsp:include page="table-categories.jsp"/>
                         <jsp:include page="table-material.jsp"/>
-                        
-                        
                     </div>
                 </div>
             </div>

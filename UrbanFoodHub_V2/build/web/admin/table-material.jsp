@@ -14,9 +14,15 @@
 <c:set var="sizeListMaterial" value="${requestScope.sizeMaterial}"/>
 <script src="js-dashboard/handlePagination.js"></script>
 
-<div class="col-12">
+<div class="col-9">
     <div class="bg-light rounded h-100 p-4">
-        <h5 class="mb-4">All materials</h5>
+        <div style="display: flex; justify-content: space-between">
+            <h5 class="mb-4">All materials</h5>
+            <form action="manage-products" class="d-none d-md-flex ms-4" style="font-size: 12px; border-radius: 20px; height: 30px">
+                <input name="keyword" class="form-control border-0" type="search" placeholder="Search material" style="font-size: 12px">
+            </form>
+        </div>
+        
         <form method="get" action="manage-products" id="categoryForm" style="display: flex; justify-content: space-between">
             <!--<a class="btn btn-outline-light" href="add-new-material" style=" padding: 10px 20px; font-size: 14px; background-color: #4ACD8D" role="button">Add new <i class="fa-solid fa-plus"></i></a>-->
             <a style=" padding: 10px 20px; font-size: 14px; background-color: #4ACD8D; border: none" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -75,7 +81,20 @@
                                 <td>${material.mateDesc}</td>
                                 <td>${material.price}</td>
                                 <td>${material.packagingSpec}</td>
-                                <td>${material.stock}</td>
+                                <td>
+                                    <p style="margin: 0; text-align: center">${material.stock}</p>
+                                    <c:if test="${material.stock <= 30}">
+                                        <p style="margin: 0; text-align: center">
+                                            <span class="badge rounded-pill bg-warning text-dark">Low</span>
+                                         </p>
+                                    </c:if>
+                                    <c:if test="${material.stock > 30}">
+                                        <p style="margin: 0; text-align: center">
+                                            <span class="badge rounded-pill bg-success">Good</span>
+                                        </p>
+                                        
+                                    </c:if>
+                                </td>
                                 <td>${material.cateName}</td>
                                 <td>
                                     <c:if test="${material.mateStatus == 1}">
@@ -89,8 +108,8 @@
                                     </c:if>   
                                 </td>
                                 <td class="action">
-<!--                                    <a href="update-material?mateID=${material.mateSku}" style="color: #757575; font-size: 14px" type="button" class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                        Add new <i class="fa-solid fa-plus"></i>
+<!--                                    <a href="update-material?mateID=${material.mateSku}" style="color: #757575; font-size: 14px"  class="btn" data-bs-toggle="modal" data-bs-target="#UpdateModal">
+                                        Update <i class="fa-solid fa-file-pen"></i>
                                     </a>-->
                                     <a style="color: #757575; font-size: 14px" href="update-material?mateID=${material.mateSku}" data-bs-toggle="tooltip" data-bs-placement="top" title="Update"><i class="fa-solid fa-file-pen"></i></a>
                                     <!--<a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="Hide"><i class="fa-solid fa-trash"></i></a>-->
@@ -111,6 +130,7 @@
 </div>
 
 <jsp:include page="testModalBody.jsp"/>
+<jsp:include page="ModalUpdate.jsp"/>
 <script>
     var sizeListMaterial = <%= request.getAttribute("sizeMaterial") %>;
     var currentPage = <%= request.getParameter("page") %>;
