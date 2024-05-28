@@ -377,4 +377,30 @@ public class MealDAO {
 	}
 	return rs;
     }
+
+    public int deleteMealDetail(String detailID) {
+	int rs = 0;
+	String sql = "DELETE FROM [dbo].[MealDetail]\n" + "      WHERE [detailID] = ?";
+	Connection cn = null;
+
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		st.setString(1, detailID);
+		rs = st.executeUpdate();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return rs;
+    }
 }

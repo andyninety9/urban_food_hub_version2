@@ -61,6 +61,46 @@ public class MaterialDAO {
 	return list;
     }
 
+    public List<Material> getTop10Material() {
+	List<Material> list = null;
+	String sql = "SELECT TOP 10 [MateSKU]\n" + "      ,[CateName]\n" + "      ,[MateName]\n" + "      ,[MateDesc]\n"
+		+ "      ,[Price]\n" + "      ,[PackagingSpec]\n" + "      ,[Stock]\n" + "      ,[CreatedDate]\n"
+		+ "      ,[MateImg]\n" + "      ,[MateStatus]\n"
+		+ "  FROM [dbo].[Material] INNER JOIN CategoryMaterial \n"
+		+ "  ON Material.CateID = CategoryMaterial.CateID\n" + "  ORDER BY [CreatedDate] DESC";
+
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		ResultSet rs = st.executeQuery();
+		if (rs != null) {
+		    list = new ArrayList<>();
+		    while (rs.next()) {
+			Material m = new Material(rs.getString("MateSKU"), rs.getString("CateName"),
+				rs.getString("MateName"), rs.getString("MateDesc"), rs.getDouble("Price"),
+				rs.getString("PackagingSpec"), rs.getDouble("Stock"), rs.getDate("CreatedDate"),
+				rs.getBytes("MateImg"), rs.getInt("MateStatus"));
+//			System.out.println(m);
+			list.add(m);
+		    }
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return list;
+    }
+
     public Material getMaterialByID(String mateID) {
 	Material m = null;
 	String sql = "SELECT [MateSKU]\n" + "      ,[CateName]\n" + "      ,[MateName]\n" + "      ,[MateDesc]\n"

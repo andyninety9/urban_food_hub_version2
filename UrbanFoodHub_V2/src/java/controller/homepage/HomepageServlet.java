@@ -5,8 +5,11 @@
 
 package controller.homepage;
 
+import dao.MaterialDAO;
+import dto.Material;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +60,10 @@ public class HomepageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	MaterialDAO materialDAO = new MaterialDAO();
+
+	List<Material> listTop10 = materialDAO.getTop10Material();
+	request.setAttribute("listTop10", listTop10);
 	request.getRequestDispatcher("homepage.jsp").forward(request, response);
     }
 

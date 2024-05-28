@@ -13,6 +13,7 @@
         <table class="table table-primary">
             <thead>
               <tr style="font-size: 14px">
+                <th scope="col"></th>
                 <th scope="col">#</th>
                 <th scope="col">Material</th>
                 <th scope="col">Quantity</th>
@@ -22,7 +23,11 @@
             <tbody>
                 <c:forEach var="detail" items="${mealDetails}">
                     <tr style="font-size: 10px;">
+                        <td>
+                            <a href="delete-material-meal?detailID=${detail.detailID}&mealID=${detail.mealID}"><i class="fa-solid fa-trash"></i></a>
+                        </td>
                         <th scope="row">${detail.detailID}</th>
+                        
                         <c:forEach var="material" items="${listMaterial}">
                             <c:if test="${material.mateSku == detail.materialID}">
                                 <td>${material.mateName}</td>

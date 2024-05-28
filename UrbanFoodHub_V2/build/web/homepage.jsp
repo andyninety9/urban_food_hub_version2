@@ -15,34 +15,38 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="./css/homepage-stylesheet.css"/>
-        
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
     </head>
     <body>
         
-        <%--<c:set var="user" value="${sessionScope.user}"/>--%>
         <div class="container">
+            
             <jsp:include page="header.jsp"/>
-            <div class="wrapper-body">
-<!--                <div class="wrapper-navigate">
-                    <div class="navigate">
-                        <a href="#">Material</a>
-                        <a href="#">Prepared food</a>
-                        <a href="#">Meal Plans</a>
-                        
-                    </div>
-                </div>-->
+            <div class="wrapper-body" style="padding: 10px 0">
                 <jsp:include page="navbar.jsp"/>
-                <div class="wrapper-banner">
-                    <img src="./images/banner.jpg" alt="banner"/>
-                </div>
+                
+                <jsp:include page="carousel-homepage.jsp"/>
                 <h3 style="font-weight: bold; color: #4ACD8D; font-size: 34px; margin-top: 30px;">
-                Materials for your meal
+                #New arrival
                  <small class="text-muted">100% Organic</small>
                 </h3>
                 <jsp:include page="list-material-homepage.jsp"/>
+                <h3 style="font-weight: bold; color: #4ACD8D; font-size: 34px; margin-top: 30px;">
+                #Personal meal plan
+                 <small class="text-muted">Everyday</small>
+                </h3>
+                <jsp:include page="carousel-meal-plan.jsp"/>
+                
             </div>
             <jsp:include page="footer.jsp"/>
         </div>
         <script src="./js/main.js"></script>
+        <!-- Bootstrap Bundle with Popper (cho phép carousel hoạt động) -->
+       <script>
+            const carousel = document.getElementById('carouselExampleIndicators');
+            const carouselInstance = new bootstrap.Carousel(carousel);
+        </script>
     </body>
 </html>
