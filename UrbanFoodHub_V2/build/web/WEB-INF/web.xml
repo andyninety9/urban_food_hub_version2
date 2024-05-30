@@ -34,6 +34,7 @@
         <url-pattern>/add-material-to-meal</url-pattern>
         <url-pattern>/add-new-meal</url-pattern>
         <url-pattern>/update-meal</url-pattern>
+        <url-pattern>/manage-instruction</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>HomepageServlet</servlet-name>
@@ -155,6 +156,10 @@
         <servlet-name>DeleteMaterialInMealServlet</servlet-name>
         <servlet-class>controller.admin.foods.DeleteMaterialInMealServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ManageInstructionServlet</servlet-name>
+        <servlet-class>controller.admin.foods.ManageInstructionServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomepageServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -274,6 +279,10 @@
     <servlet-mapping>
         <servlet-name>DeleteMaterialInMealServlet</servlet-name>
         <url-pattern>/delete-material-meal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageInstructionServlet</servlet-name>
+        <url-pattern>/manage-instruction</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

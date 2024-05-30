@@ -96,7 +96,7 @@ public class UpdateMaterialServlet extends HttpServlet {
 	String cateID = request.getParameter("cateID");
 	String packaging = request.getParameter("packaging");
 	String raw_stock = request.getParameter("stock");
-	byte[] mateImg = null;
+	String mateImg = request.getParameter("mateImg");
 	double price, stock;
 	try {
 	    price = Double.parseDouble(raw_price);

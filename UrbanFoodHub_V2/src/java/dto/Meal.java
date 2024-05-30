@@ -24,7 +24,7 @@ public class Meal {
     private double price;
     private int stock;
     private Date createdDate;
-    private byte[] mealImg;
+    private String mealImg;
     private int statusID;
     private List<MealDetail> listMaterials;
 
@@ -33,7 +33,7 @@ public class Meal {
     }
 
     public Meal(String mealID, String cateName, String mealName, String mealDesc, String nutritionValue,
-	    String shelfLife, String preparationTime, double price, int stock, Date createdDate, byte[] mealImg,
+	    String shelfLife, String preparationTime, double price, int stock, Date createdDate, String mealImg,
 	    int statusID, List<MealDetail> listMaterials) {
 	this.mealID = mealID;
 	this.cateName = cateName;
@@ -130,11 +130,11 @@ public class Meal {
 	this.createdDate = createdDate;
     }
 
-    public byte[] getMealImg() {
+    public String getMealImg() {
 	return mealImg;
     }
 
-    public void setMealImg(byte[] mealImg) {
+    public void setMealImg(String mealImg) {
 	this.mealImg = mealImg;
     }
 

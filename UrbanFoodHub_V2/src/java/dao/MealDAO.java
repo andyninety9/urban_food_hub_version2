@@ -22,7 +22,7 @@ import utils.MyLibs;
  * @author duyma
  */
 public class MealDAO {
-    public List<Meal> getAllMaterial(String cateID) {
+    public List<Meal> getAllMeal(String cateID) {
 	List<Meal> list = new ArrayList<>();
 	String sql = "SELECT [mealID]\n" + "      ,[cateName]\n" + "      ,[mealName]\n" + "      ,[mealDesc]\n"
 		+ "      ,[nutritionValue]\n" + "      ,[shelfLife]\n" + "      ,[preparationTime]\n"
@@ -53,7 +53,7 @@ public class MealDAO {
 			double price = rs.getDouble("price");
 			int stock = rs.getInt("stock");
 			Date createdDate = rs.getDate("createdDate");
-			byte[] mealImg = rs.getBytes("mealImg");
+			String mealImg = rs.getString("mealImg");
 			int statusID = rs.getInt("statusID");
 
 			meal.setMealID(mealID);
@@ -104,8 +104,78 @@ public class MealDAO {
 	return list;
     }
 
+    public List<Meal> searchMeal(String keyword) {
+	List<Meal> list = new ArrayList<>();
+	String sql = "SELECT [mealID], [cateName], [mealName], [mealDesc], [nutritionValue], "
+		+ "[shelfLife], [preparationTime], [price], [stock], [createdDate], [mealImg], [statusID] "
+		+ "FROM [dbo].[Meal] INNER JOIN CategoryMeal ON Meal.CateID = CategoryMeal.cateID "
+		+ "WHERE mealName COLLATE SQL_Latin1_General_CP1_CI_AI LIKE ? "
+		+ "OR cateName COLLATE SQL_Latin1_General_CP1_CI_AI LIKE ? "
+		+ "OR mealID COLLATE SQL_Latin1_General_CP1_CI_AI LIKE ? "
+		+ "ORDER BY [statusID] ASC, [mealName] ASC, [createdDate] DESC";
+
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		String searchKeyword = "%" + keyword + "%";
+		st.setString(1, searchKeyword);
+		st.setString(2, searchKeyword);
+		st.setString(3, searchKeyword);
+		ResultSet rs = st.executeQuery();
+		if (rs != null) {
+		    while (rs.next()) {
+			Meal meal = new Meal();
+			meal.setMealID(rs.getString("mealID"));
+			meal.setCateName(rs.getString("cateName"));
+			meal.setMealName(rs.getString("mealName"));
+			meal.setMealDesc(rs.getString("mealDesc"));
+			meal.setNutritionValue(rs.getString("nutritionValue"));
+			meal.setShelfLife(rs.getString("shelfLife"));
+			meal.setPreparationTime(rs.getString("preparationTime"));
+			meal.setPrice(rs.getDouble("price"));
+			meal.setStock(rs.getInt("stock"));
+			meal.setCreatedDate(rs.getDate("createdDate"));
+			meal.setMealImg(rs.getString("mealImg"));
+			meal.setStatusID(rs.getInt("statusID"));
+
+			String sql2 = "SELECT [detailID], [mealID], [materialID], [quantity], [unitMaterial] "
+				+ "FROM [dbo].[MealDetail] WHERE [mealID] = ?";
+			PreparedStatement st2 = cn.prepareStatement(sql2);
+			st2.setString(1, meal.getMealID());
+			ResultSet rs2 = st2.executeQuery();
+			if (rs2 != null) {
+			    while (rs2.next()) {
+				String detailID = rs2.getString("detailID");
+				String materialID = rs2.getString("materialID");
+				double quantity = rs2.getDouble("quantity");
+				String unitMaterial = rs2.getString("unitMaterial");
+
+				meal.addMealDetail(
+					new MealDetail(detailID, meal.getMealID(), materialID, quantity, unitMaterial));
+			    }
+			}
+			list.add(meal);
+		    }
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return list;
+    }
+
     public int addNewMeal(String cateID, String mealName, String mealDesc, String nutritionValue, String shelfLife,
-	    String preparationTime, double price, int stock, Date createdDate, byte[] mealImg, int statusID) {
+	    String preparationTime, double price, int stock, Date createdDate, String mealImg, int statusID) {
 	int rs = 0;
 	String sql = "INSERT INTO [dbo].[Meal]\n" + "           ([mealID]\n" + "           ,[CateID]\n"
 		+ "           ,[mealName]\n" + "           ,[mealDesc]\n" + "           ,[nutritionValue]\n"
@@ -130,7 +200,7 @@ public class MealDAO {
 		st.setDouble(8, price);
 		st.setInt(9, stock);
 		st.setDate(10, createdDate);
-		st.setBytes(11, mealImg);
+		st.setString(11, mealImg);
 		st.setInt(12, statusID);
 		rs = st.executeUpdate();
 	    }
@@ -149,7 +219,7 @@ public class MealDAO {
     }
 
     public int updateMeal(String mealID, String cateID, String mealName, String mealDesc, String nutritionValue,
-	    String shelfLife, String preparationTime, double price, int stock, Date createdDate, byte[] mealImg) {
+	    String shelfLife, String preparationTime, double price, int stock, Date createdDate, String mealImg) {
 	int rs = 0;
 	String sql = "UPDATE [dbo].[Meal]\n" + "   SET [CateID] = ?\n" + "      ,[mealName] = ?\n"
 		+ "      ,[mealDesc] = ?\n" + "      ,[nutritionValue] = ?\n" + "      ,[shelfLife] = ?\n"
@@ -170,7 +240,7 @@ public class MealDAO {
 		st.setDouble(7, price);
 		st.setInt(8, stock);
 		st.setDate(9, createdDate);
-		st.setBytes(10, mealImg);
+		st.setString(10, mealImg);
 		st.setString(11, mealID);
 		rs = st.executeUpdate();
 	    }
@@ -214,7 +284,7 @@ public class MealDAO {
 			double price = rs.getDouble("price");
 			int stock = rs.getInt("stock");
 			Date createdDate = rs.getDate("createdDate");
-			byte[] mealImg = rs.getBytes("mealImg");
+			String mealImg = rs.getString("mealImg");
 			int statusID = rs.getInt("statusID");
 
 			meal.setMealID(mealID);

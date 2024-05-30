@@ -5,8 +5,13 @@
 
 package controller.homepage;
 
+import dao.CategoryDAO;
+import dao.CategoryFoodsDAO;
 import dao.MaterialDAO;
+import dao.MealDAO;
+import dto.Category;
 import dto.Material;
+import dto.Meal;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -14,6 +19,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import utils.IConstant;
+import utils.MyLibs;
 
 /**
  *
@@ -60,11 +67,104 @@ public class HomepageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
+	String action = request.getParameter("action");
+	if (action == null) {
+	    action = IConstant.PATH_HOME;
+	}
+	String url = null;
 	MaterialDAO materialDAO = new MaterialDAO();
+	switch (action) {
+	case IConstant.PATH_MEAL_PLAN: {
+	    url = IConstant.URL_MEAL_PLANS;
+	    request.setAttribute("currentPage", action);
+	    break;
+	}
+	case IConstant.PATH_FOODS: {
+	    url = IConstant.URL_MEAL_FOODS;
+	    request.setAttribute("currentPage", action);
+	    String cateID = request.getParameter("cateID");
+	    int page = 0;
+	    if (cateID == null) {
+		cateID = "all";
+	    }
+	    MealDAO mealDAO = new MealDAO();
+	    CategoryFoodsDAO categoryFoodsDAO = new CategoryFoodsDAO();
+	    List<Meal> raw_listMeals = mealDAO.getAllMeal(cateID);
+	    List<Meal> paginationListMeal = null;
+	    int sizeList = raw_listMeals.size();
+	    List<Category> lisCateMeal = categoryFoodsDAO.getAllFoodCategory();
+	    String raw_page = request.getParameter("page");
+	    if (raw_page == null) {
+		page = 1;
+	    } else {
+		try {
+		    page = Integer.parseInt(raw_page);
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    page = 1;
+		}
+	    }
+	    int start, end;
+	    start = (page - 1) * IConstant.ITEMS_PER_PAGE_FOODS;
+	    end = Math.min(page * IConstant.ITEMS_PER_PAGE_FOODS, sizeList);
+	    paginationListMeal = MyLibs.pagination(raw_listMeals, start, end);
 
-	List<Material> listTop10 = materialDAO.getTop10Material();
-	request.setAttribute("listTop10", listTop10);
-	request.getRequestDispatcher("homepage.jsp").forward(request, response);
+	    request.setAttribute("paginationListMeal", paginationListMeal);
+	    request.setAttribute("listCateFood", lisCateMeal);
+	    request.setAttribute("selectedCate", cateID);
+	    request.setAttribute("sizeListFoods", sizeList);
+	    request.setAttribute("checkedPage", page);
+
+	    break;
+	}
+	case IConstant.PATH_MATERIAL: {
+	    url = IConstant.URL_MATERIALS;
+	    request.setAttribute("currentPage", action);
+	    String cateID = request.getParameter("cateID");
+	    int page = 0;
+	    if (cateID == null) {
+		cateID = "all";
+	    }
+//	    MealDAO mealDAO = new MealDAO();
+	    CategoryDAO categoryDAO = new CategoryDAO();
+	    List<Material> raw_listMaterials = materialDAO.getAllMaterial(cateID);
+	    List<Material> paginationListMaterials = null;
+	    int sizeList = raw_listMaterials.size();
+	    List<Category> lisCateMaterial = categoryDAO.getAllCategory();
+	    String raw_page = request.getParameter("page");
+	    if (raw_page == null) {
+		page = 1;
+	    } else {
+		try {
+		    page = Integer.parseInt(raw_page);
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    page = 1;
+		}
+	    }
+	    int start, end;
+	    start = (page - 1) * IConstant.ITEMS_PER_PAGE_FOODS;
+	    end = Math.min(page * IConstant.ITEMS_PER_PAGE_FOODS, sizeList);
+	    paginationListMaterials = MyLibs.pagination(raw_listMaterials, start, end);
+
+	    request.setAttribute("paginationListMaterials", paginationListMaterials);
+	    request.setAttribute("lisCateMaterial", lisCateMaterial);
+	    request.setAttribute("selectedCate", cateID);
+	    request.setAttribute("sizeListMate", sizeList);
+	    request.setAttribute("checkedPage", page);
+	    break;
+	}
+	default: {
+	    url = IConstant.URL_HOME;
+	    List<Material> listTop10 = materialDAO.getTop10Material();
+	    request.setAttribute("listTop10", listTop10);
+	    request.setAttribute("currentPage", action);
+	    break;
+	}
+
+	}
+
+	request.getRequestDispatcher(url).forward(request, response);
     }
 
     /**

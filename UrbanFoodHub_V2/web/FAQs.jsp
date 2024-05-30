@@ -70,6 +70,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8 offset-md-2">
+                    <img src="./images/faqs.jpg" style="width: 100%" alt="alt"/>
                     <div class="faq-header">
                         <h2>Câu hỏi thường gặp</h2>
                         <p style="font-size: 12px">Bạn có thắc mắc? Chúng tôi có thể có câu trả lời. Kiểm tra các câu hỏi thường gặp của chúng tôi bên dưới.</p>

@@ -56,7 +56,7 @@
         </div>
         <div class="mb-3">
             <label for="formFile" class="form-label">Material Image</label>
-            <input name="mateImg" class="form-control" type="file" id="formFile">
+            <input value="${materialUpdate.mateImg}" name="mateImg" class="form-control" type="text" id="formFile">
         </div>
 <!--        <div class="form-check form-switch mb-3">
             <input name="status" class="form-check-input" type="checkbox" role="switch"

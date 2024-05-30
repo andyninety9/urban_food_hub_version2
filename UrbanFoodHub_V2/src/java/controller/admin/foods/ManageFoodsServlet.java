@@ -16,6 +16,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import utils.IConstant;
+import utils.MyLibs;
 
 /**
  *
@@ -67,18 +69,49 @@ public class ManageFoodsServlet extends HttpServlet {
 	CategoryFoodsDAO categoryFoodsDAO = new CategoryFoodsDAO();
 	MealDAO mealDAO = new MealDAO();
 	List<Category> listCategoryFood = null;
-	List<Meal> listMeal = null;
+	List<Meal> rawListMeal = null;
+	List<Meal> paginationListMeal = null;
 
 	String action = request.getParameter("action");
+	String raw_page = request.getParameter("page");
+	String cateID = request.getParameter("cateID");
+	String keyword = request.getParameter("keyword");
+	int page = 0;
 	switch (action) {
 	case "all": {
-	    listMeal = mealDAO.getAllMaterial(null);
+	    if (cateID != null && cateID.equals("all")) {
+		cateID = null;
+	    }
+	    if (keyword == null) {
+		rawListMeal = mealDAO.getAllMeal(cateID);
+	    } else {
+		rawListMeal = mealDAO.searchMeal(keyword);
+	    }
+
 	    listCategoryFood = categoryFoodsDAO.getAllFoodCategory();
+	    int sizeList = rawListMeal.size();
+	    if (raw_page == null) {
+		page = 1;
+	    } else {
+		try {
+		    page = Integer.parseInt(raw_page);
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    page = 1;
+		}
+	    }
+	    int start, end;
+	    start = (page - 1) * IConstant.ITEMS_PER_PAGE;
+	    end = Math.min(page * IConstant.ITEMS_PER_PAGE, sizeList);
+	    paginationListMeal = MyLibs.pagination(rawListMeal, start, end);
+	    request.setAttribute("selectedCate", cateID);
+	    request.setAttribute("sizeListFoods", sizeList);
+	    request.setAttribute("checkedPage", page);
 	    break;
 	}
 	}
 
-	request.setAttribute("listMeal", listMeal);
+	request.setAttribute("listMeal", paginationListMeal);
 	request.setAttribute("listCateFood", listCategoryFood);
 	request.getRequestDispatcher("foods/manage-foods.jsp").forward(request, response);
 

@@ -33,15 +33,16 @@
                  <small class="text-muted">100% Organic</small>
                 </h3>
                 <jsp:include page="list-material-homepage.jsp"/>
-                <h3 style="font-weight: bold; color: #4ACD8D; font-size: 34px; margin-top: 30px;">
+                 <h3 style="font-weight: bold; color: #4ACD8D; font-size: 34px; margin-top: 30px;">
                 #Personal meal plan
                  <small class="text-muted">Everyday</small>
                 </h3>
                 <jsp:include page="carousel-meal-plan.jsp"/>
-                
+               
+                <jsp:include page="list-material-homepage.jsp"/>
             </div>
-            <jsp:include page="footer.jsp"/>
         </div>
+            <jsp:include page="footer.jsp"/>
         <script src="./js/main.js"></script>
         <!-- Bootstrap Bundle with Popper (cho phép carousel hoạt động) -->
        <script>

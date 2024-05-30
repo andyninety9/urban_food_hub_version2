@@ -27,6 +27,7 @@
                     <a style="padding: 5px 10px; text-align: center" href="manage-products" class="dropdown-item"><i class="fa-solid fa-list me-2"></i>View all products</a>
                 </div>
             </div>
+            
             <a href="manage-foods?action=all" class="nav-item nav-link"><i class="fa-solid fa-utensils me-2"></i>Manage Foods</a>
             <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Manage Plans</a>
             <a href="#" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping me-2"></i>Manage Order</a>

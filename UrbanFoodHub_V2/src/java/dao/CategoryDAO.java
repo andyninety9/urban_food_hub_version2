@@ -34,7 +34,7 @@ public class CategoryDAO {
 		    list = new ArrayList<>();
 		    while (rs.next()) {
 			Category c = new Category(rs.getString("CateID"), rs.getString("CateName"),
-				rs.getBytes("CatgeImg"), rs.getInt("CateStatus"));
+				rs.getString("CatgeImg"), rs.getInt("CateStatus"));
 			list.add(c);
 		    }
 		}
@@ -105,7 +105,7 @@ public class CategoryDAO {
 	return rs;
     }
 
-    public int addCategory(String cateID, String cateName, byte[] cateImg, int status) {
+    public int addCategory(String cateID, String cateName, String cateImg, int status) {
 	int rs = 0;
 	String sql = "INSERT INTO [dbo].[CategoryMaterial]\n" + "           ([CateID]\n" + "           ,[CateName]\n"
 		+ "           ,[CatgeImg]\n" + "           ,[CateStatus])\n" + "     VALUES\n" + "           (?\n"
@@ -117,7 +117,7 @@ public class CategoryDAO {
 		PreparedStatement st = cn.prepareStatement(sql);
 		st.setString(1, cateID);
 		st.setString(2, cateName);
-		st.setBytes(3, cateImg);
+		st.setString(3, cateImg);
 		st.setInt(4, status);
 		rs = st.executeUpdate();
 	    }

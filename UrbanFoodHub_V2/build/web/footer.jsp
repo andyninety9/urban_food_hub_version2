@@ -3,7 +3,7 @@
 <!-- Remove the container if you want to extend the Footer to full width. -->
 <div class="container my-5">
   <!-- Footer -->
-  <footer class="text-center text-white" style="background-color: #22222C">
+  <footer class="text-center text-white" style="background-color: #22222C; background-image: url(images/footer.jpg); ">
     <!-- Grid container -->
     <div class="container">
       <!-- Section: Links -->

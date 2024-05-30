@@ -52,7 +52,15 @@ Klarna: betaal in 30 dagen</p> </marquee> </div> </div>
                                     <li style="border: 1px solid #eee; padding: 5px 10px; background-color: white; width: 120px;text-align: center;"><a style="text-decoration: none; font-size: 12px; color: #4B5264; display: inline-block;" href="logout">Log-out</a></li>
                                 </ul>
                             </div>
+                           
                         </div>
+                            <button type="button" class="btn position-relative" style="background-color: transparent; border: none; color: white; margin-left: 10px; margin-right: 10px">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span style="font-size: 10px" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-warning">
+                              10+
+                              <span class="visually-hidden">unread messages</span>
+                            </span>
+                        </button>
                      </c:if>
                 </div>
     </header>

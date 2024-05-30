@@ -11,19 +11,22 @@
 <c:set var="allCategory" value="${requestScope.listCateFood}"/>
 <c:set var="selectedCate" value="${requestScope.selectedCate}"/>
 <c:set var="errorTableMaterial" value="${requestScope.errorTableMaterial}"/>
-<c:set var="sizeListMaterial" value="${requestScope.sizeMaterial}"/>
+<c:set var="sizeListFoods" value="${requestScope.sizeListFoods}"/>
+<c:set var="checkedPage" value="${requestScope.checkedPage}"/>
 <script src="js-dashboard/handlePagination.js"></script>
 
 <div class="col-9">
     <div class="bg-light rounded h-100 p-4">
         <div style="display: flex; justify-content: space-between">
             <h5 class="mb-4">All meals</h5>
-            <form action="manage-products" class="d-none d-md-flex ms-4" style="font-size: 12px; border-radius: 20px; height: 30px">
+            <form action="manage-foods" class="d-none d-md-flex ms-4" style="font-size: 12px; border-radius: 20px; height: 30px">
                 <input name="keyword" class="form-control border-0" type="search" placeholder="Search meal" style="font-size: 12px">
+                <input type="hidden" name="action" value="all"/>
             </form>
         </div>
         
-        <form method="get" action="manage-foods?action=sortByCate" id="categoryForm" style="display: flex; justify-content: space-between">
+        <form method="get" action="manage-foods" id="categoryForm" style="display: flex; justify-content: space-between">
+            <input type="hidden" name="action" value="all"/>
             <!--<a class="btn btn-outline-light" href="add-new-meal" style=" padding: 10px 20px; font-size: 14px; background-color: #4ACD8D" role="button">Add new <i class="fa-solid fa-plus"></i></a>-->
             <a style=" padding: 10px 20px; font-size: 14px; background-color: #4ACD8D; border: none" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Add meal <i class="fa-solid fa-plus"></i>
@@ -32,8 +35,11 @@
                 <li class="page-item disabled">
                   <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
                 </li>
-                <c:forEach begin="${1}" end="${((sizeListMaterial % 10) == 0) ? (sizeListMaterial / 10) : ((sizeListMaterial / 10) + 1) }" var="i">
-                    <li class="page-item"><a class="page-link" href="manage-products?page=${i}">${i}</a></li>
+                <c:forEach begin="${1}" end="${((sizeListFoods % 10) == 0) ? (sizeListFoods / 10) : ((sizeListFoods / 10) + 1) }" var="i">
+                    
+                    <li  class="page-item ${i == checkedPage ? 'active' : ''}"><a
+                         
+                            class="page-link" href="manage-foods?action=all&page=${i}&cateID=${selectedCate}">${i}</a></li>
                 </c:forEach>
                 <li class="page-item">
                   <a class="page-link" href="#">Next</a>
@@ -42,12 +48,12 @@
             <c:if test="${errorTableMaterial != null}">
                 <p style="color: red; font-size: 10px">${errorTableMaterial}</p>
             </c:if>
-            <select name="cateID" onchange="categoryChanged()" id="select-category" class="form-select-sm" aria-label="Default select example" style="background-color: #F3F6F9; color: #75757D; border-radius: 5px; outline: none; padding: 5px ">
+            <select name="cateID" onchange="document.getElementById('categoryForm').submit()" id="select-category" class="form-select-sm" aria-label="Default select example" style="background-color: #F3F6F9; color: #75757D; border-radius: 5px; outline: none; padding: 5px ">
                 <option value="all">All</option>
                 <c:if test="${allCategory != null}" >
                     <c:forEach var="category" items="${allCategory}" >
                         <option 
-                            <c:if test="${selectedCate == category.cateName}">
+                            <c:if test="${selectedCate == category.cateID}">
                                 selected
                             </c:if>
                             value="${category.cateID}">${category.cateName}</option>
@@ -107,9 +113,10 @@
                                         <a href="update-status-meal?mealID=${meal.mealID}&statusID=${meal.statusID}" type="button" class="btn btn-outline-secondary" style="font-size: 10px; width: 70px">Inactive</a>
                                     </c:if>   
                                 </td>
-                                <td class="action">
+                                <td class="action" style="width: 70px">
                                     <a style="color: #757575; font-size: 14px" href="update-meal?mealID=${meal.mealID}" data-bs-toggle="tooltip" data-bs-placement="top" title="Update"><i class="fa-solid fa-file-pen"></i></a>
                                     <button onclick="showMoreInfo('_${meal.mealID}')" id="showMoreInfo" style="color: #757575; font-size: 14px; border: none; background-color: transparent" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="More"><i class="fa-solid fa-list"></i></button>
+                                    <a href="manage-instruction?mealID=${meal.mealID}" class="badge rounded-pill bg-info text-dark">Edit instruction</a>
                                 </td>
                               
                             </tr>
@@ -151,6 +158,6 @@
 <jsp:include page="add-meal-modal.jsp"/>
 <script src="js-dashboard/handle.js"></script>
 <script>
-    var sizeListMaterial = <%= request.getAttribute("sizeMaterial") %>;
+    var sizeListFoods = <%= request.getAttribute("sizeMaterial") %>;
     var currentPage = <%= request.getParameter("page") %>;
 </script>

@@ -87,6 +87,7 @@
                         <jsp:include page="table-material.jsp"/>
                     </div>
                 </div>
+                    <jsp:include page="../footer.jsp"/>
             </div>
             <!-- Content End -->
 

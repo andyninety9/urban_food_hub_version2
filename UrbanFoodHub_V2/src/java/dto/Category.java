@@ -12,13 +12,13 @@ package dto;
 public class Category {
     private String cateID;
     private String cateName;
-    private byte[] cateImg;
+    private String cateImg;
     private int cateStatus;
 
     public Category() {
     }
 
-    public Category(String cateID, String cateName, byte[] cateImg, int cateStatus) {
+    public Category(String cateID, String cateName, String cateImg, int cateStatus) {
 	this.cateID = cateID;
 	this.cateName = cateName;
 	this.cateImg = cateImg;
@@ -41,11 +41,11 @@ public class Category {
 	this.cateName = cateName;
     }
 
-    public byte[] getCateImg() {
+    public String getCateImg() {
 	return cateImg;
     }
 
-    public void setCateImg(byte[] cateImg) {
+    public void setCateImg(String cateImg) {
 	this.cateImg = cateImg;
     }
 

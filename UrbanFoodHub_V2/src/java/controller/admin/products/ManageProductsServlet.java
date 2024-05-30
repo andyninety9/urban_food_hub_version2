@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import utils.IConstant;
 import utils.MyLibs;
 
 /**
@@ -80,7 +81,7 @@ public class ManageProductsServlet extends HttpServlet {
 	    System.out.println(keyword);
 	}
 
-	int numPerPage = 10, page = 1, size = 0;
+	int page = 1, size = 0;
 	if (listAllMaterial != null) {
 	    size = listAllMaterial.size();
 	}
@@ -92,11 +93,12 @@ public class ManageProductsServlet extends HttpServlet {
 		page = Integer.parseInt(raw_page);
 	    } catch (NumberFormatException e) {
 		e.printStackTrace();
+		page = 1;
 	    }
 	}
 	int start, end;
-	start = (page - 1) * numPerPage;
-	end = Math.min(page * numPerPage, size);
+	start = (page - 1) * IConstant.ITEMS_PER_PAGE;
+	end = Math.min(page * IConstant.ITEMS_PER_PAGE, size);
 	List<Material> listPerPage = MyLibs.pagination(listAllMaterial, start, end);
 	request.removeAttribute("selectedCate");
 //	HttpSession session = request.getSession();
@@ -107,6 +109,7 @@ public class ManageProductsServlet extends HttpServlet {
 		break;
 	    }
 	}
+	request.setAttribute("checkedPage", page);
 	request.setAttribute("sizeMaterial", size);
 	request.setAttribute("allMaterial", listPerPage);
 	request.setAttribute("allCategory", listCategories);

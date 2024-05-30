@@ -18,7 +18,7 @@ public class Account {
     private Date birthday;
     private String email;
     private String phone;
-    private byte[] avatar;
+    private String avatar;
     private int statusID;
     private Date createdDate;
 
@@ -26,7 +26,7 @@ public class Account {
     }
 
     public Account(String accID, String firstname, String lastname, Date birthday, String email, String phone,
-	    byte[] avatar, int statusID, Date createdDate) {
+	    String avatar, int statusID, Date createdDate) {
 	this.accID = accID;
 	this.firstname = firstname;
 	this.lastname = lastname;
@@ -86,11 +86,11 @@ public class Account {
 	this.phone = phone;
     }
 
-    public byte[] getAvatar() {
+    public String getAvatar() {
 	return avatar;
     }
 
-    public void setAvatar(byte[] avatar) {
+    public void setAvatar(String avatar) {
 	this.avatar = avatar;
     }
 

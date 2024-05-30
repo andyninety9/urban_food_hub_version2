@@ -20,7 +20,7 @@ public class Material {
     private String packagingSpec;
     private double stock;
     private Date createdDate;
-    private byte[] mateImg;
+    private String mateImg;
     private int mateStatus;
 
     public Material() {
@@ -30,7 +30,7 @@ public class Material {
 //		+ "      ,[MateImg]\n" + "      ,[MateStatus]\n" + "  FROM [dbo].[Material]";
 
     public Material(String mateSku, String cateName, String mateName, String mateDesc, double price,
-	    String PackagingSpec, double stock, Date createdDate, byte[] mateImg, int mateStatus) {
+	    String PackagingSpec, double stock, Date createdDate, String mateImg, int mateStatus) {
 	this.mateSku = mateSku;
 	this.cateName = cateName;
 	this.mateName = mateName;
@@ -107,11 +107,11 @@ public class Material {
 	this.createdDate = createdDate;
     }
 
-    public byte[] getMateImg() {
+    public String getMateImg() {
 	return mateImg;
     }
 
-    public void setMateImg(byte[] mateImg) {
+    public void setMateImg(String mateImg) {
 	this.mateImg = mateImg;
     }
 

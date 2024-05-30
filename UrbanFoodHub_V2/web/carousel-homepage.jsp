@@ -19,7 +19,7 @@
                         <img src="./images/banner2.jpg" class="d-block w-100" style="height: 500px; object-fit: cover; object-position: top" alt="...">
                       </div>
                       <div class="carousel-item">
-                        <img src="./images/banner1.jpg" class="d-block w-100" style="height: 500px; object-fit: cover; object-position: top" alt="...">
+                        <img src="./images/store.jpg" class="d-block w-100" style="height: 500px; object-fit: cover; object-position: top" alt="...">
                       </div>
                     </div>
                     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">

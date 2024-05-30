@@ -12,6 +12,7 @@
 <c:set var="selectedCate" value="${requestScope.selectedCate}"/>
 <c:set var="errorTableMaterial" value="${requestScope.errorTableMaterial}"/>
 <c:set var="sizeListMaterial" value="${requestScope.sizeMaterial}"/>
+<c:set var="checkedPage" value="${requestScope.checkedPage}"/>
 <script src="js-dashboard/handlePagination.js"></script>
 
 <div class="col-9">
@@ -33,7 +34,7 @@
                   <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
                 </li>
                 <c:forEach begin="${1}" end="${((sizeListMaterial % 10) == 0) ? (sizeListMaterial / 10) : ((sizeListMaterial / 10) + 1) }" var="i">
-                    <li class="page-item"><a class="page-link" href="manage-products?page=${i}">${i}</a></li>
+                    <li class="page-item ${i == checkedPage ? 'active' : ''}"><a class="page-link" href="manage-products?page=${i}">${i}</a></li>
                 </c:forEach>
                 <li class="page-item">
                   <a class="page-link" href="#">Next</a>

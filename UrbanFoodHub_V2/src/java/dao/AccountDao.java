@@ -36,7 +36,7 @@ public class AccountDao {
 		    while (rs.next()) {
 			account = new Account(rs.getString("accID"), rs.getString("firstname"),
 				rs.getString("lastname"), rs.getDate("birthday"), rs.getString("email"),
-				rs.getString("phone"), rs.getBytes("avatar"), rs.getInt("statusID"),
+				rs.getString("phone"), rs.getString("avatar"), rs.getInt("statusID"),
 				rs.getDate("createdDate"));
 		    }
 		}
@@ -71,7 +71,7 @@ public class AccountDao {
 		    while (rs.next()) {
 			account = new Account(rs.getString("accID"), rs.getString("firstname"),
 				rs.getString("lastname"), rs.getDate("birthday"), rs.getString("email"),
-				rs.getString("phone"), rs.getBytes("avatar"), rs.getInt("statusID"),
+				rs.getString("phone"), rs.getString("avatar"), rs.getInt("statusID"),
 				rs.getDate("createdDate"));
 		    }
 		}
@@ -106,7 +106,7 @@ public class AccountDao {
 		    while (rs.next()) {
 			account = new Account(rs.getString("accID"), rs.getString("firstname"),
 				rs.getString("lastname"), rs.getDate("birthday"), rs.getString("email"),
-				rs.getString("phone"), rs.getBytes("avatar"), rs.getInt("statusID"),
+				rs.getString("phone"), rs.getString("avatar"), rs.getInt("statusID"),
 				rs.getDate("createdDate"));
 		    }
 		}

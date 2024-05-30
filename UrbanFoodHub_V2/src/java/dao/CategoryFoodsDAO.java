@@ -34,7 +34,7 @@ public class CategoryFoodsDAO {
 		    list = new ArrayList<>();
 		    while (rs.next()) {
 			Category c = new Category(rs.getString("CateID"), rs.getString("CateName"),
-				rs.getBytes("CatgeImg"), rs.getInt("CateStatus"));
+				rs.getString("CatgeImg"), rs.getInt("CateStatus"));
 			list.add(c);
 		    }
 		}

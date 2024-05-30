@@ -42,7 +42,7 @@ public class MaterialDAO {
 			Material m = new Material(rs.getString("MateSKU"), rs.getString("CateName"),
 				rs.getString("MateName"), rs.getString("MateDesc"), rs.getDouble("Price"),
 				rs.getString("PackagingSpec"), rs.getDouble("Stock"), rs.getDate("CreatedDate"),
-				rs.getBytes("MateImg"), rs.getInt("MateStatus"));
+				rs.getString("MateImg"), rs.getInt("MateStatus"));
 			list.add(m);
 		    }
 		}
@@ -81,7 +81,7 @@ public class MaterialDAO {
 			Material m = new Material(rs.getString("MateSKU"), rs.getString("CateName"),
 				rs.getString("MateName"), rs.getString("MateDesc"), rs.getDouble("Price"),
 				rs.getString("PackagingSpec"), rs.getDouble("Stock"), rs.getDate("CreatedDate"),
-				rs.getBytes("MateImg"), rs.getInt("MateStatus"));
+				rs.getString("MateImg"), rs.getInt("MateStatus"));
 //			System.out.println(m);
 			list.add(m);
 		    }
@@ -119,7 +119,7 @@ public class MaterialDAO {
 		    if (rs.next()) {
 			m = new Material(rs.getString("MateSKU"), rs.getString("CateName"), rs.getString("MateName"),
 				rs.getString("MateDesc"), rs.getDouble("Price"), rs.getString("PackagingSpec"),
-				rs.getDouble("Stock"), rs.getDate("CreatedDate"), rs.getBytes("MateImg"),
+				rs.getDouble("Stock"), rs.getDate("CreatedDate"), rs.getString("MateImg"),
 				rs.getInt("MateStatus"));
 			System.out.println(m);
 		    }
@@ -183,7 +183,7 @@ public class MaterialDAO {
     }
 
     public int updateMaterial(String sku, String cateID, String mateName, String mateDesc, double price,
-	    String packaging, double stock, Date createdDate, byte[] mateImg) {
+	    String packaging, double stock, Date createdDate, String mateImg) {
 	String sql = "UPDATE [dbo].[Material]\n" + "   SET [CateID] = ?\n" + "      ,[MateName] = ?\n"
 		+ "      ,[MateDesc] = ?\n" + "      ,[Price] = ?\n" + "      ,[PackagingSpec] = ?\n"
 		+ "      ,[Stock] = ?\n" + "      ,[CreatedDate] = ?\n" + "      ,[MateImg] = ?\n"
@@ -202,7 +202,7 @@ public class MaterialDAO {
 		st.setString(5, packaging);
 		st.setDouble(6, stock);
 		st.setDate(7, createdDate);
-		st.setBytes(8, mateImg);
+		st.setString(8, mateImg);
 		st.setString(9, sku);
 		rs = st.executeUpdate();
 
@@ -281,7 +281,7 @@ public class MaterialDAO {
 			Material m = new Material(rs.getString("MateSKU"), rs.getString("CateName"),
 				rs.getString("MateName"), rs.getString("MateDesc"), rs.getDouble("Price"),
 				rs.getString("PackagingSpec"), rs.getDouble("Stock"), rs.getDate("CreatedDate"),
-				rs.getBytes("MateImg"), rs.getInt("MateStatus"));
+				rs.getString("MateImg"), rs.getInt("MateStatus"));
 			list.add(m);
 		    }
 		}
