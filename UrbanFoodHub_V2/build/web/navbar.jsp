@@ -6,8 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<c:set var="cr" value="${cookie.role.value}" />
+<c:set var="cr" value="${sessionScope.role}" />
 <c:set var="currentPage" value="${requestScope.currentPage}"/>
+<c:set var="user" value="${sessionScope.user}"/>
 
 <c:set var="homeStyle" value="" />
 <c:if test="${currentPage == 'home'}">
@@ -31,6 +32,10 @@
 <c:if test="${currentPage == 'faqs'}">
     <c:set var="faqsStyle" value="background-color: #4acd8e48; border-radius: 5px;" />
 </c:if>
+<c:set var="customizeStyle" value="" />
+<c:if test="${currentPage == 'faqs'}">
+    <c:set var="customizeStyle" value="background-color: #4acd8e48; border-radius: 5px;" />
+</c:if>
 
 <c:set var="dashboardStyle" value="" />
 <c:if test="${currentPage == 'dashboard'}">
@@ -46,6 +51,10 @@
         <a href="home?action=faqs" style="${faqsStyle}">FAQs</a>
         <c:if test="${cr == '1'}">
             <a href="dashboard" style="${dashboardStyle}">Dashboard</a>
+            
         </c:if>
-    </div>
+        <c:if test="${cr == '2'}">   
+            <a href="home?action=customize" style="width: 200px; background: #4acd8e; color: white; border-radius: 10px; ${customizeStyle}">Customize Plans</a>
+        </c:if>
+        </div>
 </div>

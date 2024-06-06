@@ -68,7 +68,7 @@ public class UpdateMealServlet extends HttpServlet {
 	MealDAO mealDAO = new MealDAO();
 	CategoryFoodsDAO categoryFoodsDAO = new CategoryFoodsDAO();
 	List<Category> listMealCategory = categoryFoodsDAO.getAllFoodCategory();
-	Meal updatedMeal = mealDAO.getMaterialByID(mealID);
+	Meal updatedMeal = mealDAO.getMealByID(mealID);
 	request.setAttribute("listCategoryMeal", listMealCategory);
 	request.setAttribute("updatedMeal", updatedMeal);
 	request.getRequestDispatcher("foods/update-meal.jsp").forward(request, response);

@@ -5,12 +5,16 @@
 
 package controller.dashboard;
 
+import dao.AccountDao;
+import dto.Account;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import utils.IConstant;
 
 /**
  *
@@ -71,7 +75,28 @@ public class UserInfoServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	processRequest(request, response);
+	String action = request.getParameter("action");
+	String url = null;
+	switch (action) {
+	case IConstant.PATH_CHANGE_AVATAR: {
+	    String avatar = request.getParameter("avatar");
+	    HttpSession session = request.getSession();
+	    Account acc = (Account) session.getAttribute("user");
+	    AccountDao accountDao = new AccountDao();
+	    int rs = accountDao.updateAvatar(acc.getAccID(), avatar);
+	    if (rs > 0) {
+		Account newAcc = accountDao.getAccountByID(acc.getAccID());
+		session.setAttribute("user", newAcc);
+		url = IConstant.URL_USER_INFO;
+	    }
+	    break;
+	}
+	default: {
+	    url = IConstant.URL_USER_INFO;
+	    break;
+	}
+	}
+	request.getRequestDispatcher(url).forward(request, response);
     }
 
     /**

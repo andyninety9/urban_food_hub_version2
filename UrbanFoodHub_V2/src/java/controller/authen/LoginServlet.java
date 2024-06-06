@@ -90,7 +90,8 @@ public class LoginServlet extends HttpServlet {
 	    Account acc = accountDao.getAccountByID(userLogin.getAccID());
 	    HttpSession session = request.getSession();
 	    session.setAttribute("user", acc);
-	    response.addCookie(new Cookie("role", String.valueOf(userLogin.getRoleID())));
+//	    response.addCookie(new Cookie("role", String.valueOf(userLogin.getRoleID())));
+	    session.setAttribute("role", String.valueOf(userLogin.getRoleID()));
 
 	    if (rem) {
 		response.addCookie(new Cookie("username", username));

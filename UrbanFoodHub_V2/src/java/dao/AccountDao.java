@@ -207,4 +207,29 @@ public class AccountDao {
 	}
 	return rs;
     }
+
+    public int updateAvatar(String accID, String avatar) {
+	int rs = 0;
+	String sql = "UPDATE [dbo].[Account]\n" + "   SET [avatar] = ?\n" + " WHERE [accID] = ?";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    PreparedStatement st = cn.prepareStatement(sql);
+	    st.setString(1, avatar);
+	    st.setString(2, accID);
+	    rs = st.executeUpdate();
+
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return rs;
+    }
 }

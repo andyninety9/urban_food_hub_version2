@@ -78,9 +78,9 @@ public class ManageProductsServlet extends HttpServlet {
 	    listAllMaterial = materialDAO.getAllMaterial(cateID);
 	} else {
 	    listAllMaterial = materialDAO.searchMaterial(keyword);
-	    System.out.println(keyword);
+//	    System.out.println(keyword);
 	}
-
+	request.setAttribute("keyword", keyword);
 	int page = 1, size = 0;
 	if (listAllMaterial != null) {
 	    size = listAllMaterial.size();

@@ -78,6 +78,7 @@ public class UpdateAccountServlet extends HttpServlet {
 	    throws ServletException, IOException {
 	request.setCharacterEncoding("UTF-8");
 	response.setCharacterEncoding("UTF-8");
+
 	HttpSession session = request.getSession();
 	Account account = (Account) session.getAttribute("user");
 	String newFirstName = request.getParameter("firstname");

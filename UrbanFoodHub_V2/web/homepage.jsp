@@ -26,7 +26,7 @@
             <jsp:include page="header.jsp"/>
             <div class="wrapper-body" style="padding: 10px 0">
                 <jsp:include page="navbar.jsp"/>
-                
+
                 <jsp:include page="carousel-homepage.jsp"/>
                 <h3 style="font-weight: bold; color: #4ACD8D; font-size: 34px; margin-top: 30px;">
                 #New arrival

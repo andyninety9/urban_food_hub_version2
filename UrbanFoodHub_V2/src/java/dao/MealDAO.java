@@ -258,7 +258,7 @@ public class MealDAO {
 	return rs;
     }
 
-    public Meal getMaterialByID(String mealID) {
+    public Meal getMealByID(String mealID) {
 	Meal meal = null;
 	String sql = "SELECT mealID, cateName, mealName, mealDesc, nutritionValue, shelfLife, preparationTime,\n"
 		+ "price, stock, createdDate, mealImg, statusID \n"

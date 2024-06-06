@@ -68,7 +68,7 @@ public class AddMaterialToMealServlet extends HttpServlet {
 	String mealID = request.getParameter("mealID");
 	MealDAO mealDAO = new MealDAO();
 	MaterialDAO materialDAO = new MaterialDAO();
-	Meal selectedMeal = mealDAO.getMaterialByID(mealID);
+	Meal selectedMeal = mealDAO.getMealByID(mealID);
 //	System.out.println(selectedMeal);
 
 	if (selectedMeal != null) {

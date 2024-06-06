@@ -20,7 +20,7 @@
         <div style="display: flex; justify-content: space-between">
             <h5 class="mb-4">All materials</h5>
             <form action="manage-products" class="d-none d-md-flex ms-4" style="font-size: 12px; border-radius: 20px; height: 30px">
-                <input name="keyword" class="form-control border-0" type="search" placeholder="Search material" style="font-size: 12px">
+                <input value="${requestScope.keyword}" name="keyword" class="form-control border-0" type="search" placeholder="Search material" style="font-size: 12px">
             </form>
         </div>
         

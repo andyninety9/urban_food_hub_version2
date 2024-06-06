@@ -79,8 +79,8 @@ public class ManageFoodsServlet extends HttpServlet {
 	int page = 0;
 	switch (action) {
 	case "all": {
-	    if (cateID != null && cateID.equals("all")) {
-		cateID = null;
+	    if (cateID == null) {
+		cateID = "all";
 	    }
 	    if (keyword == null) {
 		rawListMeal = mealDAO.getAllMeal(cateID);

@@ -13,19 +13,12 @@ import java.util.List;
  *
  * @author duyma
  */
-public class Meal {
-    private String mealID;
-    private String cateName;
-    private String mealName;
-    private String mealDesc;
+public class Meal extends Product {
     private String nutritionValue;
     private String shelfLife;
     private String preparationTime;
-    private double price;
     private int stock;
     private Date createdDate;
-    private String mealImg;
-    private int statusID;
     private List<MealDetail> listMaterials;
 
     public Meal() {
@@ -35,51 +28,46 @@ public class Meal {
     public Meal(String mealID, String cateName, String mealName, String mealDesc, String nutritionValue,
 	    String shelfLife, String preparationTime, double price, int stock, Date createdDate, String mealImg,
 	    int statusID, List<MealDetail> listMaterials) {
-	this.mealID = mealID;
-	this.cateName = cateName;
-	this.mealName = mealName;
-	this.mealDesc = mealDesc;
+	super(mealID, mealName, cateName, mealDesc, mealImg, price, statusID);
 	this.nutritionValue = nutritionValue;
 	this.shelfLife = shelfLife;
 	this.preparationTime = preparationTime;
-	this.price = price;
 	this.stock = stock;
 	this.createdDate = createdDate;
-	this.mealImg = mealImg;
-	this.statusID = statusID;
+//	this.statusID = statusID;
 	this.listMaterials = listMaterials;
     }
 
     public String getMealID() {
-	return mealID;
+	return id;
     }
 
     public void setMealID(String mealID) {
-	this.mealID = mealID;
+	id = mealID;
     }
 
     public String getCateName() {
-	return cateName;
+	return category;
     }
 
     public void setCateName(String cateName) {
-	this.cateName = cateName;
+	category = cateName;
     }
 
     public String getMealName() {
-	return mealName;
+	return name;
     }
 
     public void setMealName(String mealName) {
-	this.mealName = mealName;
+	name = mealName;
     }
 
     public String getMealDesc() {
-	return mealDesc;
+	return desc;
     }
 
     public void setMealDesc(String mealDesc) {
-	this.mealDesc = mealDesc;
+	desc = mealDesc;
     }
 
     public String getNutritionValue() {
@@ -106,14 +94,6 @@ public class Meal {
 	this.preparationTime = preparationTime;
     }
 
-    public double getPrice() {
-	return price;
-    }
-
-    public void setPrice(double price) {
-	this.price = price;
-    }
-
     public int getStock() {
 	return stock;
     }
@@ -131,19 +111,19 @@ public class Meal {
     }
 
     public String getMealImg() {
-	return mealImg;
+	return image;
     }
 
     public void setMealImg(String mealImg) {
-	this.mealImg = mealImg;
+	image = mealImg;
     }
 
     public int getStatusID() {
-	return statusID;
+	return status;
     }
 
     public void setStatusID(int statusID) {
-	this.statusID = statusID;
+	status = statusID;
     }
 
     public void addMealDetail(MealDetail m) {
@@ -160,10 +140,9 @@ public class Meal {
 
     @Override
     public String toString() {
-	return "Meal{" + "mealID=" + mealID + ", cateName=" + cateName + ", mealName=" + mealName + ", mealDesc="
-		+ mealDesc + ", nutritionValue=" + nutritionValue + ", shelfLife=" + shelfLife + ", preparationTime="
-		+ preparationTime + ", price=" + price + ", stock=" + stock + ", createdDate=" + createdDate
-		+ ", mealImg=" + mealImg + ", statusID=" + statusID + '}';
+	return "Meal{" + "nutritionValue=" + nutritionValue + ", shelfLife=" + shelfLife + ", preparationTime="
+		+ preparationTime + ", stock=" + stock + ", createdDate=" + createdDate + ", listMaterials="
+		+ listMaterials + '}';
     }
 
 }

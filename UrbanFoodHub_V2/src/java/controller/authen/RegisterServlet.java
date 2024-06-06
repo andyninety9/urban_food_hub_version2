@@ -89,6 +89,8 @@ public class RegisterServlet extends HttpServlet {
 	    if (rs > 0) {
 		HttpSession session = request.getSession();
 		session.setAttribute("user", accountDao.getAccountByID(accID));
+//		User userLogin = userDAO.getUser(username, password);
+		session.setAttribute("role", "2");
 		response.sendRedirect("home");
 	    } else {
 		response.sendRedirect("error404.jsp");

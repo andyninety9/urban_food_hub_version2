@@ -1,0 +1,462 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+
+package dao;
+
+import dto.Meal;
+import dto.MealPlan;
+import dto.PlanDetail;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import utils.MyLibs;
+
+/**
+ *
+ * @author duyma
+ */
+public class PlanDAO {
+    public List<MealPlan> getMealPlanByCateID(String cateID, int status) {
+	List<MealPlan> list = null;
+	boolean isSetCateID = false;
+	boolean isSetStatus = false;
+	String sql1 = "SELECT [mealPlanID]\n" + "      ,[cateID]\n" + "      ,[planName]\n" + "      ,[planDesc]\n"
+		+ "      ,[startDate]\n" + "      ,[endDate]\n" + "      ,[planImg]\n" + "      ,[statusID]\n"
+		+ "  FROM [dbo].[MealPlan]";
+	if (cateID != null || status > 0) {
+	    sql1 += (" WHERE");
+	    if (cateID != null && status <= 0) {
+		sql1 += (" [cateID] = ?");
+		isSetCateID = true;
+	    } else if (cateID == null && status > 0) {
+		sql1 += (" [statusID] = ?");
+		isSetStatus = true;
+	    } else {
+		sql1 += (" [cateID] = ? AND [statusID] = ?");
+		isSetStatus = true;
+		isSetCateID = true;
+	    }
+
+	}
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st1 = cn.prepareStatement(sql1);
+		if (isSetCateID) {
+		    st1.setString(1, cateID);
+		} else if (isSetStatus) {
+		    st1.setInt(1, status);
+		} else {
+		    st1.setString(1, cateID);
+		    st1.setInt(2, status);
+		}
+		ResultSet rs = st1.executeQuery();
+		if (rs != null) {
+		    list = new ArrayList<>();
+		    while (rs.next()) {
+			MealPlan m = new MealPlan();
+			String mealPlanID = rs.getString("mealPlanID");
+			m.setMealPlanID(mealPlanID);
+			m.setCateID(rs.getString("cateID"));
+			m.setPlanName(rs.getString("planName"));
+			m.setPlanDesc(rs.getString("planDesc"));
+			m.setStartDate(rs.getDate("startDate"));
+			m.setEndDate(rs.getDate("endDate"));
+			m.setPlanImg(rs.getString("planImg"));
+			m.setStatusID(rs.getInt("statusID"));
+
+			String sql2 = "SELECT [detailID]\n" + "      ,[mealPlanID]\n" + "      ,[mealID]\n"
+				+ "      ,[mealTimeID]\n" + "      ,[mealDate]\n" + "  FROM [dbo].[MealPlanDetail]\n"
+				+ "  WHERE [mealPlanID] = ? ORDER BY mealDate ASC";
+			PreparedStatement st2 = cn.prepareStatement(sql2);
+			st2.setString(1, mealPlanID);
+			ResultSet rs2 = st2.executeQuery();
+			if (rs2 != null) {
+			    while (rs2.next()) {
+				PlanDetail p = new PlanDetail();
+				String mealID = rs2.getString("mealID");
+				p.setDetailID(rs2.getString("detailID"));
+				p.setMealPlanID(mealPlanID);
+				p.setMealTime(rs2.getString("mealTimeID"));
+				p.setMealDate(rs2.getDate("mealDate"));
+				String sql3 = "SELECT [mealID]\n" + "      ,[CateID]\n" + "      ,[mealName]\n"
+					+ "      ,[mealDesc]\n" + "      ,[nutritionValue]\n" + "      ,[shelfLife]\n"
+					+ "      ,[preparationTime]\n" + "      ,[price]\n" + "      ,[stock]\n"
+					+ "      ,[createdDate]\n" + "      ,[statusID]\n" + "      ,[mealImg]\n"
+					+ "  FROM [dbo].[Meal]\n" + "  WHERE [mealID] = ?";
+				PreparedStatement st3 = cn.prepareStatement(sql3);
+				st3.setString(1, mealID);
+				ResultSet rs3 = st3.executeQuery();
+				if (rs3 != null) {
+				    if (rs3.next()) {
+					Meal meal = new Meal();
+					meal.setMealID(rs3.getString("mealID"));
+					meal.setMealName(rs3.getString("mealName"));
+					meal.setMealDesc(rs3.getString("mealDesc"));
+					meal.setNutritionValue(rs3.getString("nutritionValue"));
+					meal.setShelfLife(rs3.getString("shelfLife"));
+					meal.setPreparationTime(rs3.getString("preparationTime"));
+					meal.setPrice(rs3.getInt("price"));
+					meal.setStock(rs3.getInt("stock"));
+					meal.setCreatedDate(rs3.getDate("createdDate"));
+					meal.setStatusID(rs3.getInt("statusID"));
+					p.setMeal(meal);
+				    }
+				}
+				m.addDetail(p);
+			    }
+
+			}
+			list.add(m);
+		    }
+		}
+	    }
+
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+
+	return list;
+    }
+
+    public MealPlan getMealPlanByID(String mealPlanID) {
+	MealPlan mealPlan = null;
+	String sql1 = "SELECT [mealPlanID]\n" + "      ,[cateID]\n" + "      ,[planName]\n" + "      ,[planDesc]\n"
+		+ "      ,[startDate]\n" + "      ,[endDate]\n" + "      ,[planImg]\n" + "      ,[statusID]\n"
+		+ "  FROM [dbo].[MealPlan]\n" + "  WHERE mealPlanID = ?";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    PreparedStatement st1 = cn.prepareStatement(sql1);
+	    st1.setString(1, mealPlanID);
+	    ResultSet rs1 = st1.executeQuery();
+	    if (rs1.next()) {
+		mealPlan = new MealPlan();
+		mealPlan.setMealPlanID(mealPlanID);
+		mealPlan.setPlanName(rs1.getString("planName"));
+		mealPlan.setCategory(rs1.getString("cateID"));
+		mealPlan.setPlanDesc(rs1.getString("planDesc"));
+		mealPlan.setStartDate(rs1.getDate("startDate"));
+		mealPlan.setEndDate(rs1.getDate("endDate"));
+		mealPlan.setPlanImg(rs1.getString("planImg"));
+		mealPlan.setStatusID(rs1.getInt("statusID"));
+		String sql2 = "SELECT [detailID]\n" + "      ,[mealPlanID]\n" + "      ,[mealID]\n"
+			+ "      ,[mealTimeID]\n" + "      ,[mealDate]\n" + "  FROM [dbo].[MealPlanDetail]\n"
+			+ "  WHERE [mealPlanID] = ?";
+		PreparedStatement st2 = cn.prepareStatement(sql2);
+		st2.setString(1, mealPlanID);
+		ResultSet rs2 = st2.executeQuery();
+		if (rs2 != null) {
+		    while (rs2.next()) {
+			PlanDetail p = new PlanDetail();
+			String mealID = rs2.getString("mealID");
+			p.setDetailID(rs2.getString("detailID"));
+			p.setMealPlanID(mealPlanID);
+			p.setMealTime(rs2.getString("mealTimeID"));
+			p.setMealDate(rs2.getDate("mealDate"));
+			String sql3 = "SELECT [mealID]\n" + "      ,[CateID]\n" + "      ,[mealName]\n"
+				+ "      ,[mealDesc]\n" + "      ,[nutritionValue]\n" + "      ,[shelfLife]\n"
+				+ "      ,[preparationTime]\n" + "      ,[price]\n" + "      ,[stock]\n"
+				+ "      ,[createdDate]\n" + "      ,[statusID]\n" + "      ,[mealImg]\n"
+				+ "  FROM [dbo].[Meal]\n" + "  WHERE [mealID] = ?";
+			PreparedStatement st3 = cn.prepareStatement(sql3);
+			st3.setString(1, mealID);
+			ResultSet rs3 = st3.executeQuery();
+			if (rs3 != null) {
+			    if (rs3.next()) {
+				Meal meal = new Meal();
+				meal.setMealID(rs3.getString("mealID"));
+				meal.setMealName(rs3.getString("mealName"));
+				meal.setMealDesc(rs3.getString("mealDesc"));
+				meal.setNutritionValue(rs3.getString("nutritionValue"));
+				meal.setShelfLife(rs3.getString("shelfLife"));
+				meal.setPreparationTime(rs3.getString("preparationTime"));
+				meal.setPrice(rs3.getInt("price"));
+				meal.setStock(rs3.getInt("stock"));
+				meal.setCreatedDate(rs3.getDate("createdDate"));
+				meal.setStatusID(rs3.getInt("statusID"));
+				p.setMeal(meal);
+			    }
+			}
+			mealPlan.addDetail(p);
+		    }
+		}
+	    }
+
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+
+	return mealPlan;
+    }
+
+    public int addPersonalPlan(String mealPlanID, String accID, String planName, String desc, Date startDate,
+	    Date endDate, String image, int status) {
+	int rs = 0;
+	String sql = "INSERT INTO [dbo].[PersonalPlan]\n" + "           ([mealPlanID]\n" + "           ,[accID]\n"
+		+ "           ,[planName]\n" + "           ,[planDesc]\n" + "           ,[startDate]\n"
+		+ "           ,[endDate]\n" + "           ,[planImg]\n" + "           ,[statusID])\n" + "     VALUES\n"
+		+ "           (?\n" + "           ,?\n" + "           ,?\n" + "           ,?\n" + "           ,?\n"
+		+ "           ,?\n" + "           ,?\n" + "           ,?)";
+
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    PreparedStatement st = cn.prepareStatement(sql);
+	    st.setString(1, mealPlanID);
+	    st.setString(2, accID);
+	    st.setString(3, planName);
+	    st.setString(4, desc);
+	    st.setDate(5, startDate);
+	    st.setDate(6, endDate);
+	    st.setString(7, image);
+	    st.setInt(8, status);
+	    rs = st.executeUpdate();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return rs;
+    }
+
+    public int addPersonalPlanDetail(String detailID, String mealPlanID, String mealID, String mealTimeID,
+	    Date mealDate) {
+	int rs = 0;
+	String sql = "INSERT INTO [dbo].[PersonalPlanDetail]\n" + "           ([detailID]\n"
+		+ "           ,[mealPlanID]\n" + "           ,[mealID]\n" + "           ,[mealTimeID]\n"
+		+ "           ,[mealDate])\n" + "     VALUES\n" + "           (?\n" + "           ,?\n"
+		+ "           ,?\n" + "           ,?\n" + "           ,?)";
+
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    PreparedStatement st = cn.prepareStatement(sql);
+	    st.setString(1, detailID);
+	    st.setString(2, mealPlanID);
+	    st.setString(3, mealID);
+	    st.setString(4, mealTimeID);
+	    st.setDate(5, mealDate);
+	    rs = st.executeUpdate();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return rs;
+    }
+
+    public List<MealPlan> getPersonalPlanByCateID(int status, String accID) {
+	List<MealPlan> list = null;
+	boolean isSetStatus = false;
+	String sql1 = "SELECT [mealPlanID]\n" + "      ,[accID]\n" + "      ,[planName]\n" + "      ,[planDesc]\n"
+		+ "      ,[startDate]\n" + "      ,[endDate]\n" + "      ,[planImg]\n" + "      ,[statusID]\n"
+		+ "  FROM [dbo].[PersonalPlan]\n" + "  WHERE accID = ? ";
+
+	if (status >= 0) {
+	    sql1 += (" AND [statusID] = ?");
+	    isSetStatus = true;
+	}
+
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st1 = cn.prepareStatement(sql1);
+		st1.setString(1, accID);
+		if (isSetStatus) {
+		    st1.setInt(2, status);
+		}
+		ResultSet rs = st1.executeQuery();
+		if (rs != null) {
+		    list = new ArrayList<>();
+		    while (rs.next()) {
+			MealPlan m = new MealPlan();
+			String mealPlanID = rs.getString("mealPlanID");
+			m.setMealPlanID(mealPlanID);
+//			m.setCateID(rs.getString("cateID"));
+			m.setPlanName(rs.getString("planName"));
+			m.setPlanDesc(rs.getString("planDesc"));
+			m.setStartDate(rs.getDate("startDate"));
+			m.setEndDate(rs.getDate("endDate"));
+			m.setPlanImg(rs.getString("planImg"));
+			m.setStatusID(rs.getInt("statusID"));
+
+			String sql2 = "SELECT [detailID]\n" + "      ,[mealPlanID]\n" + "      ,[mealID]\n"
+				+ "      ,[mealTimeID]\n" + "      ,[mealDate]\n"
+				+ "  FROM [dbo].[PersonalPlanDetail]\n"
+				+ "  WHERE [mealPlanID] = ? ORDER BY mealDate ASC";
+			PreparedStatement st2 = cn.prepareStatement(sql2);
+			st2.setString(1, mealPlanID);
+			ResultSet rs2 = st2.executeQuery();
+			if (rs2 != null) {
+			    while (rs2.next()) {
+				PlanDetail p = new PlanDetail();
+				String mealID = rs2.getString("mealID");
+				p.setDetailID(rs2.getString("detailID"));
+				p.setMealPlanID(mealPlanID);
+				p.setMealTime(rs2.getString("mealTimeID"));
+				p.setMealDate(rs2.getDate("mealDate"));
+				String sql3 = "SELECT [mealID]\n" + "      ,[CateID]\n" + "      ,[mealName]\n"
+					+ "      ,[mealDesc]\n" + "      ,[nutritionValue]\n" + "      ,[shelfLife]\n"
+					+ "      ,[preparationTime]\n" + "      ,[price]\n" + "      ,[stock]\n"
+					+ "      ,[createdDate]\n" + "      ,[statusID]\n" + "      ,[mealImg]\n"
+					+ "  FROM [dbo].[Meal]\n" + "  WHERE [mealID] = ?";
+				PreparedStatement st3 = cn.prepareStatement(sql3);
+				st3.setString(1, mealID);
+				ResultSet rs3 = st3.executeQuery();
+				if (rs3 != null) {
+				    if (rs3.next()) {
+					Meal meal = new Meal();
+					meal.setMealID(rs3.getString("mealID"));
+					meal.setMealName(rs3.getString("mealName"));
+					meal.setMealDesc(rs3.getString("mealDesc"));
+					meal.setNutritionValue(rs3.getString("nutritionValue"));
+					meal.setShelfLife(rs3.getString("shelfLife"));
+					meal.setPreparationTime(rs3.getString("preparationTime"));
+					meal.setPrice(rs3.getInt("price"));
+					meal.setStock(rs3.getInt("stock"));
+					meal.setCreatedDate(rs3.getDate("createdDate"));
+					meal.setStatusID(rs3.getInt("statusID"));
+					p.setMeal(meal);
+				    }
+				}
+				m.addDetail(p);
+			    }
+
+			}
+			list.add(m);
+		    }
+		}
+	    }
+
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+
+	return list;
+    }
+
+    public int updatePersonalPlanName(String planID, String newName) {
+	int rs = 0;
+	String sql = "UPDATE [dbo].[PersonalPlan]\n" + "   SET [planName] = ?\n" + " WHERE [mealPlanID] = ?";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		st.setString(1, newName);
+		st.setString(2, planID);
+		rs = st.executeUpdate();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return rs;
+    }
+
+    public int updatePersonalPlanDate(String planID, Date startDate, Date endDate) {
+	int rs = 0;
+	String sql = "UPDATE [dbo].[PersonalPlan]\n" + "   SET [startDate] = ?\n" + "      ,[endDate] = ?\n" + "     \n"
+		+ " WHERE [mealPlanID] = ?";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		st.setDate(1, startDate);
+		st.setDate(2, endDate);
+		st.setString(3, planID);
+		rs = st.executeUpdate();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return rs;
+    }
+
+    public int updatePersonalPlanStatus(String planID, int status) {
+	int rs = 0;
+	String sql = "UPDATE [dbo].[PersonalPlan]\n" + "   SET [statusID] = ?\n" + " WHERE [mealPlanID] = ?";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		st.setInt(1, status);
+		st.setString(2, planID);
+		rs = st.executeUpdate();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return rs;
+    }
+}

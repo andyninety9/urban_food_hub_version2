@@ -11,68 +11,53 @@ import java.sql.Date;
  *
  * @author duyma
  */
-public class Material {
-    private String mateSku;
-    private String cateName;
-    private String mateName;
-    private String mateDesc;
-    private double price;
+public class Material extends Product {
     private String packagingSpec;
     private double stock;
     private Date createdDate;
-    private String mateImg;
-    private int mateStatus;
 
     public Material() {
     }
-//    "SELECT [MateSKU]\n" + "      ,[CateID]\n" + "      ,[MateName]\n" + "      ,[MateDesc]\n"
-//		+ "      ,[Price]\n" + "      ,[PackagingSpec]\n" + "      ,[Stock]\n" + "      ,[CreatedDate]\n"
-//		+ "      ,[MateImg]\n" + "      ,[MateStatus]\n" + "  FROM [dbo].[Material]";
 
     public Material(String mateSku, String cateName, String mateName, String mateDesc, double price,
 	    String PackagingSpec, double stock, Date createdDate, String mateImg, int mateStatus) {
-	this.mateSku = mateSku;
-	this.cateName = cateName;
-	this.mateName = mateName;
-	this.mateDesc = mateDesc;
-	this.price = price;
+	super(mateSku, mateName, cateName, mateDesc, mateImg, price, mateStatus);
 	this.packagingSpec = PackagingSpec;
 	this.stock = stock;
+//	this.mateStatus = mateStatus;
 	this.createdDate = createdDate;
-	this.mateImg = mateImg;
-	this.mateStatus = mateStatus;
     }
 
     public String getMateSku() {
-	return mateSku;
+	return id;
     }
 
     public void setMateSku(String mateSku) {
-	this.mateSku = mateSku;
+	id = mateSku;
     }
 
     public String getCateName() {
-	return cateName;
+	return category;
     }
 
     public void setCateName(String cateName) {
-	this.cateName = cateName;
+	category = cateName;
     }
 
     public String getMateName() {
-	return mateName;
+	return name;
     }
 
     public void setMateName(String mateName) {
-	this.mateName = mateName;
+	name = mateName;
     }
 
     public String getMateDesc() {
-	return mateDesc;
+	return desc;
     }
 
     public void setMateDesc(String mateDesc) {
-	this.mateDesc = mateDesc;
+	desc = mateDesc;
     }
 
     public double getPrice() {
@@ -108,26 +93,25 @@ public class Material {
     }
 
     public String getMateImg() {
-	return mateImg;
+	return image;
     }
 
     public void setMateImg(String mateImg) {
-	this.mateImg = mateImg;
+	image = mateImg;
     }
 
     public int getMateStatus() {
-	return mateStatus;
+	return status;
     }
 
     public void setMateStatus(int mateStatus) {
-	this.mateStatus = mateStatus;
+	status = mateStatus;
     }
 
     @Override
     public String toString() {
-	return "Material{" + "mateSku=" + mateSku + ", cateID=" + cateName + ", mateName=" + mateName + ", mateDesc="
-		+ mateDesc + ", price=" + price + ", PackagingSpec=" + packagingSpec + ", stock=" + stock
-		+ ", createdDate=" + createdDate + ", mateImg=" + mateImg + ", mateStatus=" + mateStatus + '}';
+	return "Material{" + "packagingSpec=" + packagingSpec + ", stock=" + stock + ", createdDate=" + createdDate
+		+ '}';
     }
 
 }

@@ -5,21 +5,23 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:set var="user" value="${sessionScope.user}"/>
 <div class="container">
     <h1 class="display-6">#Account Information</h1>
     <div class="row" style=" border: 1px solid black; padding: 20px; border-radius: 10px; margin-bottom: 20px">
         <div class="col-md-6">
         <div style="display: flex; gap: 10px;">
             <p style="font-weight: bold" class="h6">Fullname: </p>
-        <p class="h6">Mai Anh Duy</p>
+        <p class="h6">${user.lastname} ${user.firstname}</p>
         </div>
         <div style="display: flex; gap: 10px">
             <p style="font-weight: bold" class="h6">Birthday: </p>
-            <p class="h6">26-03-xxxx</p>
+            <p class="h6">${user.birthday}</p>
         </div>
         <div style="display: flex; gap: 10px">
             <p style="font-weight: bold" class="h6">Phone: </p>
-            <p class="h6">09xx.xxx.xxx</p>
+            <p class="h6">${user.phone}</p>
         </div>
         <div style="display: flex; flex-direction: column; gap: 10px">
             <p style="font-weight: bold" class="h6">Shipping address: </p>
@@ -40,46 +42,27 @@
                       <span class="badge rounded-pill bg-warning text-dark">Default</span>
                   </td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Khu công nghệ cao, trường đại học FPTU <i class="fa-solid fa-pen"></i></td>
-                  <td>
-                      <!--<span class="badge rounded-pill bg-warning text-dark">Default</span>-->
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Khu công nghệ cao, trường đại học FPTU <i class="fa-solid fa-pen"></i></td>
-                  <td>
-                      <!--<span class="badge rounded-pill bg-warning text-dark">Default</span>-->
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">4</th>
-                  <td>Khu công nghệ cao, trường đại học FPTU <i class="fa-solid fa-pen"></i></td>
-                  <td>
-                      <!--<span class="badge rounded-pill bg-warning text-dark">Default</span>-->
-                  </td>
-                </tr>
-                <tr>
-                  <th scope="row">5</th>
-                  <td>Khu công nghệ cao, trường đại học FPTU <i class="fa-solid fa-pen"></i></td>
-                  <td>
-                      <!--<span class="badge rounded-pill bg-warning text-dark">Default</span>-->
-                  </td>
-                </tr>
               </tbody>
             </table>
             </div>
         </div>
         </div>
-        <div class="col-md-6" style="display: flex; flex-direction: column; justify-content: center; align-items: center">
-            <img src="images/avatar-default.jpg" alt="alt" style="height: 200px; width: 200px; object-fit: cover;padding: 5px; border: 5px solid #1DC071; border-radius: 100%"/>
+        <form method="post" action="user-info?action=change-avatar" class="col-md-6" style="display: flex; flex-direction: column; justify-content: center; align-items: center">
+            <img src="
+                  <c:choose>
+                <c:when test="${empty user.avatar}">
+                 images/avatar-default.jpg
+                </c:when>
+                <c:otherwise>
+                    ${user.avatar}
+                </c:otherwise>
+            </c:choose>
+                 " alt="alt" style="height: 200px; width: 200px; object-fit: cover;padding: 5px; border: 5px solid #1DC071; border-radius: 100%"/>
             <div class="input-group flex-nowrap" style="width: 50%; margin-top: 10px">
                 <span style="font-size: 12px;" class="input-group-text" id="addon-wrapping">Avatar</span>
-                <input style="font-size: 12px;" type="file" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="addon-wrapping">
+                <input name="avatar" style="font-size: 12px;" type="text" class="form-control" placeholder="Url image" aria-label="Username" aria-describedby="addon-wrapping">
             </div>
-        </div>
+        </form>
     </div>
 
     <h1 class="display-6">#Tracking Order</h1>

@@ -62,7 +62,7 @@
               <p style="margin: 0; font-size: 12px; font-weight: bold">Stock: <a style="">${meal.stock}</a></p>
               <p class="card-text" style="font-size: 10px; height: 30px; overflow: hidden">${meal.mealDesc}</p>
               <div style="display: flex; justify-content: center; gap: 15px">
-                <a style="background-color: #4ACD8D; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="#">Add to card</a>
+                <a style="background-color: #4ACD8D; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="add-to-cart?kind=foods&mealID=${meal.mealID}">Add to card</a>
                 <a style="background-color: #A992FE; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="#">More</a>
               </div>
               
