@@ -5,16 +5,20 @@
 
 package controller.homepage;
 
+import dao.AddressDAO;
 import dao.CategoryDAO;
 import dao.CategoryFoodsDAO;
 import dao.MaterialDAO;
 import dao.MealDAO;
+import dao.OrderDAO;
 import dao.PlanDAO;
+import dto.Account;
+import dto.Address;
 import dto.Category;
 import dto.Material;
 import dto.Meal;
 import dto.MealPlan;
-import dto.PlanDetail;
+import dto.Order;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -22,6 +26,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import utils.IConstant;
 import utils.MyLibs;
 
@@ -140,11 +145,65 @@ public class HomepageServlet extends HttpServlet {
 		break;
 	    }
 	    case IConstant.PATH_USER_INFO: {
+		HttpSession session = request.getSession();
+		Account a = (Account) session.getAttribute("user");
+		AddressDAO addressDAO = new AddressDAO();
+		if (a != null) {
+		    List<Address> listAddresses = addressDAO.getAllAddressByAccID(a.getAccID());
+		    request.setAttribute("listAddresses", listAddresses);
+		}
+
 		url = IConstant.SERVLET_USER_INFO;
 		break;
 	    }
 	    case IConstant.PATH_CUSTOMIZE: {
+		request.setAttribute("currentPage", action);
 		url = "personal-plan";
+		break;
+	    }
+	    case IConstant.PATH_CART: {
+		HttpSession session = request.getSession();
+		Account a = (Account) session.getAttribute("user");
+		AddressDAO addressDAO = new AddressDAO();
+		if (a != null) {
+		    List<Address> listAddresses = addressDAO.getAllAddressByAccID(a.getAccID());
+		    request.setAttribute("listAddresses", listAddresses);
+		}
+		request.setAttribute("currentPage", action);
+
+		url = IConstant.URL_CART;
+		break;
+	    }
+	    case IConstant.PATH_TRACKING_ORDER: {
+		request.setAttribute("currentPage", action);
+
+		HttpSession session = request.getSession();
+		Account acc = (Account) session.getAttribute("user");
+		if (acc != null) {
+		    String accID = acc.getAccID();
+		    AddressDAO addressDAO = new AddressDAO();
+		    List<Address> listAddresses = addressDAO.getAllAddressByAccID(accID);
+		    request.setAttribute("listAddresses", listAddresses);
+
+		    String raw_statusID = request.getParameter("statusID");
+
+		    int statusID = 0;
+		    if (raw_statusID != null) {
+			try {
+			    statusID = Integer.parseInt(raw_statusID);
+			} catch (NumberFormatException e) {
+			    e.printStackTrace();
+			}
+		    }
+		    request.setAttribute("currentStatusOrder", statusID);
+		    OrderDAO orderDAO = new OrderDAO();
+		    List<Order> listOrder = orderDAO.getAllOrderByAccID(accID, statusID);
+		    request.setAttribute("listOrder", listOrder);
+
+		    url = IConstant.URL_TRACKING_ORDER;
+		} else {
+		    url = "login";
+		}
 
 		break;
 	    }

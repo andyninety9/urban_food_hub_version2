@@ -69,7 +69,11 @@
                 <jsp:include page="header-dashboard.jsp"/>
                 <div class="container-fluid pt-4 px-4">
                     <div class="row g-4">
-                        <jsp:include page="../widget/calendar.jsp"/>
+                        <div style="display: flex; gap: 15px">
+                            <jsp:include page="../widget/calendar.jsp"/>
+                            <jsp:include page="report-task.jsp"/>
+                        </div>
+                        
                     </div>
                 </div>
                 <!-- Navbar End -->

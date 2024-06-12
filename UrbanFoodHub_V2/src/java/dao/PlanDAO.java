@@ -74,7 +74,7 @@ public class PlanDAO {
 
 			String sql2 = "SELECT [detailID]\n" + "      ,[mealPlanID]\n" + "      ,[mealID]\n"
 				+ "      ,[mealTimeID]\n" + "      ,[mealDate]\n" + "  FROM [dbo].[MealPlanDetail]\n"
-				+ "  WHERE [mealPlanID] = ? ORDER BY mealDate ASC";
+				+ "  WHERE [mealPlanID] = ? ORDER BY mealDate ASC , [mealTimeID] ASC";
 			PreparedStatement st2 = cn.prepareStatement(sql2);
 			st2.setString(1, mealPlanID);
 			ResultSet rs2 = st2.executeQuery();
@@ -320,7 +320,7 @@ public class PlanDAO {
 			String sql2 = "SELECT [detailID]\n" + "      ,[mealPlanID]\n" + "      ,[mealID]\n"
 				+ "      ,[mealTimeID]\n" + "      ,[mealDate]\n"
 				+ "  FROM [dbo].[PersonalPlanDetail]\n"
-				+ "  WHERE [mealPlanID] = ? ORDER BY mealDate ASC";
+				+ "  WHERE [mealPlanID] = ? ORDER BY mealDate ASC , [mealTimeID] ASC";
 			PreparedStatement st2 = cn.prepareStatement(sql2);
 			st2.setString(1, mealPlanID);
 			ResultSet rs2 = st2.executeQuery();
@@ -457,6 +457,86 @@ public class PlanDAO {
 		e.printStackTrace();
 	    }
 	}
+	return rs;
+    }
+
+    public int updatePersonalPlanMeal(String detailID, String mealID) {
+	int rs = 0;
+	String sql = "UPDATE [dbo].[PersonalPlanDetail]\n" + "   SET [mealID] = ?\n" + " WHERE [detailID] = ?";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		st.setString(1, mealID);
+		st.setString(2, detailID);
+		rs = st.executeUpdate();
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return rs;
+    }
+
+    public int updatePersonalDateMeal(String mealID, Date newDate, Date oldDate) {
+	int rs = 0;
+	String sql1 = "SELECT [detailID]\n" + "      ,[mealPlanID]\n" + "      ,[mealID]\n" + "      ,[mealTimeID]\n"
+		+ "      ,[mealDate]\n" + "  FROM [dbo].[PersonalPlanDetail]\n"
+		+ "  WHERE mealPlanID = ? AND mealDate = ?";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st1 = cn.prepareStatement(sql1);
+		st1.setString(1, mealID);
+		st1.setDate(2, newDate);
+		ResultSet rs1 = st1.executeQuery();
+		if (!rs1.next()) {
+		    String sql = "UPDATE [dbo].[PersonalPlanDetail]\n" + "   SET [mealDate] = ?\n"
+			    + " WHERE mealDate = ? AND mealPlanID = ?";
+
+		    try {
+			cn = MyLibs.makeConnection();
+			if (cn != null) {
+			    PreparedStatement st = cn.prepareStatement(sql);
+			    st.setDate(1, newDate);
+			    st.setDate(2, oldDate);
+			    st.setString(3, mealID);
+			    rs = st.executeUpdate();
+			}
+		    } catch (Exception e) {
+			e.printStackTrace();
+		    } finally {
+			try {
+			    if (cn != null) {
+				cn.close();
+			    }
+			} catch (SQLException e) {
+			    e.printStackTrace();
+			}
+		    }
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+
 	return rs;
     }
 }

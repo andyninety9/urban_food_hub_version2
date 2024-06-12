@@ -37,64 +37,66 @@ public class AddToCartServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	response.setContentType("text/html;charset=UTF-8");
-	try (PrintWriter out = response.getWriter()) {
-	    /* TODO output your page here. You may use following sample code. */
-	    String kindOfProduct = request.getParameter("kind");
-	    HttpSession session = request.getSession();
-	    HashMap<Product, Integer> listCart = (HashMap<Product, Integer>) session.getAttribute("cartMate");
-	    switch (kindOfProduct) {
-	    case "material": {
-		String mateID = request.getParameter("mateID");
-		MaterialDAO materialDAO = new MaterialDAO();
-		Product m = materialDAO.getMaterialByID(mateID);
-		if (listCart == null) {
-		    listCart = new HashMap<>();
+//	try (PrintWriter out = response.getWriter()) {
+	/* TODO output your page here. You may use following sample code. */
+	String kindOfProduct = request.getParameter("kind");
+	HttpSession session = request.getSession();
+	HashMap<Product, Integer> listCart = (HashMap<Product, Integer>) session.getAttribute("listCart");
+	switch (kindOfProduct) {
+	case "material": {
+	    String mateID = request.getParameter("mateID");
+	    MaterialDAO materialDAO = new MaterialDAO();
+	    Product m = new Material();
+	    m = materialDAO.getMaterialByID(mateID);
+	    if (listCart == null) {
+		listCart = new HashMap<>();
+		listCart.put(m, 1);
+	    } else {
+		boolean isExist = false;
+		for (Product mate : listCart.keySet()) {
+		    if (mate.getId().equals(mateID)) {
+			int quantity = listCart.get(mate);
+			quantity++;
+			listCart.put(mate, quantity);
+			isExist = true;
+		    }
+		}
+		if (isExist == false) {
 		    listCart.put(m, 1);
-		} else {
-		    boolean isExist = false;
-		    for (Product mate : listCart.keySet()) {
-			if (mate.getId().equals(mateID)) {
-			    int quantity = listCart.get(mate);
-			    quantity++;
-			    listCart.put(mate, quantity);
-			    isExist = true;
-			}
-		    }
-		    if (isExist == false) {
-			listCart.put(m, 1);
+		}
+	    }
+	    session.setAttribute("listCart", listCart);
+	    request.getRequestDispatcher("home?action=materials").forward(request, response);
+	    break;
+	}
+	case "foods": {
+	    String mealID = request.getParameter("mealID");
+	    MealDAO mealDAO = new MealDAO();
+	    Product meal = new Meal();
+	    meal = mealDAO.getMealByID(mealID);
+	    if (listCart == null) {
+		listCart = new HashMap<>();
+		listCart.put(meal, 1);
+	    } else {
+		boolean isExist = false;
+		for (Product entryMeal : listCart.keySet()) {
+		    if (entryMeal.getId().equals(mealID)) {
+			int quantity = listCart.get(entryMeal);
+			quantity++;
+			listCart.put(entryMeal, quantity);
+			isExist = true;
 		    }
 		}
-		session.setAttribute("cartMate", listCart);
-		request.getRequestDispatcher("home?action=materials").forward(request, response);
-		break;
-	    }
-	    case "foods": {
-		String mealID = request.getParameter("mealID");
-		MealDAO mealDAO = new MealDAO();
-		Product meal = mealDAO.getMealByID(mealID);
-		if (listCart == null) {
-		    listCart = new HashMap<>();
+		if (isExist == false) {
 		    listCart.put(meal, 1);
-		} else {
-		    boolean isExist = false;
-		    for (Product entryMeal : listCart.keySet()) {
-			if (entryMeal.getId().equals(mealID)) {
-			    int quantity = listCart.get(entryMeal);
-			    quantity++;
-			    listCart.put(entryMeal, quantity);
-			    isExist = true;
-			}
-		    }
-		    if (isExist == false) {
-			listCart.put(meal, 1);
-		    }
 		}
-		session.setAttribute("cartMate", listCart);
-		request.getRequestDispatcher("home?action=foods").forward(request, response);
-		break;
 	    }
+	    session.setAttribute("listCart", listCart);
+	    request.getRequestDispatcher("home?action=foods").forward(request, response);
+	    break;
+	}
 
-	    }
+//	    }
 
 	}
     }

@@ -33,7 +33,7 @@
     <c:set var="faqsStyle" value="background-color: #4acd8e48; border-radius: 5px;" />
 </c:if>
 <c:set var="customizeStyle" value="" />
-<c:if test="${currentPage == 'faqs'}">
+<c:if test="${currentPage == 'customize'}">
     <c:set var="customizeStyle" value="background-color: #4acd8e48; border-radius: 5px;" />
 </c:if>
 

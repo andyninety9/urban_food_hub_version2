@@ -113,6 +113,7 @@ public class ManageFoodsServlet extends HttpServlet {
 
 	request.setAttribute("listMeal", paginationListMeal);
 	request.setAttribute("listCateFood", listCategoryFood);
+	request.setAttribute("currentPage", "manage-foods");
 	request.getRequestDispatcher("foods/manage-foods.jsp").forward(request, response);
 
     }

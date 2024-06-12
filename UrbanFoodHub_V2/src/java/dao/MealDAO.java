@@ -473,4 +473,28 @@ public class MealDAO {
 	}
 	return rs;
     }
+
+    public int updateStockMeal(String mealID, double newStock) {
+	int rs = 0;
+	String sql = "UPDATE [dbo].[Meal]\n" + "   SET [Stock] = ?\n" + " WHERE [mealID] = ?";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    PreparedStatement st = cn.prepareStatement(sql);
+	    st.setDouble(1, newStock);
+	    st.setString(2, mealID);
+	    rs = st.executeUpdate();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return rs;
+    }
 }

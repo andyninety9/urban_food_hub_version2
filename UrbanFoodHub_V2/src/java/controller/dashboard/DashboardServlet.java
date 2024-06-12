@@ -6,6 +6,7 @@
 package controller.dashboard;
 
 import dao.MaterialDAO;
+import dao.OrderDAO;
 import dto.Material;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,18 +34,22 @@ public class DashboardServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	response.setContentType("text/html;charset=UTF-8");
-	try (PrintWriter out = response.getWriter()) {
-	    /* TODO output your page here. You may use following sample code. */
-	    out.println("<!DOCTYPE html>");
-	    out.println("<html>");
-	    out.println("<head>");
-	    out.println("<title>Servlet DashboardServlet</title>");
-	    out.println("</head>");
-	    out.println("<body>");
-	    out.println("<h1>Servlet DashboardServlet at " + request.getContextPath() + "</h1>");
-	    out.println("</body>");
-	    out.println("</html>");
-	}
+
+	int waitingConfirm = 0;
+	int waitingShip = 0;
+	int countCancelOrder = 0;
+	int deliveredOrder = 0;
+	OrderDAO orderDAO = new OrderDAO();
+	waitingConfirm = orderDAO.countOrderByStatusID(1);
+	waitingShip = orderDAO.countOrderByStatusID(2);
+	countCancelOrder = orderDAO.countOrderByStatusID(5);
+	deliveredOrder = orderDAO.countOrderByStatusID(4);
+	request.setAttribute("deliveredOrder", deliveredOrder);
+	request.setAttribute("countCancelOrderToday", countCancelOrder);
+	request.setAttribute("waitingConfirm", waitingConfirm);
+	request.setAttribute("waitingShip", waitingShip);
+	request.setAttribute("currentPage", "dashboard");
+	request.getRequestDispatcher("admin/dashboard-02.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the
@@ -60,7 +65,8 @@ public class DashboardServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
-	request.getRequestDispatcher("admin/dashboard-02.jsp").forward(request, response);
+	processRequest(request, response);
+
     }
 
     /**

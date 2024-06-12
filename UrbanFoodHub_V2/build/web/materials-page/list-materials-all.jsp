@@ -5,6 +5,7 @@
 <c:set var="selectedCate" value="${requestScope.selectedCate}"/>
 <c:set var="sizeListMate" value="${requestScope.sizeListMate}"/>
 <c:set var="checkedPage" value="${requestScope.checkedPage}"/>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; ">
 <h1 style="">INGREDIENTS</h1>
 <div style="height: 10px; width: 5%;background-color: #4acd8e"></div>
@@ -29,11 +30,13 @@
                 <option value="all">All</option>
                 <c:if test="${allCategory != null}" >
                     <c:forEach var="category" items="${allCategory}" >
-                        <option 
+                        <c:if test="${category.cateStatus == 1}">
+                            <option 
                             <c:if test="${selectedCate == category.cateID}">
                                 selected
                             </c:if>
                             value="${category.cateID}">${category.cateName}</option>
+                        </c:if>
                     </c:forEach>
                 </c:if>
     </select>
@@ -41,7 +44,8 @@
 <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 20px">
     <c:if test="${paginationListMaterials != null}">
         <c:forEach var="meal" items="${paginationListMaterials}">
-            <div class="col" style="display: flex; justify-content: center">
+            <c:if test="${meal.status != 2}">
+                 <div class="col" style="display: flex; justify-content: center">
             <div class="card" style="width: 250px">
                 <div style="padding: 10px; height: 200px">
                     <img style="height: 100%; object-fit: cover; border-radius: 5px" src="
@@ -56,11 +60,29 @@
                          " class="card-img-top" alt="image-material">
                 </div>
                 <div class="card-body">
-                <h5 class="card-title" style="color: #1DC071; font-weight: bold; font-size: 13px">${meal.mateName}</h5>
-              <p style="margin: 0; font-size: 12px; font-weight: bold">Price: <a style="">${meal.price}đ</a></p>
-              <p style="margin: 0; font-size: 12px; font-weight: bold">Package: <a style="">${meal.packagingSpec}</a></p>
-              <p style="margin: 0; font-size: 12px; font-weight: bold">Stock: <a style="">${meal.stock}</a></p>
-              <p class="card-text" style="font-size: 10px; height: 30px; overflow: hidden">${meal.mateDesc}</p>
+                    <div style="display: flex; justify-content: space-between">
+                        <h5 class="card-title" style=" font-weight: bold; font-size: 13px">${meal.mateName}</h5>
+                        <c:if test="${meal.stock < 100}">
+                                <span style="height: 22px" class="badge rounded-pill bg-warning text-dark">Stock: ${meal.stock}</span>
+                            </c:if>
+                            <c:if test="${meal.stock >= 100}">
+                                <span style="height: 22px" class="badge rounded-pill bg-success"> Stock: ${meal.stock}</span>
+                            </c:if>
+                    </div>
+                
+                          <div style="display: flex; gap: 10px">
+                        <c:if test="${meal.status == 1}">
+                                <span style="height: 22px" class="badge rounded-pill bg-secondary">Available</span>
+                            </c:if>
+                        <c:if test="${meal.status == 3}">
+                                <span style="height: 22px" class="badge rounded-pill bg-warning">Not available</span>
+                        </c:if>
+                        <p style="margin: 0; font-size: 12px; font-weight: bold"><a style="color: #1DC071; font-size: 18px"><fmt:formatNumber value="${meal.price}" pattern="#,###" />đ</a></p>
+                    </div>
+                  
+              <p style="margin: 0; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" >Package: <a style="">${meal.packagingSpec}</a></p>
+              <!--<p style="margin: 0; font-size: 12px; font-weight: bold">Stock: <a style="">${meal.stock}</a></p>-->
+              <p class="card-text" style="font-size: 10px; height: 30px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${meal.mateDesc}</p>
               <div style="display: flex; justify-content: center; gap: 15px">
                 <a style="background-color: #4ACD8D; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="add-to-cart?kind=material&mateID=${meal.mateSku}">Add to card</a>
                 <a style="background-color: #A992FE; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="#">More</a>
@@ -69,6 +91,8 @@
             </div>
             </div>
         </div>
+            </c:if>
+           
         </c:forEach>
     </c:if>
     <c:if test="${paginationListMaterials == null}">

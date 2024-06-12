@@ -12,6 +12,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import utils.MyLibs;
 
 /**
@@ -24,13 +26,16 @@ public class AccountDao {
 	Account account = null;
 	String sql = "SELECT [accID]\n" + "      ,[firstname]\n" + "      ,[lastname]\n" + "      ,[birthday]\n"
 		+ "      ,[email]\n" + "      ,[phone]\n" + "      ,[avatar]\n" + "      ,[statusID]\n"
-		+ "      ,[createdDate]\n" + "  FROM [dbo].[Account]\n" + "  WHERE [accID] = ?";
+		+ "      ,[createdDate]\n" + "  FROM [dbo].[Account]\n";
 	Connection cn = null;
+	if (accID != null) {
+	    sql += "  WHERE [accID] = " + "'" + accID + "'";
+	}
 	try {
 	    cn = MyLibs.makeConnection();
 	    if (cn != null) {
 		PreparedStatement st = cn.prepareStatement(sql);
-		st.setString(1, accID);
+
 		ResultSet rs = st.executeQuery();
 		if (rs != null) {
 		    while (rs.next()) {
@@ -53,6 +58,48 @@ public class AccountDao {
 	    }
 	}
 	return account;
+    }
+
+    public List<Account> getAllAccount(String accID) {
+	List<Account> listAccount = null;
+	String sql = "SELECT [accID]\n" + "      ,[firstname]\n" + "      ,[lastname]\n" + "      ,[birthday]\n"
+		+ "      ,[email]\n" + "      ,[phone]\n" + "      ,[avatar]\n" + "      ,[statusID]\n"
+		+ "      ,[createdDate]\n" + "  FROM [dbo].[Account]\n";
+	Connection cn = null;
+	sql += " WHERE 1 > 0";
+	if (accID != null) {
+	    sql += "  AND [accID] = " + "'" + accID + "'";
+	}
+	sql += "ORDER BY statusID ASC";
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+
+		ResultSet rs = st.executeQuery();
+		if (rs != null) {
+		    listAccount = new ArrayList<>();
+		    while (rs.next()) {
+			Account account = new Account(rs.getString("accID"), rs.getString("firstname"),
+				rs.getString("lastname"), rs.getDate("birthday"), rs.getString("email"),
+				rs.getString("phone"), rs.getString("avatar"), rs.getInt("statusID"),
+				rs.getDate("createdDate"));
+			listAccount.add(account);
+		    }
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return listAccount;
     }
 
     public Account getAccountByEmail(String email) {
@@ -216,6 +263,31 @@ public class AccountDao {
 	    cn = MyLibs.makeConnection();
 	    PreparedStatement st = cn.prepareStatement(sql);
 	    st.setString(1, avatar);
+	    st.setString(2, accID);
+	    rs = st.executeUpdate();
+
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return rs;
+    }
+
+    public int updateStatus(String accID, int status) {
+	int rs = 0;
+	String sql = "UPDATE [dbo].[Account]\n" + "   SET [statusID] = ?\n" + " WHERE [accID] = ?";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    PreparedStatement st = cn.prepareStatement(sql);
+	    st.setInt(1, status);
 	    st.setString(2, accID);
 	    rs = st.executeUpdate();
 

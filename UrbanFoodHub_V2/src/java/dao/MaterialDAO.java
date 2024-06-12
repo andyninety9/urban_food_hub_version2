@@ -300,4 +300,27 @@ public class MaterialDAO {
 	return list;
     }
 
+    public int updateStockMaterial(String mateID, double newStock) {
+	int rs = 0;
+	String sql = "UPDATE [dbo].[Material]\n" + "   SET [Stock] = ?\n" + " WHERE [MateSKU] = ?";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    PreparedStatement st = cn.prepareStatement(sql);
+	    st.setDouble(1, newStock);
+	    st.setString(2, mateID);
+	    rs = st.executeUpdate();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return rs;
+    }
 }

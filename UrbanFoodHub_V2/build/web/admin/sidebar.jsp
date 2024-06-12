@@ -19,20 +19,20 @@
             </c:if>
         </div>
         <div class="navbar-nav w-100">
-            <a href="dashboard" class="nav-item nav-link active"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
+            <a href="dashboard" class="nav-item nav-link ${requestScope.currentPage == 'dashboard' ? 'active' : ''}"><i class="fa fa-tachometer-alt me-2"></i>Dashboard</a>
             <div class="nav-item dropdown">
-                <a href="" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><i class="fa-solid fa-mortar-pestle me-2"></i>Products</a>
+                <a href="" class="nav-link dropdown-toggle ${requestScope.currentPage == 'manage-products' ? 'active' : ''}" data-bs-toggle="dropdown"><i class="fa-solid fa-mortar-pestle me-2"></i>Products</a>
                 <div class="dropdown-menu bg-transparent border-0">
                     <!--<a href="manage-category-material" class="dropdown-item"><i class="fa-solid fa-layer-group me-2"></i>View all categories</a>-->
                     <a style="padding: 5px 10px; text-align: center" href="manage-products" class="dropdown-item"><i class="fa-solid fa-list me-2"></i>View all products</a>
                 </div>
             </div>
             
-            <a href="manage-foods?action=all" class="nav-item nav-link"><i class="fa-solid fa-utensils me-2"></i>Manage Foods</a>
-            <a href="#" class="nav-item nav-link"><i class="fa fa-th me-2"></i>Manage Plans</a>
-            <a href="#" class="nav-item nav-link"><i class="fa-solid fa-cart-shopping me-2"></i>Manage Order</a>
+            <a href="manage-foods?action=all" class="nav-item nav-link ${requestScope.currentPage == 'manage-foods' ? 'active' : ''}"><i class="fa-solid fa-utensils me-2"></i>Manage Foods</a>
+            <a href="#" class="nav-item nav-link ${requestScope.currentPage == 'manage-plans' ? 'active' : ''}"><i class="fa fa-th me-2"></i>Manage Plans</a>
+            <a href="admin-router?action=manage-order" class="nav-item nav-link ${requestScope.currentPage == 'manage-order' ? 'active' : ''}"><i class="fa-solid fa-cart-shopping me-2"></i>Manage Order</a>
+            <a href="admin-router?action=manage-user" class="nav-item nav-link ${requestScope.currentPage == 'manage-user' ? 'active' : ''}"><i class="fa-solid fa-users me-2"></i>Users</a>
             <a href="#" class="nav-item nav-link"><i class="fa-solid fa-truck me-2"></i>Manage Delivery</a>
-            <a href="#" class="nav-item nav-link"><i class="fa-solid fa-users me-2"></i>Users</a>
         </div>
     </nav>
 </div>

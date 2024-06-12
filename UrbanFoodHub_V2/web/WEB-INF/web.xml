@@ -26,6 +26,9 @@
         <url-pattern>/personal-plan</url-pattern>
         <url-pattern>/add-to-cart</url-pattern>
         <url-pattern>/add-personal-plan</url-pattern>
+        <url-pattern>/edit-cart</url-pattern>
+        <url-pattern>/home?action=view-cart</url-pattern>
+        <url-pattern>/check-out</url-pattern>
     </filter-mapping>
     <filter-mapping>
         <filter-name>RoleFilter</filter-name>
@@ -38,6 +41,8 @@
         <url-pattern>/add-new-meal</url-pattern>
         <url-pattern>/update-meal</url-pattern>
         <url-pattern>/manage-instruction</url-pattern>
+        <url-pattern>/admin-router</url-pattern>
+        <url-pattern>/manage-user</url-pattern>
     </filter-mapping>
     <servlet>
         <servlet-name>HomepageServlet</servlet-name>
@@ -179,6 +184,30 @@
         <servlet-name>EditPersonalPlanServlet</servlet-name>
         <servlet-class>controller.add_personal.EditPersonalPlanServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>updateStatusAddressServlet</servlet-name>
+        <servlet-class>controller.address.updateStatusAddressServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditCartServlet</servlet-name>
+        <servlet-class>controller.add_to_cart.EditCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <servlet-class>controller.checkout.CheckoutServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageOrderServlet</servlet-name>
+        <servlet-class>controller.orders.ManageOrderServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminRouterServlet</servlet-name>
+        <servlet-class>controller.admin_router.AdminRouterServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <servlet-class>controller.user.ManageUserServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>HomepageServlet</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -318,6 +347,30 @@
     <servlet-mapping>
         <servlet-name>EditPersonalPlanServlet</servlet-name>
         <url-pattern>/update-personal-plan</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateStatusAddressServlet</servlet-name>
+        <url-pattern>/update-status-address</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditCartServlet</servlet-name>
+        <url-pattern>/edit-cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CheckoutServlet</servlet-name>
+        <url-pattern>/check-out</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageOrderServlet</servlet-name>
+        <url-pattern>/manage-order</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminRouterServlet</servlet-name>
+        <url-pattern>/admin-router</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageUserServlet</servlet-name>
+        <url-pattern>/manage-user</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

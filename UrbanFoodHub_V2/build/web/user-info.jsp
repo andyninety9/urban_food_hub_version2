@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="./css/homepage-stylesheet.css"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        
 
     </head>
     <body>
@@ -37,5 +38,6 @@
             const carousel = document.getElementById('carouselExampleIndicators');
             const carouselInstance = new bootstrap.Carousel(carousel);
         </script>
+        <script src="js/handleUpdatePersonalPlan.js"></script>
     </body>
 </html>

@@ -113,6 +113,7 @@ public class ManageProductsServlet extends HttpServlet {
 	request.setAttribute("sizeMaterial", size);
 	request.setAttribute("allMaterial", listPerPage);
 	request.setAttribute("allCategory", listCategories);
+	request.setAttribute("currentPage", "manage-products");
 	request.getRequestDispatcher("admin/view-all-products.jsp").forward(request, response);
     }
 

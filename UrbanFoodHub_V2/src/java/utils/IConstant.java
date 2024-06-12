@@ -10,9 +10,13 @@ package utils;
  * @author duyma
  */
 public interface IConstant {
+    public static final String DEFAULT_PASSWORD = "88888888";
+
+    public static final int MAX_QUANTITY_ITEM_INCART = 20;
 
     public static final int ITEMS_PER_PAGE = 10;
     public static final int ITEMS_PER_PAGE_FOODS = 12;
+    public static final int ITEMS_PER_PAGE_PLAN = 2;
 
     // Servlet path
     public static String SERVLET_USER_INFO = "user-info";
@@ -25,12 +29,20 @@ public interface IConstant {
     public static String PATH_CHANGE_AVATAR = "change-avatar";
     public static String PATH_USER_INFO = "user-info";
     public static String PATH_CUSTOMIZE = "customize";
+    public static String PATH_CART = "view-cart";
+    public static String PATH_TRACKING_ORDER = "tracking-order";
+    public static String PATH_MANAGE_ORDER = "manage-order";
+    public static String PATH_MANAGE_USER = "manage-user";
 
     // Domain
     public static String URL_MATERIALS = "materials-page/materials-page.jsp";
     public static String URL_MEAL_PLANS = "meal-plan/meal-plan-page.jsp";
     public static String URL_MEAL_FOODS = "foods-page/foods-page.jsp";
+    public static String URL_CART = "cart-page/cart-page.jsp";
+    public static String URL_TRACKING_ORDER = "tracking-order/tracking-order-page.jsp";
     public static String URL_CUSTOMIZE = "customize-plan/customize-plan-page.jsp";
+    public static String URL_MANAGE_ORDER = "manage-order/manage-order-page.jsp";
+    public static String URL_MANAGE_USER = "manage-user/manage-user-page.jsp";
     public static String URL_HOME = "homepage.jsp";
     public static String URL_USER_INFO = "home";
 

@@ -3,8 +3,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <c:set var="user" value="${sessionScope.user}"/>
-        <c:set var="cartMate" value="${sessionScope.cartMate}"/>
-        <c:set var="cartSize" value="${fn:length(cartMate)}" />
+        <c:set var="listCart" value="${sessionScope.listCart}"/>
+        <c:set var="cartSize" value="${fn:length(listCart)}" />
         
 
         <header class="row" style="background-color: #22222C; height: 80px; border-radius: 0">
@@ -61,6 +61,7 @@ Klarna: betaal in 30 dagen</p> </marquee> </div> </div>
                             <div id="hover-option" style="position: absolute; right: 0; transform: translateY(60%); display: none; z-index: 10 ">
                                 <ul style="list-style: none;border: 1px solid #eee; border-radius: 10px; overflow: hidden; padding: 0; margin: 0" class="wrapper-option">
                                     <li style="border: 1px solid #eee; padding: 5px 10px; background-color: white; width: 120px;text-align: center;"><a style="text-decoration: none; font-size: 12px; color: #4B5264; display: inline-block;" href="home?action=user-info">Account info</a></li>
+                                    <li style="border: 1px solid #eee; padding: 5px 10px; background-color: white; width: 120px;text-align: center;"><a style="text-decoration: none; font-size: 12px; color: #4B5264; display: inline-block;" href="home?action=tracking-order">Tracking order</a></li>
                                     <li style="border: 1px solid #eee; padding: 5px 10px; background-color: white; width: 120px;text-align: center;"><a style="text-decoration: none; font-size: 12px; color: #4B5264; display: inline-block;" href="change-password">Change password</a></li>
                                     <li style="border: 1px solid #eee; padding: 5px 10px; background-color: white; width: 120px;text-align: center;"><a style="text-decoration: none; font-size: 12px; color: #4B5264; display: inline-block;" href="update-account">Update account</a></li>
                                     <li style="border: 1px solid #eee; padding: 5px 10px; background-color: white; width: 120px;text-align: center;"><a style="text-decoration: none; font-size: 12px; color: #4B5264; display: inline-block;" href="logout">Log-out</a></li>
@@ -87,7 +88,7 @@ Klarna: betaal in 30 dagen</p> </marquee> </div> </div>
                                       </thead>
                                       <tbody>
                                           <c:set var="total" value="0"/>
-                                          <c:forEach var="entry" items="${cartMate}">
+                                          <c:forEach var="entry" items="${listCart}">
                                               <c:set var="total" value="${total + (entry.key.price * entry.value)}"/>
                                                 <tr>
                                                     <th scope="row">${entry.key.id}</th>
@@ -101,7 +102,7 @@ Klarna: betaal in 30 dagen</p> </marquee> </div> </div>
                                       </tbody>
                                 </table>
                                 <p style="font-size: 10px; color: #4ACD8D">Total: <fmt:formatNumber value="${total}" pattern="#,###" />đ</p>
-                                <a href="#" style="font-size: 10px; width: 100%; border-radius: 10px; background-color: #4ACD8D; color: white; text-decoration: none; display: block; padding: 5px 10px">Go to cart</a>
+                                <a href="home?action=view-cart" style="font-size: 10px; width: 100%; border-radius: 10px; background-color: #4ACD8D; color: white; text-decoration: none; display: block; padding: 5px 10px">View cart</a>
                             </div>
                             </button>
                      </c:if>

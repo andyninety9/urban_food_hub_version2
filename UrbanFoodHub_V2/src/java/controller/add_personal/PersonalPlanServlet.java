@@ -5,8 +5,10 @@
 
 package controller.add_personal;
 
+import dao.MealDAO;
 import dao.PlanDAO;
 import dto.Account;
+import dto.Meal;
 import dto.MealPlan;
 import dto.PlanDetail;
 import java.io.IOException;
@@ -18,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import utils.IConstant;
+import utils.MyLibs;
 
 /**
  *
@@ -74,8 +77,31 @@ public class PersonalPlanServlet extends HttpServlet {
 	if (accID != null) {
 	    PlanDAO planDAO = new PlanDAO();
 	    List<MealPlan> listPersonMealPlans = planDAO.getPersonalPlanByCateID(1, accID);
-
-	    request.setAttribute("listPersonMealPlans", listPersonMealPlans);
+	    List<MealPlan> paginationList = null;
+	    int page = 0;
+	    int size = listPersonMealPlans.size();
+	    String raw_page = request.getParameter("page");
+	    if (raw_page == null) {
+		page = 1;
+	    } else {
+		try {
+		    page = Integer.parseInt(raw_page);
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    page = 1;
+		}
+	    }
+	    int start, end;
+	    start = (page - 1) * IConstant.ITEMS_PER_PAGE_PLAN;
+	    end = Math.min(page * IConstant.ITEMS_PER_PAGE_PLAN, size);
+	    paginationList = MyLibs.pagination(listPersonMealPlans, start, end);
+	    MealDAO mealDAO = new MealDAO();
+	    List<Meal> listMeal = mealDAO.getAllMeal(null);
+//	    System.out.println(listMeal.size());
+	    request.setAttribute("listMeal", listMeal);
+	    request.setAttribute("listPersonMealPlans", paginationList);
+	    request.setAttribute("sizeListFoods", size);
+	    request.setAttribute("checkedPage", page);
 	    request.getRequestDispatcher(IConstant.URL_CUSTOMIZE).forward(request, response);
 	} else {
 	    request.getRequestDispatcher("login").forward(request, response);

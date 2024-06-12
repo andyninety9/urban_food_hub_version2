@@ -91,6 +91,45 @@ public class EditPersonalPlanServlet extends HttpServlet {
 		}
 		break;
 	    }
+	    case "change-meal": {
+		String detailID = request.getParameter("detailID");
+		String mealID = request.getParameter("mealID");
+		PlanDAO planDAO = new PlanDAO();
+		int rs = planDAO.updatePersonalPlanMeal(detailID, mealID);
+		if (rs > 0) {
+		    url = "home?action=customize";
+		} else {
+		    url = "access-denied";
+		}
+		break;
+	    }
+	    case "change-date-meal": {
+		String detailID = request.getParameter("mealPlanID");
+		String raw_date = request.getParameter("newDate");
+		String raw_oldDate = request.getParameter("oldDate");
+		Date newDate = null;
+		Date oldDate = null;
+		try {
+		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		    java.util.Date eDate = dateFormat.parse(raw_date);
+		    java.util.Date sDate = dateFormat.parse(raw_oldDate);
+
+		    // Chuyển đổi đối tượng java.util.Date thành java.sql.Date
+		    newDate = new java.sql.Date(eDate.getTime());
+		    oldDate = new java.sql.Date(sDate.getTime());
+		} catch (ParseException e) {
+		    e.printStackTrace();
+		}
+		PlanDAO planDAO = new PlanDAO();
+		int rs = planDAO.updatePersonalDateMeal(detailID, newDate, oldDate);
+
+		if (rs > 0) {
+		    url = "home?action=customize";
+		} else {
+		    url = "access-denied";
+		}
+		break;
+	    }
 	    default: {
 		url = "home";
 		break;

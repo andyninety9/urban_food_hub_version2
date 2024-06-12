@@ -27,12 +27,11 @@
             <jsp:include page="../header.jsp"/>
             <div class="wrapper-body" style="padding: 10px 0">
                 <jsp:include page="../navbar.jsp"/>
+                <jsp:include page="../carousel-meal-plan.jsp"/>
                 <h1 style="font-weight: bold; margin-top: 20px">Your plans</h1>
                 <div style="height: 10px; width: 10%; background-color: orange"></div>
                 <br/>
-                <jsp:include page="personal-menu.jsp"/>
-                <%--<jsp:include page="list-materials-all.jsp"/>--%>
-               
+                <jsp:include page="personal-menu.jsp"/>              
             </div>
         </div>
                 <jsp:include page="../footer.jsp"/>

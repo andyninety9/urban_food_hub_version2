@@ -1,0 +1,144 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.header{
+    display: flex;
+    justify-content: center;
+    border: 1px solid #eee;
+    padding: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.wrapper__nav{
+    display: flex;
+    list-style:none;
+    margin-bottom: 0;
+}
+
+.wrapper__nav-option{
+    width: 150px;
+    padding: 5px 20px;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    display: block;
+
+}
+
+.wrapper__nav-option:hover{
+    background-color: #CCF1DF;
+    
+}
+
+.wrapper__nav-option-active{
+    border-bottom: 2px solid #4ACD8E;
+    width: 150px;
+    padding: 5px 20px;
+    text-align: center;
+    font-weight: bold; 
+    color: #4ACD8E;
+    text-decoration: none;
+    display: block;    
+}
+
+.order-card{
+    padding: 20px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.order-card:hover{
+    background-color: #F1F1F3;
+}
+
+.top-card{
+    display: flex;
+    justify-content: space-between;
+    
+}
+.status-order{
+    padding: 5px 10px;
+    background-color: gray;
+    color: white;
+    font-size: 14px;
+}
+.btn-view-product{
+    text-decoration: none;
+    padding: 5px 10px;
+    color: #555555;
+    border: 1px solid #eee;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+    background-color: white;
+}
+
+.body-card{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.img{
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+}
+
+.body-content{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.product-name{
+    margin: 0;
+    font-size: 18px;
+    
+    
+}
+.product-type{
+    margin: 0;
+    font-size: 14px;
+    color: #ECECEC;
+}
+.product-quantity{
+    margin: 0;
+}
+.product-price{
+    margin: 0;
+    margin-left: auto;
+    color: #44B17E;
+}
+
+.footer-card{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.total{
+    text-align: right;
+}
+h6{
+    margin: 0;
+}
+.total > p{
+    font-size: 24px;
+    color: #44B17E;
+    display: inline;
+    margin: 0;
+        
+}
+
+.order-date{
+    font-size: 14px
+}
+
+.footer-card-left{
+    display: flex;
+    flex-direction: column;
+    gap: 5px
+}
+

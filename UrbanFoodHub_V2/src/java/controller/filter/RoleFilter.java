@@ -105,13 +105,15 @@ public class RoleFilter implements Filter {
 	if (session.getAttribute("user") == null) {
 	    res.sendRedirect("login");
 	} else {
-	    Cookie[] cookies = req.getCookies();
+//	    Cookie[] cookies = req.getCookies();
+//	    String role = null;
+//	    for (Cookie cookie : cookies) {
+//		if (cookie.getName().equals("role")) {
+//		    role = cookie.getValue();
+//		}
+//	    }
 	    String role = null;
-	    for (Cookie cookie : cookies) {
-		if (cookie.getName().equals("role")) {
-		    role = cookie.getValue();
-		}
-	    }
+	    role = (String) session.getAttribute("role");
 	    switch (role) {
 	    case "1": {
 		String path = req.getContextPath();

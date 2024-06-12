@@ -8,6 +8,9 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="user" value="${sessionScope.user}"/>
 <c:set var="mealWeekPlan" value="${requestScope.listPersonMealPlans}"/>
+<c:set var="sizeListMate" value="${requestScope.sizeListFoods}"/>
+<c:set var="checkedPage" value="${requestScope.checkedPage}"/>
+<c:set var="listMeal" value="${requestScope.listMeal}"/>
 <c:if test="${mealWeekPlan == null}">
     <h6 style="font-weight: bold"><i class="fa-solid fa-calendar-days me-2"></i>Nothing to display</h6>
 </c:if>
@@ -50,7 +53,7 @@
             </form>
         </nav>
         <div style="display: flex; gap: 10px">
-            <a href="#" style="background-color: red; color: white; border: none; padding: 10px 30px" type="button" class="btn btn-secondary">Edit</a>
+            <a href="#" style="background-color: red; color: white; border: none; padding: 10px 30px" type="button" class="btn btn-secondary">Order now</a>
             <a onclick="return confirm('Do you want to delete plan?');" href="update-personal-plan?action=delete&planID=${plan.id}" type="button" class="btn btn-light"><i class="fa-solid fa-trash"></i></a>
         </div>            
        
@@ -70,10 +73,17 @@
                     <c:set var="previousMealDate" value="${mealDate.mealDate}"/>
                     <tr>
                         <td scope="row" style="display: flex; justify-content: center;">
-                            <div style="display: flex; justify-content: center; align-items: center; height: 80px; width: 80px; border-radius: 100%;
+                            <form method="post" action="update-personal-plan" id="dateForm${mealDate.detailID}" style="display: flex; justify-content: center; align-items: center; height: 80px; width: 80px; border-radius: 100%;
                                  background-color: red">
-                                <h4 style="color: white; font-weight: bold; margin: 0; font-size: 12px">${mealDate.mealDate}</h4>
-                            </div>
+                                <input name="mealPlanID" type="hidden" value="${mealDate.mealPlanID}"/>
+                                <input name="action" type="hidden" value="change-date-meal"/>
+                                <input name="oldDate" type="hidden" value="${mealDate.mealDate}"/>
+                                <h4 id="title${mealDate.detailID}" style="color: white; font-weight: bold; margin: 0; font-size: 12px;">${mealDate.mealDate}</h4>
+                                <input name="newDate" onchange="document.getElementById('dateForm${mealDate.detailID}').submit()" id="dateMealInput${mealDate.detailID}" style="border: none; font-size: 10px; outline: none; display: none" type="date" value="${mealDate.mealDate}"/>
+                            </form>
+                            <button style="font-size: 10px; background-color: transparent; border: none" onclick="toggleButton('title${mealDate.detailID}', 'dateMealInput${mealDate.detailID}')" type="button" class="btn btn-light" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="right" data-bs-content="Right popover">
+                                <i class="fa-solid fa-pen"></i>
+                            </button>
                         </td>
                         <c:forEach var="detail" items="${plan.listPlanDetails}">
                             <c:if test="${detail.mealDate == mealDate.mealDate}">
@@ -83,6 +93,47 @@
                                             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                                                 <h6 style="color: #171725; font-weight: bold; margin: 0">${detail.meal.mealName}</h6>
                                                 <span class="badge bg-warning text-dark">${detail.meal.nutritionValue}</span>
+                                                <button 
+                                                    type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#updateMealModal${detail.detailID}">
+                                                    <i class="fa-solid fa-rotate"></i>
+                                                </button>
+                                                <div class="modal fade" id="updateMealModal${detail.detailID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Change your breakfast</h1>
+                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-hover" style="font-size: 10px">
+                                                            <thead>
+                                                              <tr>
+                                                                <th scope="col">#ID</th>
+                                                                <th scope="col">Meal</th>
+                                                                <th scope="col">Calories</th>
+                                                                <th scope="col">Action</th>
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <c:forEach var="mate" items="${listMeal}">
+                                                                    <tr>
+                                                                        <th scope="row">${mate.id}</th>
+                                                                        <td>${mate.name}</td>
+                                                                        <td>${mate.nutritionValue}</td>
+                                                                        <td><a href="update-personal-plan?action=change-meal&mealID=${mate.id}&detailID=${detail.detailID}"><i class="fa-solid fa-plus"></i></a></td>
+                                                                    </tr>
+                                                                </c:forEach>
+                                                              
+                                                            </tbody>
+                                                          </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                          <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
                                             </div>
                                         </td>
                                     </c:when>
@@ -91,6 +142,47 @@
                                             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                                                 <h6 style="color: #171725; font-weight: bold; margin: 0">${detail.meal.mealName}</h6>
                                                 <span class="badge bg-warning text-dark">550 Kcal</span>
+                                                <button 
+                                                    type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#updateMealLunchModal${detail.detailID}">
+                                                    <i class="fa-solid fa-rotate"></i>
+                                                </button>
+                                                <div class="modal fade" id="updateMealLunchModal${detail.detailID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Change your lunch</h1>
+                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-hover" style="font-size: 10px">
+                                                            <thead>
+                                                              <tr>
+                                                                <th scope="col">#ID</th>
+                                                                <th scope="col">Meal</th>
+                                                                <th scope="col">Calories</th>
+                                                                <th scope="col">Action</th>
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <c:forEach var="mate" items="${listMeal}">
+                                                                    <tr>
+                                                                        <th scope="row">${mate.id}</th>
+                                                                        <td>${mate.name}</td>
+                                                                        <td>${mate.nutritionValue}</td>
+                                                                        <td><a href="update-personal-plan?action=change-meal&mealID=${mate.id}&detailID=${detail.detailID}"><i class="fa-solid fa-plus"></i></a></td>
+                                                                    </tr>
+                                                                </c:forEach>
+                                                              
+                                                            </tbody>
+                                                          </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                          <!--<button type="button" class="btn btn-primary">Save changes</button>-->
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
                                             </div>
                                         </td>
                                     </c:when>
@@ -99,6 +191,47 @@
                                             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                                                 <h6 style="color: #171725; font-weight: bold; margin: 0">${detail.meal.mealName}</h6>
                                                 <span class="badge bg-warning text-dark">550 Kcal</span>
+                                                <button 
+                                                    type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#updateMealDinnerModal${detail.detailID}">
+                                                    <i class="fa-solid fa-rotate"></i>
+                                                </button>
+                                                <div class="modal fade" id="updateMealDinnerModal${detail.detailID}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                    <div class="modal-dialog">
+                                                      <div class="modal-content">
+                                                        <div class="modal-header">
+                                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Change your dinner</h1>
+                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <table class="table table-hover" style="font-size: 10px">
+                                                            <thead>
+                                                              <tr>
+                                                                <th scope="col">#ID</th>
+                                                                <th scope="col">Meal</th>
+                                                                <th scope="col">Calories</th>
+                                                                <th scope="col">Action</th>
+                                                              </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <c:forEach var="mate" items="${listMeal}">
+                                                                    <tr>
+                                                                        <th scope="row">${mate.id}</th>
+                                                                        <td>${mate.name}</td>
+                                                                        <td>${mate.nutritionValue}</td>
+                                                                        <td><a href="update-personal-plan?action=change-meal&mealID=${mate.id}&detailID=${detail.detailID}"><i class="fa-solid fa-plus"></i></a></td>
+                                                                    </tr>
+                                                                </c:forEach>
+                                                              
+                                                            </tbody>
+                                                          </table>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        
+                                                        </div>
+                                                      </div>
+                                                    </div>
+                                                  </div>
                                             </div>
                                         </td>
                                     </c:when>
@@ -111,3 +244,18 @@
         </tbody>
     </table>
 </c:forEach>
+<ul id="pagination" class="pagination justify-content-center pagination-sm" style="padding: 0; margin: 0">
+    <li class="page-item ${checkedPage == 1 ? 'disabled' : ''}">
+      <a style="color: #808191" class="page-link" href="home?action=customize&page=${checkedPage - 1}&cateID=${selectedCate}" tabindex="-1" aria-disabled="true">Previous</a>
+    </li>
+    <c:forEach begin="${1}" end="${((sizeListMate % 2) == 0) ? (sizeListMate / 2) : ((sizeListMate / 2) + 1) }" var="i">
+
+        <li  class="page-item ${i == checkedPage ? 'active' : ''}"><a 
+
+                class="page-link" href="home?action=customize&page=${i}&cateID=${selectedCate}">${i}</a></li>
+    </c:forEach>
+    <li class="page-item ${checkedPage == (((sizeListMate % 2) == 0) ? (sizeListMate / 2) : ((sizeListMate / 2) + 1)) ? 'disabled' : ''}">
+      <a style="color: #808191" class="page-link" href="home?action=customize&page=${checkedPage + 1}&cateID=${selectedCate}">Next</a>
+    </li>
+</ul>            
+

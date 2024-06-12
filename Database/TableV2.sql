@@ -234,3 +234,134 @@ CREATE TABLE PersonalPlanDetail(
 	CONSTRAINT FK_MealPlanDetail_PersonalMealTimes FOREIGN KEY (mealTimeID) REFERENCES PersonalMealTimes(id)
 )
 
+CREATE TABLE [dbo].[StatusAddress](
+	[statusID] [int] NOT NULL,
+	[statusName] [nvarchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[statusID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+CREATE TABLE [dbo].[AddressDelivery](
+	[addressID] [varchar](255) NOT NULL,
+	[addressDetail] [nvarchar](255) NULL,
+	[accID] [varchar](255) NULL,
+	[statusID] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[addressID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[AddressDelivery]  WITH CHECK ADD  CONSTRAINT [FK_AddressDelivery_Account] FOREIGN KEY([accID])
+REFERENCES [dbo].[Account] ([accID])
+GO
+
+ALTER TABLE [dbo].[AddressDelivery] CHECK CONSTRAINT [FK_AddressDelivery_Account]
+GO
+
+ALTER TABLE [dbo].[AddressDelivery]  WITH CHECK ADD  CONSTRAINT [FK_AddressDelivery_StatusAddress] FOREIGN KEY([statusID])
+REFERENCES [dbo].[StatusAddress] ([statusID])
+GO
+
+ALTER TABLE [dbo].[AddressDelivery] CHECK CONSTRAINT [FK_AddressDelivery_StatusAddress]
+GO
+
+
+CREATE TABLE [dbo].[OrderStatus](
+	[statusID] [int] NOT NULL,
+	[statusName] [nvarchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[statusID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY],
+UNIQUE NONCLUSTERED 
+(
+	[statusName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+INSERT INTO OrderStatus(statusID, statusName) VALUES(1, 'Pending')
+INSERT INTO OrderStatus(statusID, statusName) VALUES(2, 'Processing')
+INSERT INTO OrderStatus(statusID, statusName) VALUES(3, 'Shiping')
+INSERT INTO OrderStatus(statusID, statusName) VALUES(4, 'Delivered')
+INSERT INTO OrderStatus(statusID, statusName) VALUES(5, 'Canceled')
+
+CREATE TABLE [dbo].[Order](
+	[orderID] [varchar](255) NOT NULL,
+	[accID] [varchar](255) NULL,
+	[orderDate] [date] NULL,
+	[statusID] [int] NULL,
+	[deliveryAddID] [varchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[orderID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_Account] FOREIGN KEY([accID])
+REFERENCES [dbo].[Account] ([accID])
+GO
+
+ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_Account]
+GO
+
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_AddressDelivery] FOREIGN KEY([deliveryAddID])
+REFERENCES [dbo].[AddressDelivery] ([addressID])
+GO
+
+ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_AddressDelivery]
+GO
+
+ALTER TABLE [dbo].[Order]  WITH CHECK ADD  CONSTRAINT [FK_Order_OrderStatus] FOREIGN KEY([statusID])
+REFERENCES [dbo].[OrderStatus] ([statusID])
+GO
+
+ALTER TABLE [dbo].[Order] CHECK CONSTRAINT [FK_Order_OrderStatus]
+GO
+
+CREATE TABLE [dbo].[ProductType](
+	[typeID] [int] NOT NULL,
+	[typeName] [nvarchar](255) NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[typeID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+
+
+CREATE TABLE [dbo].[OrderDetail](
+	[oDetailID] [varchar](255) NOT NULL,
+	[orderID] [varchar](255) NULL,
+	[productID] [varchar](255) NULL,
+	[quantity] [int] NULL,
+	[unitPrice] [decimal](10, 2) NULL,
+	[typeID] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[oDetailID] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_Order] FOREIGN KEY([orderID])
+REFERENCES [dbo].[Order] ([orderID])
+GO
+
+ALTER TABLE [dbo].[OrderDetail] CHECK CONSTRAINT [FK_OrderDetail_Order]
+GO
+
+ALTER TABLE [dbo].[OrderDetail]  WITH CHECK ADD  CONSTRAINT [FK_OrderDetail_ProductType] FOREIGN KEY([typeID])
+REFERENCES [dbo].[ProductType] ([typeID])
+GO
+
+ALTER TABLE [dbo].[OrderDetail] CHECK CONSTRAINT [FK_OrderDetail_ProductType]
+GO
+
