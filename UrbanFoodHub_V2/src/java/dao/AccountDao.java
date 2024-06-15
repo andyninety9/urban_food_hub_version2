@@ -70,7 +70,7 @@ public class AccountDao {
 	if (accID != null) {
 	    sql += "  AND [accID] = " + "'" + accID + "'";
 	}
-	sql += "ORDER BY statusID ASC";
+	sql += "ORDER BY statusID ASC, createdDate DESC";
 	try {
 	    cn = MyLibs.makeConnection();
 	    if (cn != null) {
@@ -303,5 +303,82 @@ public class AccountDao {
 	    }
 	}
 	return rs;
+    }
+
+    public List<Account> searchAccounts(String keyword, String optionSearch) {
+	List<Account> listAccounts = null;
+	String sql = "SELECT Account.accID, firstname, lastname, birthday, email, phone, statusID, createdDate,\n"
+		+ "avatar\n" + "FROM [User] INNER JOIN Account ON [User].accID = Account.accID ";
+	switch (optionSearch) {
+	case "0": {
+	    sql += "WHERE Account.accID COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' "
+		    + "   OR firstname COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' "
+		    + "   OR lastname COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' "
+		    + "   OR username COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' "
+		    + "   OR phone COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' "
+		    + "   OR email COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%'";
+	    break;
+	}
+	case "1": {
+	    sql += "WHERE Account.accID COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' ";
+	    break;
+	}
+	case "2": {
+	    sql += "WHERE firstname COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' "
+		    + "   OR lastname COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' ";
+	    break;
+	}
+	case "3": {
+	    sql += "WHERE username COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' ";
+	    break;
+	}
+	case "4": {
+	    sql += "WHERE phone COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' ";
+	    break;
+	}
+	case "5": {
+	    sql += "WHERE email COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%'";
+	    break;
+	}
+	default: {
+	    break;
+	}
+	}
+	sql += " ORDER BY statusID ASC, createdDate DESC";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    PreparedStatement st = cn.prepareStatement(sql);
+	    if (!optionSearch.equals("0")) {
+		st.setString(1, keyword);
+	    } else {
+		for (int i = 1; i <= 6; i++) {
+		    st.setString(i, keyword);
+		}
+	    }
+	    ResultSet rs = st.executeQuery();
+	    if (rs != null) {
+		listAccounts = new ArrayList<>();
+		while (rs.next()) {
+		    Account account = new Account(rs.getString("accID"), rs.getString("firstname"),
+			    rs.getString("lastname"), rs.getDate("birthday"), rs.getString("email"),
+			    rs.getString("phone"), rs.getString("avatar"), rs.getInt("statusID"),
+			    rs.getDate("createdDate"));
+		    listAccounts.add(account);
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+
+	return listAccounts;
     }
 }

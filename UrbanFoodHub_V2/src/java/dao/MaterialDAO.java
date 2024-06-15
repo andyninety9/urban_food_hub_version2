@@ -61,6 +61,50 @@ public class MaterialDAO {
 	return list;
     }
 
+    public List<Material> getTop10RecommendMaterial(String cateName) {
+	List<Material> list = null;
+	String sql = "SELECT TOP 10 [MateSKU], [CateName], [MateName], [MateDesc], [Price], "
+		+ "[PackagingSpec], [Stock], [CreatedDate], [MateImg], [MateStatus] "
+		+ "FROM [Material] INNER JOIN CategoryMaterial ON Material.CateID = CategoryMaterial.CateID";
+	if (cateName != null && !cateName.equals("all")) {
+	    sql += " WHERE CategoryMaterial.CateName COLLATE SQL_Latin1_General_CP1_CI_AI LIKE ?";
+	}
+	sql += " ORDER BY [MateStatus] ASC, [MateName] ASC, [CreatedDate] DESC";
+
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		if (cateName != null && !cateName.equals("all")) {
+		    st.setString(1, "%" + cateName + "%");
+		}
+		ResultSet rs = st.executeQuery();
+		if (rs != null) {
+		    list = new ArrayList<>();
+		    while (rs.next()) {
+			Material m = new Material(rs.getString("MateSKU"), rs.getString("CateName"),
+				rs.getString("MateName"), rs.getString("MateDesc"), rs.getDouble("Price"),
+				rs.getString("PackagingSpec"), rs.getDouble("Stock"), rs.getDate("CreatedDate"),
+				rs.getString("MateImg"), rs.getInt("MateStatus"));
+			list.add(m);
+		    }
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return list;
+    }
+
     public List<Material> getTop10Material() {
 	List<Material> list = null;
 	String sql = "SELECT TOP 10 [MateSKU]\n" + "      ,[CateName]\n" + "      ,[MateName]\n" + "      ,[MateDesc]\n"

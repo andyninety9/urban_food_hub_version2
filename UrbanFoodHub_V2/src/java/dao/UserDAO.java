@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import utils.MyLibs;
 
 /**
@@ -48,6 +50,39 @@ public class UserDAO {
 	    }
 	}
 	return user;
+    }
+
+    public List<User> getAllUser() {
+	String sql = "SELECT [accID]\n" + "      ,[username]\n" + "      ,[password]\n" + "      ,[roleID]\n"
+		+ "  FROM [dbo].[User]\n";
+	List<User> listUser = null;
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		ResultSet rs = st.executeQuery();
+		if (rs != null) {
+		    listUser = new ArrayList<>();
+		    while (rs.next()) {
+			User user = new User(rs.getString("accID"), rs.getString("username"), rs.getString("password"),
+				rs.getInt("roleID"));
+			listUser.add(user);
+		    }
+		}
+	    }
+	} catch (Exception e) {
+	    System.out.println(">>" + e.getMessage());
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		System.out.println(">>" + e.getMessage());
+	    }
+	}
+	return listUser;
     }
 
     public User getUserByUsername(String username) {

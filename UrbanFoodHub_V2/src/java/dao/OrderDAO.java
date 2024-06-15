@@ -444,4 +444,32 @@ public class OrderDAO {
 	}
 	return result;
     }
+
+    public int countProductSoldByID(String productID) {
+	int result = 0;
+	String sql = "SELECT COUNT(*) AS ProductCount\n" + "FROM OrderDetail\n" + "WHERE productID = ?";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    PreparedStatement st = cn.prepareStatement(sql);
+	    st.setString(1, productID);
+	    ResultSet rs = st.executeQuery();
+	    if (rs != null) {
+		if (rs.next()) {
+		    result = rs.getInt("ProductCount");
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return result;
+    }
 }

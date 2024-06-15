@@ -1,11 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="paginationListMaterials" value="${requestScope.paginationListMaterials}"/>
 <c:set var="allCategory" value="${requestScope.lisCateMaterial}"/>
 <c:set var="selectedCate" value="${requestScope.selectedCate}"/>
 <c:set var="sizeListMate" value="${requestScope.sizeListMate}"/>
 <c:set var="checkedPage" value="${requestScope.checkedPage}"/>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; ">
 <h1 style="">INGREDIENTS</h1>
 <div style="height: 10px; width: 5%;background-color: #4acd8e"></div>
@@ -84,8 +85,8 @@
               <!--<p style="margin: 0; font-size: 12px; font-weight: bold">Stock: <a style="">${meal.stock}</a></p>-->
               <p class="card-text" style="font-size: 10px; height: 30px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${meal.mateDesc}</p>
               <div style="display: flex; justify-content: center; gap: 15px">
-                <a style="background-color: #4ACD8D; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="add-to-cart?kind=material&mateID=${meal.mateSku}">Add to card</a>
-                <a style="background-color: #A992FE; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="#">More</a>
+                <a style="background-color: #4ACD8D; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="add-to-cart?kind=material&productID=${meal.mateSku}">Add to card</a>
+                <a style="background-color: #A992FE; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="home?action=view-material&mateID=${meal.mateSku}">View</a>
               </div>
               
             </div>

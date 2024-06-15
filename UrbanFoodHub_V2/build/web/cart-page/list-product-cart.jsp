@@ -129,7 +129,7 @@
                 </tr>
             </tbody>
         </table>
-        <form action="check-out" id="addressDelevery" style="width: 30%; border: 1px solid #eee; display: none; padding: 20px; border-radius: 10px; display: flex; flex-direction: column; align-items: center;gap: 10px">
+        <form action="check-out" id="addressDelevery" style="width: 100%; border: 1px solid #eee; display: none; padding: 20px; border-radius: 10px; flex-direction: column; align-items: center;gap: 10px; justify-content: center">
             <h4 style="text-align: center; font-weight: bold">Delivery Information</h4>
             <input type="hidden" name="action" value="check-out"/>
             <div class="input-group mb-3" style="font-size: 14px">
@@ -140,18 +140,18 @@
                 <span class="input-group-text" id="basic-addon1">Phone</span>
                 <input value="${user.phone}" type="text" disabled="" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
             </div>
-<!--            <button data-bs-toggle="modal" data-bs-target="#staticBackdrop" style="font-size: 10px; background-color: transparent; border: none; color: #4ACD8E; margin-bottom: 10px" type="button" class="btn btn-secondary" data-bs-toggle="tooltip" data-bs-placement="top" title="Open address book">
-                <i class="fa-solid fa-book me-2"></i>Get from address book
-            </button>-->
-            <div class="input-group">
-                <span class="input-group-text">Address</span>
-                <select required="" name="addressID" style="outline: none;">
+            <div class="input-group" style="display: flex; align-items: center; justify-content: center; gap: 5px">
+                <select class="form-select" required="" name="addressID" style="outline: none;">
                     <option selected="">Choose address</option>
                     <c:forEach var="address" items="${listAddresses}" >
-                        <option value="${address.addressID}">${address.detail}</option>
+                        <c:if test="${address.statusID == 1}">
+                            <option value="${address.addressID}">${address.detail}</option>
+                        </c:if>     
                     </c:forEach>
                 </select>
+                <a style="font-size: 13px" href="home?action=user-info" class="link-info">Add address</a>
             </div>
+            
 <button type="submit" class="btn btn-outline-warning">Checkout</button>
         </form>
     </div>
@@ -160,7 +160,7 @@
                 function handleOpen(btn){
                     const button = document.getElementById(btn);
                     if(button.style.display === 'none'){
-                        button.style.display = '';
+                        button.style.display = 'flex';
                     }else{
                         button.style.display = 'none';
                     }

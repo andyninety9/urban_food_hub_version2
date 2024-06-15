@@ -55,8 +55,9 @@
             <p class="col-md-3">Action</p>
         </div>
         <div class="body-list">
+            
             <c:forEach var="order" items="${listOrder}">
-
+            <c:set var="total" value="0"/>
             <div class="order-detail">
                 <div class="header-detail">
                     <div class="buyer-info">
@@ -78,9 +79,9 @@
                     
                     <div class="product-info col-md-3">
                         <div style="display: flex; flex-direction: column; gap: 5px;">
-                        <c:set var="total" value="0"/>
+                        
                         <c:forEach var="detail" items="${order.listDetails}">
-                        <c:set var="total" value="${total + detail.unitPrice}"/>
+                        <c:set var="total" value="${total + detail.unitPrice * detail.quantity}"/>
                             <c:choose>
                                 <c:when test="${empty detail.product.image}">
                                     <c:set var="imagePath" value="./images/mate1.jpg"/>

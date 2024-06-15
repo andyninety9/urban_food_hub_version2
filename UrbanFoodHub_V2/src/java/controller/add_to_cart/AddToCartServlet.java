@@ -9,10 +9,11 @@ import dao.MaterialDAO;
 import dao.MealDAO;
 import dto.Material;
 import dto.Meal;
+import dto.MealDetail;
 import dto.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,59 +45,129 @@ public class AddToCartServlet extends HttpServlet {
 	HashMap<Product, Integer> listCart = (HashMap<Product, Integer>) session.getAttribute("listCart");
 	switch (kindOfProduct) {
 	case "material": {
-	    String mateID = request.getParameter("mateID");
+	    String mateID = request.getParameter("productID");
+	    String quantityAdd = request.getParameter("quantity");
+	    int addMore = 1;
+	    if (quantityAdd != null) {
+		try {
+		    addMore = Integer.parseInt(quantityAdd);
+		} catch (NumberFormatException e) {
+		    addMore = 1;
+		}
+
+	    }
 	    MaterialDAO materialDAO = new MaterialDAO();
 	    Product m = new Material();
 	    m = materialDAO.getMaterialByID(mateID);
 	    if (listCart == null) {
 		listCart = new HashMap<>();
-		listCart.put(m, 1);
+		listCart.put(m, addMore);
 	    } else {
 		boolean isExist = false;
 		for (Product mate : listCart.keySet()) {
 		    if (mate.getId().equals(mateID)) {
 			int quantity = listCart.get(mate);
-			quantity++;
+			quantity += addMore;
 			listCart.put(mate, quantity);
 			isExist = true;
 		    }
 		}
 		if (isExist == false) {
-		    listCart.put(m, 1);
+		    listCart.put(m, addMore);
 		}
 	    }
 	    session.setAttribute("listCart", listCart);
 	    request.getRequestDispatcher("home?action=materials").forward(request, response);
 	    break;
 	}
-	case "foods": {
-	    String mealID = request.getParameter("mealID");
-	    MealDAO mealDAO = new MealDAO();
-	    Product meal = new Meal();
-	    meal = mealDAO.getMealByID(mealID);
-	    if (listCart == null) {
-		listCart = new HashMap<>();
-		listCart.put(meal, 1);
-	    } else {
-		boolean isExist = false;
-		for (Product entryMeal : listCart.keySet()) {
-		    if (entryMeal.getId().equals(mealID)) {
-			int quantity = listCart.get(entryMeal);
-			quantity++;
-			listCart.put(entryMeal, quantity);
-			isExist = true;
+	case "food": {
+	    String url = "home?action=foods";
+	    String mealID = request.getParameter("productID");
+	    String quantityAdd = request.getParameter("quantity");
+	    String orderType = request.getParameter("orderType");
+	    if (orderType == null) {
+		orderType = "1";
+	    }
+	    if (orderType.equals("1")) {
+		int addMore = 1;
+		if (quantityAdd != null) {
+		    try {
+			addMore = Integer.parseInt(quantityAdd);
+		    } catch (NumberFormatException e) {
+			addMore = 1;
+		    }
+
+		}
+
+		MealDAO mealDAO = new MealDAO();
+		Product meal = new Meal();
+		meal = mealDAO.getMealByID(mealID);
+		if (listCart == null) {
+		    listCart = new HashMap<>();
+		    listCart.put(meal, addMore);
+		} else {
+		    boolean isExist = false;
+		    for (Product entryMeal : listCart.keySet()) {
+			if (entryMeal.getId().equals(mealID)) {
+			    int quantity = listCart.get(entryMeal);
+			    quantity += addMore;
+			    listCart.put(entryMeal, quantity);
+			    isExist = true;
+			}
+		    }
+		    if (isExist == false) {
+			listCart.put(meal, addMore);
 		    }
 		}
-		if (isExist == false) {
-		    listCart.put(meal, 1);
+	    } else {
+		MealDAO mealDAO = new MealDAO();
+		List<MealDetail> mealDetails = mealDAO.getMealDetailsById(mealID);
+		if (!mealDetails.isEmpty()) {
+//		    System.out.println(mealDetails.size());
+		    int addMore = 1;
+		    if (quantityAdd != null) {
+			try {
+			    addMore = Integer.parseInt(quantityAdd);
+			} catch (NumberFormatException e) {
+			    addMore = 1;
+			}
+		    }
+		    for (MealDetail mealDetail : mealDetails) {
+			MaterialDAO materialDAO = new MaterialDAO();
+			Product m = new Material();
+			m = materialDAO.getMaterialByID(mealDetail.getMaterialID());
+			if (listCart == null) {
+			    listCart = new HashMap<>();
+			    int quantity = (int) (addMore * mealDetail.getQuantity());
+			    listCart.put(m, quantity);
+			} else {
+			    boolean isExist = false;
+			    for (Product mate : listCart.keySet()) {
+				if (mate.getId().equals(mealDetail.getMaterialID())) {
+				    int quantity = listCart.get(mate);
+				    quantity += (addMore * mealDetail.getQuantity());
+				    listCart.put(mate, quantity);
+				    isExist = true;
+				}
+			    }
+			    int quantity = (int) (addMore * mealDetail.getQuantity());
+			    if (isExist == false) {
+				listCart.put(m, quantity);
+			    }
+			}
+		    }
+		} else {
+		    request.setAttribute("error", "Cannot order only material for this meal");
+		    url = "access-denied";
+		    request.getRequestDispatcher(url).forward(request, response);
 		}
+
 	    }
+
 	    session.setAttribute("listCart", listCart);
-	    request.getRequestDispatcher("home?action=foods").forward(request, response);
+	    request.getRequestDispatcher(url).forward(request, response);
 	    break;
 	}
-
-//	    }
 
 	}
     }

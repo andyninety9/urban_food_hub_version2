@@ -34,13 +34,11 @@ CREATE TABLE Account (
 CREATE TABLE [USER](
 	accID VARCHAR(255) PRIMARY KEY,
 	username VARCHAR(255) UNIQUE,
-	[password] VARCHAR(255) UNIQUE,
+	[password] VARCHAR(255),
 	roleID INT DEFAULT 2,
 	CONSTRAINT FK_User_Account FOREIGN KEY(accID) REFERENCES Account(accID),
 	CONSTRAINT FK_User_RoleAccount FOREIGN KEY(roleID) REFERENCES RoleAccount(roleID)
 )
-
-
 --=============================================================================
 CREATE TABLE StatusMaterial(
 	StatusID INT PRIMARY KEY,
@@ -365,3 +363,22 @@ GO
 ALTER TABLE [dbo].[OrderDetail] CHECK CONSTRAINT [FK_OrderDetail_ProductType]
 GO
 
+SELECT
+    o.orderID,
+    o.orderDate,
+    os.statusName AS orderStatus,
+    SUM(od.quantity * od.unitPrice) AS totalValue,
+    a.accID,
+    COALESCE(a.firstname, '') + ' ' + COALESCE(a.lastname, '') AS fullName, -- Sửa lỗi tại đây
+    a.email,
+    a.phone
+FROM
+    [Order] o
+JOIN
+    OrderStatus os ON o.statusID = os.statusID
+JOIN
+    OrderDetail od ON o.orderID = od.orderID
+JOIN
+    Account a ON o.accID = a.accID
+GROUP BY
+    o.orderID, o.orderDate, os.statusName, a.accID, a.firstname, a.lastname, a.email, a.phone;

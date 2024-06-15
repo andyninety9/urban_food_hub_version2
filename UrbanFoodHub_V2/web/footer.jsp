@@ -13,7 +13,7 @@
           <!-- Grid column -->
           <div class="col-md-2">
               <h6 class="text-uppercase font-weight-bold" style="font-size: 12px;">
-              <a href="#!" class="text-white">About us</a>
+              <a href="home" class="text-white">Home</a>
             </h6>
           </div>
           <!-- Grid column -->
@@ -21,7 +21,7 @@
           <!-- Grid column -->
           <div class="col-md-2">
             <h6 class="text-uppercase font-weight-bold" style="font-size: 12px;">
-              <a href="#!" class="text-white">Products</a>
+              <a href="home?action=materials" class="text-white">Material</a>
             </h6>
           </div>
           <!-- Grid column -->
@@ -29,7 +29,7 @@
           <!-- Grid column -->
           <div class="col-md-2">
             <h6 class="text-uppercase font-weight-bold" style="font-size: 12px;">
-              <a href="#!" class="text-white">Awards</a>
+              <a href="home?action=foods" class="text-white">Foods</a>
             </h6>
           </div>
           <!-- Grid column -->
@@ -37,7 +37,7 @@
           <!-- Grid column -->
           <div class="col-md-2">
             <h6 class="text-uppercase font-weight-bold" style="font-size: 12px;">
-              <a href="#!" class="text-white">Help</a>
+              <a href="home?action=plans" class="text-white">Plans</a>
             </h6>
           </div>
           <!-- Grid column -->
@@ -45,7 +45,7 @@
           <!-- Grid column -->
           <div class="col-md-2">
             <h6 class="text-uppercase font-weight-bold" style="font-size: 12px;">
-              <a href="#!" class="text-white">Contact</a>
+              <a href="#!" class="text-white">FAQs</a>
             </h6>
           </div>
           <!-- Grid column -->

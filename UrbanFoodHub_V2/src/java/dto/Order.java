@@ -20,11 +20,6 @@ public class Order {
     private int statusID;
     private String deliveryAddID;
     private List<OrderDetail> listDetails;
-//	[orderID] [varchar](255) NOT NULL,
-//	[accID] [varchar](255) NULL,
-//	[orderDate] [date] NULL,
-//	[statusID] [int] NULL,
-//	[deliveryAddID] [varchar](255) NULL,
 
     public Order() {
 	listDetails = new ArrayList<>();

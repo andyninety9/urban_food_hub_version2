@@ -5,6 +5,7 @@
 <c:set var="selectedCate" value="${requestScope.selectedCate}"/>
 <c:set var="sizeListFoods" value="${requestScope.sizeListFoods}"/>
 <c:set var="checkedPage" value="${requestScope.checkedPage}"/>
+<c:set var="error" value="${sessionScope.error}"/>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; ">
 <h1 style="">READY TO EAT</h1>
@@ -44,19 +45,26 @@
         <c:forEach var="meal" items="${paginationListMeal}">
             <c:if test="${meal.status != 2}">
                 
-                <div class="col" style="display: flex; justify-content: center">
+                <div class="col" style="display: flex; justify-content: center;">
+                   
                 <div class="card" style="width: 250px">
                     <div style="padding: 10px; height: 200px">
-                        <img style="height: 100%; object-fit: cover; border-radius: 5px" src="
+                        <img style="height: 100%; object-fit: cover; border-radius: 5px; position: relative" src="
                 <c:choose>
-                    <c:when test="${empty meal.mealImg}">
+                    <c:when test="${empty meal.image}">
                      ./images/mate1.jpg
                     </c:when>
                     <c:otherwise>
-                        ${meal.mealImg}
+                        ${meal.image}
                     </c:otherwise>
                 </c:choose>
                              " class="card-img-top" alt="image-material">
+                         <c:if test="${not empty meal.listMaterials}">
+                        <span class="badge rounded-pill bg-warning text-dark" style="position: absolute; top: 0; right: 0; z-index: 1000; transform: translate(-15px, 15px);font-size: 8px">Available order material</span>
+                    </c:if>
+                    <c:if test="${empty meal.listMaterials}">
+                        <span class="badge rounded-pill bg-secondary" style="position: absolute; top: 0; right: 0; z-index: 1000; transform: translate(-15px, 15px); font-size: 8px">Not available order material</span>
+                    </c:if>
                 </div>
                     <div class="card-body" style="display: flex; flex-direction: column; gap: 0.5rem">
                         <div style="display: flex; justify-content: space-between">
@@ -85,8 +93,8 @@
                     <p class="card-text" style="font-size: 10px; height: 30px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;">${meal.mealDesc}</p>
 
                 <div style="display: flex; justify-content: center; gap: 15px">
-                    <a style="background-color: #4ACD8D; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="add-to-cart?kind=foods&mealID=${meal.mealID}">Add to card</a>
-                    <a style="background-color: #A992FE; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="#">More</a>
+                    <a style="background-color: #4ACD8D; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="add-to-cart?kind=food&productID=${meal.mealID}">Add to card</a>
+                    <a style="background-color: #A992FE; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="home?action=view-food&mealID=${meal.mealID}">View</a>
                 </div>
 
                 </div>
@@ -97,7 +105,7 @@
         </c:forEach>
     </c:if>
     <c:if test="${paginationListMeal == null}">
-        <!--<h5 class="card-title">Nothing</h5>-->
+        <h5 class="card-title">Nothing</h5>
     </c:if>
                     
 

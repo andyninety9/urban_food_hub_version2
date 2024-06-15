@@ -20,14 +20,14 @@
       </div>
     </div>
     <div class="carousel-item">
-        <img src="images/banner-plan2.png" class="d-block w-100" style="max-height: 500px; object-fit: cover" alt="...">
+        <img src="https://plus.unsplash.com/premium_photo-1670505062582-fdaa83c23c9e?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" style="max-height: 500px; object-fit: cover" alt="...">
       <div class="carousel-caption d-none d-md-block">
         <h5>Vegetarian Meal</h5>
         <p>Some representative placeholder content for the second slide.</p>
       </div>
     </div>
     <div class="carousel-item">
-      <img src="images/banner-plan3.png" class="d-block w-100" alt="..." style="max-height: 500px; object-fit: cover">
+      <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100" alt="..." style="max-height: 500px; object-fit: cover">
       <div class="carousel-caption d-none d-md-block">
         <h5>Diet plan for everyone</h5>
         <p>Some representative placeholder content for the third slide.</p>

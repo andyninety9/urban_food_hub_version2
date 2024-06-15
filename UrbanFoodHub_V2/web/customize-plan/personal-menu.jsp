@@ -53,7 +53,8 @@
             </form>
         </nav>
         <div style="display: flex; gap: 10px">
-            <a href="#" style="background-color: red; color: white; border: none; padding: 10px 30px" type="button" class="btn btn-secondary">Order now</a>
+            
+            <a href="#" style="background-color: red; color: white; border: none; padding: 10px 30px" type="button" class="btn btn-secondary">Add to cart</a>
             <a onclick="return confirm('Do you want to delete plan?');" href="update-personal-plan?action=delete&planID=${plan.id}" type="button" class="btn btn-light"><i class="fa-solid fa-trash"></i></a>
         </div>            
        

@@ -25,8 +25,8 @@
               <p style="margin: 0; font-size: 12px; font-weight: bold">Stock: <a style="">${mate.stock}đ</a></p>
               <p class="card-text" style="font-size: 10px; height: 30px; overflow: hidden">${mate.mateDesc}</p>
               <div style="display: flex; justify-content: center; gap: 15px">
-                <a style="background-color: #4ACD8D; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="#">Add to card</a>
-                <a style="background-color: #A992FE; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="#">More</a>
+                <a style="background-color: #4ACD8D; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="add-to-cart?kind=material&productID=${mate.id}">Add to card</a>
+                <a style="background-color: #A992FE; font-size: 12px; color: white; padding: 10px 15px; text-decoration: none; border-radius: 10px" href="home?action=view-material&mateID=${mate.id}">View</a>
               </div>
               
             </div>

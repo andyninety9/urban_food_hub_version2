@@ -8,9 +8,11 @@ package controller.admin_router;
 import dao.AccountDao;
 import dao.OrderDAO;
 import dao.ReportDAO;
+import dao.UserDAO;
 import dto.Account;
 import dto.Order;
 import dto.ReportUser;
+import dto.User;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import utils.IConstant;
+import utils.MyLibs;
 
 /**
  *
@@ -100,13 +103,53 @@ public class AdminRouterServlet extends HttpServlet {
 	    }
 	    case IConstant.PATH_MANAGE_USER: {
 		request.setAttribute("currentPage", IConstant.PATH_MANAGE_USER);
+		int page = 0;
 		url = IConstant.URL_MANAGE_USER;
+		AccountDao accountDao = new AccountDao();
 		ReportDAO reportDAO = new ReportDAO();
 		List<ReportUser> listReportUsers = reportDAO.getReportUser();
-		AccountDao accountDao = new AccountDao();
-		List<Account> listAccounts = accountDao.getAllAccount(null);
-		request.setAttribute("listAccounts", listAccounts);
+		List<Account> listAccounts = null;
+		String optionSearch = request.getParameter("optionSearch");
+		if (optionSearch != null) {
+		    String keyword = request.getParameter("keyword");
+		    listAccounts = accountDao.searchAccounts(keyword, optionSearch);
+		} else {
+		    listAccounts = accountDao.getAllAccount(null);
+		}
+
+		UserDAO userDAO = new UserDAO();
+		List<User> listUsers = userDAO.getAllUser();
+		List<Account> paginationList = null;
+		int sizeList = 0;
+		if (listAccounts != null) {
+		    sizeList = listAccounts.size();
+		}
+
+		String raw_page = request.getParameter("page");
+		if (raw_page == null) {
+		    page = 1;
+		} else {
+		    try {
+			page = Integer.parseInt(raw_page);
+		    } catch (Exception e) {
+			e.printStackTrace();
+			page = 1;
+		    }
+		}
+		int start, end;
+		start = (page - 1) * IConstant.ITEMS_PER_PAGE_USER;
+		end = Math.min(page * IConstant.ITEMS_PER_PAGE_USER, sizeList);
+		paginationList = MyLibs.pagination(listAccounts, start, end);
+
+		request.setAttribute("listAccounts", paginationList);
 		request.setAttribute("listReportUsers", listReportUsers);
+		request.setAttribute("listUsers", listUsers);
+		request.setAttribute("sizeListUser", sizeList);
+		request.setAttribute("checkedPage", page);
+		break;
+	    }
+	    case IConstant.PATH_CREATE_USER: {
+		url = IConstant.URL_CREATE_USER;
 		break;
 	    }
 

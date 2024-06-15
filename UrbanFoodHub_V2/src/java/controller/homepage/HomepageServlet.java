@@ -8,6 +8,7 @@ package controller.homepage;
 import dao.AddressDAO;
 import dao.CategoryDAO;
 import dao.CategoryFoodsDAO;
+import dao.InstructionMealDAO;
 import dao.MaterialDAO;
 import dao.MealDAO;
 import dao.OrderDAO;
@@ -15,6 +16,7 @@ import dao.PlanDAO;
 import dto.Account;
 import dto.Address;
 import dto.Category;
+import dto.InstructionMeal;
 import dto.Material;
 import dto.Meal;
 import dto.MealPlan;
@@ -148,12 +150,18 @@ public class HomepageServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		Account a = (Account) session.getAttribute("user");
 		AddressDAO addressDAO = new AddressDAO();
+
 		if (a != null) {
 		    List<Address> listAddresses = addressDAO.getAllAddressByAccID(a.getAccID());
 		    request.setAttribute("listAddresses", listAddresses);
+		    OrderDAO orderDAO = new OrderDAO();
+		    List<Order> listOrders = orderDAO.getAllOrderByAccID(a.getAccID(), 0);
+		    request.setAttribute("listOrder", listOrders);
+		    url = IConstant.SERVLET_USER_INFO;
+		} else {
+		    url = "login";
 		}
 
-		url = IConstant.SERVLET_USER_INFO;
 		break;
 	    }
 	    case IConstant.PATH_CUSTOMIZE: {
@@ -205,6 +213,54 @@ public class HomepageServlet extends HttpServlet {
 		    url = "login";
 		}
 
+		break;
+	    }
+	    case IConstant.PATH_VIEW_MATERIAL: {
+		request.setAttribute("view", "material");
+		HttpSession session = request.getSession();
+		Account loginAccount = (Account) session.getAttribute("user");
+		url = IConstant.URL_VIEW_PRODUCT;
+		String mateID = request.getParameter("mateID");
+		Material material = materialDAO.getMaterialByID(mateID);
+		OrderDAO orderDAO = new OrderDAO();
+		int sold = orderDAO.countProductSoldByID(mateID);
+		if (loginAccount != null) {
+		    AddressDAO addressDAO = new AddressDAO();
+		    List<Address> listAddresses = addressDAO.getAllAddressByAccID(loginAccount.getAccID());
+		    request.setAttribute("listAddresses", listAddresses);
+		}
+		List<Material> recommendList = null;
+		recommendList = materialDAO.getTop10RecommendMaterial(material.getCateName());
+		request.setAttribute("product", material);
+		request.setAttribute("recommendList", recommendList);
+		request.setAttribute("sold", sold);
+		break;
+	    }
+	    case IConstant.PATH_VIEW_FOOD: {
+		HttpSession session = request.getSession();
+		InstructionMealDAO imd = new InstructionMealDAO();
+
+		Account loginAccount = (Account) session.getAttribute("user");
+		request.setAttribute("view", "food");
+		url = IConstant.URL_VIEW_PRODUCT;
+		String mealID = request.getParameter("mealID");
+		MealDAO mealDAO = new MealDAO();
+		Meal meal = mealDAO.getMealByID(mealID);
+
+		List<InstructionMeal> listIm = imd.getInstruction(mealID);
+		OrderDAO orderDAO = new OrderDAO();
+		int sold = orderDAO.countProductSoldByID(mealID);
+		if (loginAccount != null) {
+		    AddressDAO addressDAO = new AddressDAO();
+		    List<Address> listAddresses = addressDAO.getAllAddressByAccID(loginAccount.getAccID());
+		    request.setAttribute("listAddresses", listAddresses);
+		}
+		List<Meal> recommendList = null;
+		recommendList = mealDAO.getTop10RecommendMeal(meal.getCateName());
+		request.setAttribute("product", meal);
+		request.setAttribute("listIm", listIm);
+		request.setAttribute("recommendList", recommendList);
+		request.setAttribute("sold", sold);
 		break;
 	    }
 	    default: {

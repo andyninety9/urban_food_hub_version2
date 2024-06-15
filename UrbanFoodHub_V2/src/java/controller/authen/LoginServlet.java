@@ -88,25 +88,31 @@ public class LoginServlet extends HttpServlet {
 	if (userLogin != null) {
 	    AccountDao accountDao = new AccountDao();
 	    Account acc = accountDao.getAccountByID(userLogin.getAccID());
-	    HttpSession session = request.getSession();
-	    session.setAttribute("user", acc);
+	    if (acc.getStatusID() == 1 || acc.getStatusID() == 2) {
+		HttpSession session = request.getSession();
+		session.setAttribute("user", acc);
 //	    response.addCookie(new Cookie("role", String.valueOf(userLogin.getRoleID())));
-	    session.setAttribute("role", String.valueOf(userLogin.getRoleID()));
+		session.setAttribute("role", String.valueOf(userLogin.getRoleID()));
 
-	    if (rem) {
-		response.addCookie(new Cookie("username", username));
-		response.addCookie(new Cookie("password", password));
-		response.addCookie(new Cookie("rem", request.getParameter("rem")));
-	    } else {
-		Cookie[] cookies = request.getCookies();
-		for (Cookie cookie : cookies) {
-		    if (cookie.getName().equals("username") || cookie.getName().equals("password")) {
-			cookie.setMaxAge(0);
-			response.addCookie(cookie);
+		if (rem) {
+		    response.addCookie(new Cookie("username", username));
+		    response.addCookie(new Cookie("password", password));
+		    response.addCookie(new Cookie("rem", request.getParameter("rem")));
+		} else {
+		    Cookie[] cookies = request.getCookies();
+		    for (Cookie cookie : cookies) {
+			if (cookie.getName().equals("username") || cookie.getName().equals("password")) {
+			    cookie.setMaxAge(0);
+			    response.addCookie(cookie);
+			}
 		    }
 		}
+		response.sendRedirect("home");
+	    } else {
+		request.setAttribute("error", "User have been banned");
+		request.getRequestDispatcher("login-form.jsp").forward(request, response);
 	    }
-	    response.sendRedirect("home");
+
 	} else {
 	    request.setAttribute("error", "Invalid username or password");
 	    request.getRequestDispatcher("login-form.jsp").forward(request, response);

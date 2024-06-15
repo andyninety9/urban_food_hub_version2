@@ -30,8 +30,9 @@
     <c:if test="${error != null}">
             <p style="font-size: 10px; color: red; font-style: italic; text-align: center">${error}</p>
     </c:if>
+    
     <c:forEach var="order" items="${listOrder}">
-        
+        <c:set var="total" value="0"/>
         
         <div class="order-card">
             <div class="top-card">
@@ -54,9 +55,9 @@
                 </c:if>
             </div>
             <div style="border: 1px solid #A2A2A8"></div>
-            <c:set var="total" value="0"/>
+            
             <c:forEach var="detail" items="${order.listDetails}">
-                <c:set var="total" value="${total + detail.unitPrice}"/>
+                <c:set var="total" value="${total + detail.unitPrice * detail.quantity}"/>
                 <div class="body-card">
                     <img class="img" src="<c:choose>
                     <c:when test="${empty detail.product.image}">
@@ -70,7 +71,7 @@
                         <h6 class="product-name">${detail.product.name}</h6>
                         <p style="color: gray" class="product-type">Product type: ${detail.typeID}</p>
                         <p class="product-quantity">x${detail.quantity}</p>
-                        <a class="btn-view-product" href="#"><i class="fa-regular fa-eye me-2"></i>View product</a>
+                        <a class="btn-view-product" href="home?action=view-${detail.typeID == 1 ? 'material' : 'food'}&${detail.typeID == 1 ? 'mateID' : 'mealID'}=${detail.product.id}"><i class="fa-regular fa-eye me-2"></i>View product</a>
                     </div>
                     <p class="product-price"><fmt:formatNumber value="${detail.unitPrice}" pattern="#,###" />đ</p>
                 </div>

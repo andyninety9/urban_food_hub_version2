@@ -39,7 +39,7 @@
                 </h3>
                 <jsp:include page="carousel-meal-plan.jsp"/>
                
-                <jsp:include page="list-material-homepage.jsp"/>
+                <%--<jsp:include page="list-material-homepage.jsp"/>--%>
             </div>
         </div>
             <jsp:include page="footer.jsp"/>

@@ -8,6 +8,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="user" value="${sessionScope.user}"/>
 <c:set var="listAddresses" value="${requestScope.listAddresses}"/>
+<c:set var="listOrder" value="${requestScope.listOrder}"/>
 <div class="container">
     <h1 class="display-6">#Account Information</h1>
     <div class="row" style=" border: 1px solid black; padding: 20px; border-radius: 10px; margin-bottom: 20px">
@@ -105,7 +106,7 @@
         </form>
     </div>
 
-    <h1 class="display-6">#Tracking Order</h1>
+    <h1 class="display-6">#Order history</h1>
     <p class="h5" style="text-align: center">Recently Orders</p>
     <div>
         <div style="display: flex; justify-content: end">
@@ -127,14 +128,35 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <th scope="row">1</th>
-            <td>Bữa ăn sáng</td>
-            <td>28-05-2024</td>
-            <td>
-                <span class="badge rounded-pill bg-success">Success</span>
-            </td>
-          </tr>
+            <c:set var="i" value="1"/>
+            <c:forEach var="order" items="${listOrder}">
+                
+                <tr>
+                    <th scope="row">${i}</th>
+                    <td>Bữa ăn sáng</td>
+                    <td>${order.orderDate}</td>
+                    <td>
+                        <c:if test="${order.statusID == 1}">
+                            <span class="badge rounded-pill bg-secondary">Pending</span>
+                        </c:if>
+                        <c:if test="${order.statusID == 2}">
+                            <span class="badge rounded-pill bg-success">Processing</span>
+                        </c:if>
+                        <c:if test="${order.statusID == 3}">
+                            <span class="badge rounded-pill bg-success">Shipping</span>
+                        </c:if>
+                        <c:if test="${order.statusID == 4}">
+                            <span class="badge rounded-pill bg-info">Delivered</span>
+                        </c:if>
+                        <c:if test="${order.statusID == 5}">
+                            <span class="badge rounded-pill bg-danger">Canceled</span>
+                        </c:if>
+                        
+                    </td>
+                </tr>
+                <c:set var="i" value="${i + 1}"/>
+            </c:forEach>
+          
         </tbody>
       </table>
     </div>
