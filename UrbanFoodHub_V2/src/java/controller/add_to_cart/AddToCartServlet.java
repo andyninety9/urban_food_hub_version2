@@ -7,9 +7,12 @@ package controller.add_to_cart;
 
 import dao.MaterialDAO;
 import dao.MealDAO;
+import dao.PersonalPlanDAO;
+import dao.PlanDAO;
 import dto.Material;
 import dto.Meal;
 import dto.MealDetail;
+import dto.MealPlan;
 import dto.Product;
 import java.io.IOException;
 import java.util.HashMap;
@@ -123,7 +126,6 @@ public class AddToCartServlet extends HttpServlet {
 		MealDAO mealDAO = new MealDAO();
 		List<MealDetail> mealDetails = mealDAO.getMealDetailsById(mealID);
 		if (!mealDetails.isEmpty()) {
-//		    System.out.println(mealDetails.size());
 		    int addMore = 1;
 		    if (quantityAdd != null) {
 			try {
@@ -166,6 +168,42 @@ public class AddToCartServlet extends HttpServlet {
 
 	    session.setAttribute("listCart", listCart);
 	    request.getRequestDispatcher(url).forward(request, response);
+	    break;
+	}
+	case "plan": {
+	    String url = "home?action=customize";
+	    String planID = request.getParameter("planID");
+	    if (planID != null) {
+		PersonalPlanDAO personalPlanDAO = new PersonalPlanDAO();
+		MealPlan plan = personalPlanDAO.getPersonalPlanByID(planID);
+		System.out.println(plan);
+		if (listCart == null) {
+		    listCart = new HashMap<>();
+		    listCart.put(plan, 1);
+		} else {
+		    boolean isExist = false;
+		    for (Product entryMeal : listCart.keySet()) {
+			if (entryMeal != null) {
+			    if (entryMeal.getId().equals(planID)) {
+				int quantity = listCart.get(entryMeal);
+				quantity += 1;
+				listCart.put(entryMeal, quantity);
+				isExist = true;
+			    }
+			}
+
+		    }
+		    if (isExist == false) {
+			listCart.put(plan, 1);
+		    }
+		}
+	    } else {
+		request.setAttribute("error", "Cannot add to cart this plan...try again...");
+		url = "access-denied";
+		request.getRequestDispatcher(url).forward(request, response);
+	    }
+	    session.setAttribute("listCart", listCart);
+	    response.sendRedirect(url);
 	    break;
 	}
 

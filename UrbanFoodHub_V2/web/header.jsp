@@ -75,7 +75,7 @@ Klarna: betaal in 30 dagen</p> </marquee> </div> </div>
                               
                                 ${cartSize}
                             </span>
-                            <div id="cart" style="display: none;position: absolute; background-color: white; color: black; padding: 10px 20px; right: 0; border: 1px solid #eee; border-radius: 10px; z-index: 10 ; height: 250px; overflow-y:  scroll">
+                            <div id="cart" style="display: none;position: absolute; background-color: white; color: black; padding: 10px 20px; right: 0; border: 1px solid #eee; border-radius: 10px; z-index: 10 ; height: 250px; width: 400px; overflow-y:  scroll">
                                 <h6><i class="fa-solid fa-bag-shopping me-2"></i>Cart</h6>
                                 <table class="table table-hover" style="font-size: 10px;">
                                     <thead>

@@ -5,6 +5,7 @@
 
 package dao;
 
+import dto.Category;
 import dto.Meal;
 import dto.MealPlan;
 import dto.PlanDetail;
@@ -42,7 +43,6 @@ public class PlanDAO {
 		isSetStatus = true;
 		isSetCateID = true;
 	    }
-
 	}
 	Connection cn = null;
 	try {
@@ -53,7 +53,7 @@ public class PlanDAO {
 		    st1.setString(1, cateID);
 		} else if (isSetStatus) {
 		    st1.setInt(1, status);
-		} else {
+		} else if (isSetCateID && isSetStatus) {
 		    st1.setString(1, cateID);
 		    st1.setInt(2, status);
 		}
@@ -211,6 +211,38 @@ public class PlanDAO {
 	}
 
 	return mealPlan;
+    }
+
+    public List<Category> getCategoryList() {
+	List<Category> list = null;
+	String sql = "SELECT [cateID]\n" + "      ,[cateName]\n" + "      ,[cateImg]\n"
+		+ "  FROM [dbo].[CategoryMealPlan]";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    PreparedStatement st = cn.prepareStatement(sql);
+	    ResultSet rs = st.executeQuery();
+	    if (rs != null) {
+		list = new ArrayList<>();
+		while (rs.next()) {
+		    Category c = new Category(rs.getString("cateID"), rs.getString("cateName"), rs.getString("cateImg"),
+			    0);
+		    list.add(c);
+		}
+	    }
+
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return list;
     }
 
     public int addPersonalPlan(String mealPlanID, String accID, String planName, String desc, Date startDate,

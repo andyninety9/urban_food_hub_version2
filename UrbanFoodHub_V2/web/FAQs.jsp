@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-          <title>Câu hỏi thường gặp</title>
+          <title>FAQs</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /*  CSS tùy chỉnh (nếu cần) */
@@ -72,10 +72,10 @@
                 <div class="col-md-8 offset-md-2">
                     <img src="./images/faqs.jpg" style="width: 100%" alt="alt"/>
                     <div class="faq-header">
-                        <h2>Câu hỏi thường gặp</h2>
+                        <h2>Popular Questions</h2>
                         <p style="font-size: 12px">Bạn có thắc mắc? Chúng tôi có thể có câu trả lời. Kiểm tra các câu hỏi thường gặp của chúng tôi bên dưới.</p>
+                        <a class="btn btn-primary" href="home">Home</a>
                     </div>
-
                     <div class="faq-list" style="margin-top: 20px">
                         <div class="faq-item">
                             <h3 style="font-size: 18px;" class="faq-question">Quy trình đặt hàng như thế nào?</h3>

@@ -7,9 +7,12 @@ package controller.admin_router;
 
 import dao.AccountDao;
 import dao.OrderDAO;
+import dao.PlanDAO;
 import dao.ReportDAO;
 import dao.UserDAO;
 import dto.Account;
+import dto.Category;
+import dto.MealPlan;
 import dto.Order;
 import dto.ReportUser;
 import dto.User;
@@ -150,6 +153,28 @@ public class AdminRouterServlet extends HttpServlet {
 	    }
 	    case IConstant.PATH_CREATE_USER: {
 		url = IConstant.URL_CREATE_USER;
+		break;
+	    }
+	    case IConstant.PATH_MANAGE_PLANS: {
+		url = IConstant.URL_MANAGE_PLANS;
+		List<MealPlan> listMealPlan = null;
+		PlanDAO planDAO = new PlanDAO();
+		listMealPlan = planDAO.getMealPlanByCateID(null, -1);
+		List<Category> listCate = planDAO.getCategoryList();
+		request.setAttribute("listMealPlan", listMealPlan);
+		request.setAttribute("listCate", listCate);
+		request.setAttribute("action", "view-all");
+		break;
+	    }
+	    case IConstant.PATH_UPDATE_PLANS: {
+		url = IConstant.URL_UPDATE_PLANS;
+		String planID = request.getParameter("planID");
+		PlanDAO planDAO = new PlanDAO();
+		MealPlan mealPlan = planDAO.getMealPlanByID(planID);
+		List<Category> listCate = planDAO.getCategoryList();
+		request.setAttribute("mealPlan", mealPlan);
+		request.setAttribute("action", "update-plan");
+		request.setAttribute("listCate", listCate);
 		break;
 	    }
 

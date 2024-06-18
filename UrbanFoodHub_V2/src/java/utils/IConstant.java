@@ -34,9 +34,12 @@ public interface IConstant {
     public static String PATH_TRACKING_ORDER = "tracking-order";
     public static String PATH_MANAGE_ORDER = "manage-order";
     public static String PATH_MANAGE_USER = "manage-user";
+    public static String PATH_MANAGE_PLANS = "manage-plans";
+    public static String PATH_UPDATE_PLANS = "update-plan";
     public static String PATH_CREATE_USER = "create-account";
     public static String PATH_VIEW_MATERIAL = "view-material";
     public static String PATH_VIEW_FOOD = "view-food";
+    public static String PATH_FAQS = "faqs";
 
     // Domain
     public static String URL_MATERIALS = "materials-page/materials-page.jsp";
@@ -48,8 +51,11 @@ public interface IConstant {
     public static String URL_CUSTOMIZE = "customize-plan/customize-plan-page.jsp";
     public static String URL_MANAGE_ORDER = "manage-order/manage-order-page.jsp";
     public static String URL_MANAGE_USER = "manage-user/manage-user-page.jsp";
+    public static String URL_MANAGE_PLANS = "manage-plans/manage-plans-page.jsp";
+    public static String URL_UPDATE_PLANS = "manage-plans/manage-plans-page.jsp";
     public static String URL_CREATE_USER = "manage-user/register-form-admin.jsp";
     public static String URL_HOME = "homepage.jsp";
     public static String URL_USER_INFO = "home";
+    public static String URL_FAQS = "FAQs.jsp";
 
 }

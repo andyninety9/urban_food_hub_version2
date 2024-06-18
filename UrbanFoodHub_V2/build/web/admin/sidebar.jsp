@@ -29,7 +29,7 @@
             </div>
             
             <a href="manage-foods?action=all" class="nav-item nav-link ${requestScope.currentPage == 'manage-foods' ? 'active' : ''}"><i class="fa-solid fa-utensils me-2"></i>Manage Foods</a>
-            <a href="#" class="nav-item nav-link ${requestScope.currentPage == 'manage-plans' ? 'active' : ''}"><i class="fa fa-th me-2"></i>Manage Plans</a>
+            <a href="admin-router?action=manage-plans" class="nav-item nav-link ${requestScope.currentPage == 'manage-plans' ? 'active' : ''}"><i class="fa fa-th me-2"></i>Manage Plans</a>
             <a href="admin-router?action=manage-order" class="nav-item nav-link ${requestScope.currentPage == 'manage-order' ? 'active' : ''}"><i class="fa-solid fa-cart-shopping me-2"></i>Manage Order</a>
             <a href="admin-router?action=manage-user" class="nav-item nav-link ${requestScope.currentPage == 'manage-user' ? 'active' : ''}"><i class="fa-solid fa-users me-2"></i>Users</a>
             <a href="#" class="nav-item nav-link"><i class="fa-solid fa-truck me-2"></i>Manage Delivery</a>

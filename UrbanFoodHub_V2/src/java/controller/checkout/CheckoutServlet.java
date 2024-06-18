@@ -11,12 +11,14 @@ import dao.OrderDAO;
 import dto.Account;
 import dto.Material;
 import dto.Meal;
+import dto.MealPlan;
+import dto.PlanDetail;
 import dto.Product;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -42,8 +44,6 @@ public class CheckoutServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 	    throws ServletException, IOException {
 	response.setContentType("text/html;charset=UTF-8");
-//	try (PrintWriter out = response.getWriter()) {
-	/* TODO output your page here. You may use following sample code. */
 	String action = request.getParameter("action");
 	String url = "home?action=tracking-order";// Chuyen qua trang Tracking Order
 	switch (action) {
@@ -52,7 +52,7 @@ public class CheckoutServlet extends HttpServlet {
 	    HashMap<Product, Integer> listCart = (HashMap<Product, Integer>) session.getAttribute("listCart");
 	    boolean isStock = true;
 
-	    // Sử dụng Iterator để lặp qua listCart
+	    // Check số lượng từ db
 	    Iterator<Product> iterator = listCart.keySet().iterator();
 	    while (iterator.hasNext()) {
 		Product p = iterator.next();
@@ -116,7 +116,6 @@ public class CheckoutServlet extends HttpServlet {
 			    if (isAddDetail > 0) {
 				int rs = mealDAO.updateStockMeal(p.getId(), (meal.getStock() - listCart.get(p)));
 				if (rs > 0) {
-				    // Xóa phần tử khỏi listCart bằng Iterator
 				    iterator.remove();
 				}
 			    }

@@ -263,6 +263,10 @@ public class HomepageServlet extends HttpServlet {
 		request.setAttribute("sold", sold);
 		break;
 	    }
+	    case IConstant.PATH_FAQS: {
+		url = IConstant.URL_FAQS;
+		break;
+	    }
 	    default: {
 		url = IConstant.URL_HOME;
 		List<Material> listTop10 = materialDAO.getTop10Material();
