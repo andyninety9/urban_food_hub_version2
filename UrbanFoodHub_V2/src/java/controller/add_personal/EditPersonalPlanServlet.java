@@ -65,7 +65,6 @@ public class EditPersonalPlanServlet extends HttpServlet {
 		    java.util.Date sDate = dateFormat.parse(raw_startDate);
 		    java.util.Date eDate = dateFormat.parse(raw_endDate);
 
-		    // Chuyển đổi đối tượng java.util.Date thành java.sql.Date
 		    startDate = new java.sql.Date(sDate.getTime());
 		    endDate = new java.sql.Date(eDate.getTime());
 		} catch (ParseException e) {

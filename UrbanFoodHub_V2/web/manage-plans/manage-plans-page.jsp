@@ -103,5 +103,6 @@
 
         <!-- Template Javascript -->
         <script src="js-dashboard/main.js"></script>
+        <script src="js/handleUpdatePersonalPlan.js"></script>
     </body>
 </html>

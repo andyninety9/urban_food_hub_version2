@@ -31,7 +31,7 @@
                 
                 <jsp:include page="banner-plans.jsp"/>
                 
-                <h1 style="font-weight: bold; margin-top: 20px">Latest Menu</h1>
+                <h1 style="font-weight: bold; margin-top: 20px">Daily Menu</h1>
                 <div style="height: 10px; width: 10%; background-color: red"></div>
                 <br/>
                 <p style="font-size: 14px; color: #808191">Enjoy a fusion of Asian and Western cuisine<br/>

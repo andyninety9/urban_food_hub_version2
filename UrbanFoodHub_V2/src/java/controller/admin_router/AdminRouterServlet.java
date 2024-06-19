@@ -6,12 +6,14 @@
 package controller.admin_router;
 
 import dao.AccountDao;
+import dao.MealDAO;
 import dao.OrderDAO;
 import dao.PlanDAO;
 import dao.ReportDAO;
 import dao.UserDAO;
 import dto.Account;
 import dto.Category;
+import dto.Meal;
 import dto.MealPlan;
 import dto.Order;
 import dto.ReportUser;
@@ -156,25 +158,65 @@ public class AdminRouterServlet extends HttpServlet {
 		break;
 	    }
 	    case IConstant.PATH_MANAGE_PLANS: {
+		request.setAttribute("currentPage", IConstant.PATH_MANAGE_PLANS);
 		url = IConstant.URL_MANAGE_PLANS;
+		int page = 0;
+		String cateID = request.getParameter("cateID");
+		if (cateID != null) {
+		    if (cateID.equals("all")) {
+			cateID = null;
+		    }
+		}
+		String raw_page = request.getParameter("page");
+		if (raw_page == null) {
+		    page = 1;
+		} else {
+		    try {
+			page = Integer.parseInt(raw_page);
+		    } catch (Exception e) {
+			e.printStackTrace();
+			page = 1;
+		    }
+		}
+		int sizeList = 0;
 		List<MealPlan> listMealPlan = null;
+		List<MealPlan> listPagination = null;
 		PlanDAO planDAO = new PlanDAO();
-		listMealPlan = planDAO.getMealPlanByCateID(null, -1);
+		String keyword = request.getParameter("keyword");
+		if (keyword == null) {
+		    listMealPlan = planDAO.getMealPlanByCateID(cateID, -1);
+		} else {
+		    listMealPlan = planDAO.getMealPlanBySearch(keyword, cateID, -1);
+		}
+
+		if (listMealPlan != null) {
+		    sizeList = listMealPlan.size();
+		}
+		int start, end;
+		start = (page - 1) * IConstant.ITEMS_PER_PAGE_USER;
+		end = Math.min(page * IConstant.ITEMS_PER_PAGE_USER, sizeList);
+		listPagination = MyLibs.pagination(listMealPlan, start, end);
 		List<Category> listCate = planDAO.getCategoryList();
-		request.setAttribute("listMealPlan", listMealPlan);
+		request.setAttribute("listMealPlan", listPagination);
 		request.setAttribute("listCate", listCate);
 		request.setAttribute("action", "view-all");
+		request.setAttribute("checkedCate", cateID);
+		request.setAttribute("checkedPage", page);
+		request.setAttribute("sizeList", sizeList);
 		break;
 	    }
 	    case IConstant.PATH_UPDATE_PLANS: {
 		url = IConstant.URL_UPDATE_PLANS;
 		String planID = request.getParameter("planID");
 		PlanDAO planDAO = new PlanDAO();
+		MealDAO mealDAO = new MealDAO();
 		MealPlan mealPlan = planDAO.getMealPlanByID(planID);
 		List<Category> listCate = planDAO.getCategoryList();
+		List<Meal> listMeal = mealDAO.getAllMeal(null);
 		request.setAttribute("mealPlan", mealPlan);
 		request.setAttribute("action", "update-plan");
 		request.setAttribute("listCate", listCate);
+		request.setAttribute("listMeal", listMeal);
 		break;
 	    }
 

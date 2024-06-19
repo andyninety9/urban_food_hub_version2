@@ -22,6 +22,7 @@
         </nav>
         <a href="add-personal-plan?mealPlanID=${plan.mealPlanID}&accID=${user.accID}" style="background-color: red; color: white; border: none; padding: 10px 30px" type="button" class="btn btn-secondary">Add to personal plans</a>
     </div>
+    <p style="font-size: 14px; color: #808191; padding: 10px 20px; background-color: #EEE; border-radius: 10px">${plan.desc}</p>
     <table class="table table-hover" style="margin-top: 20px">
         <thead style="background-color: black; color: white; font-weight: bold;">
             <tr>
@@ -57,7 +58,7 @@
                                         <td id="lunch-${mealDate.mealDate}">
                                             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                                                 <h6 style="color: #171725; font-weight: bold; margin: 0">${detail.meal.mealName}</h6>
-                                                <span class="badge bg-warning text-dark">550 Kcal</span>
+                                                <span class="badge bg-warning text-dark">${detail.meal.nutritionValue}</span>
                                             </div>
                                         </td>
                                     </c:when>
@@ -65,7 +66,7 @@
                                         <td id="dinner-${mealDate.mealDate}">
                                             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                                                 <h6 style="color: #171725; font-weight: bold; margin: 0">${detail.meal.mealName}</h6>
-                                                <span class="badge bg-warning text-dark">550 Kcal</span>
+                                                <span class="badge bg-warning text-dark">${detail.meal.nutritionValue}</span>
                                             </div>
                                         </td>
                                     </c:when>
