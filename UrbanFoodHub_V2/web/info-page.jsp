@@ -9,27 +9,28 @@
 <c:set var="user" value="${sessionScope.user}"/>
 <c:set var="listAddresses" value="${requestScope.listAddresses}"/>
 <c:set var="listOrder" value="${requestScope.listOrder}"/>
+<c:set var="checkedStatus" value="${requestScope.checkedStatus}"/>
 <div class="container">
     <h1 class="display-6">#Account Information</h1>
     <div class="row" style=" border: 1px solid black; padding: 20px; border-radius: 10px; margin-bottom: 20px">
         <div class="col-md-6">
-        <div style="display: flex; gap: 10px;">
-            <p style="font-weight: bold" class="h6">Fullname: </p>
-        <p class="h6">${user.lastname} ${user.firstname}</p>
+        <div style="display: flex; gap: 10px; background-color: #E2DBFF; padding: 15px; border-radius: 10px; margin-bottom: 10px">
+            <p style="font-weight: bold; margin: 0" class="h6">Fullname: </p>
+            <p style="margin: 0" class="h6">${user.lastname} ${user.firstname}</p>
         </div>
-        <div style="display: flex; gap: 10px">
-            <p style="font-weight: bold" class="h6">Birthday: </p>
-            <p class="h6">${user.birthday}</p>
+        <div style="display: flex; gap: 10px; background-color: #E2DBFF; padding: 15px; border-radius: 10px; margin-bottom: 10px">
+            <p style="font-weight: bold; margin: 0" class="h6">Birthday: </p>
+            <p style="margin: 0" class="h6">${user.birthday}</p>
         </div>
-        <div style="display: flex; gap: 10px">
-            <p style="font-weight: bold" class="h6">Phone: </p>
-            <p class="h6">${user.phone}</p>
+        <div style="display: flex; gap: 10px; background-color: #E2DBFF; padding: 15px; border-radius: 10px; margin-bottom: 10px">
+            <p style="font-weight: bold; margin: 0" class="h6">Phone: </p>
+            <p style="margin: 0" class="h6">${user.phone}</p>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 10px">
-            <p style="font-weight: bold" class="h6">Shipping address: </p>
-            <button type="button" class="btn btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addNewModal">Add new address</button>
+        <div style="display: flex; flex-direction: column; gap: 10px; background-color: #E2DBFF; padding: 20px; border-radius: 10px">
+            <p style="font-weight: bold; text-align: center" class="h6">Shipping address: </p>
+            <button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addNewModal">Add new address</button>
             <div>
-                <table class="table table-hover" style="text-align: center">
+                <table class="table table-hover" style="text-align: center; font-size: 12px">
                 <thead>
                 <tr>
                   <th scope="col">#No</th>
@@ -109,14 +110,17 @@
     <h1 class="display-6">#Order history</h1>
     <p class="h5" style="text-align: center">Recently Orders</p>
     <div>
-        <div style="display: flex; justify-content: end">
-            <select class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 200px">
-                <option selected>Sort by status</option>
-                <option value="1">Pending</option>
-                <option value="2">Shipping</option>
-                <option value="3">Success</option>
+        <form id="statusOrderForm" action="home" style="display: flex; justify-content: end">
+            <input type="hidden" name="action" value="user-info"/>
+            <select onchange="document.getElementById('statusOrderForm').submit()" name="statusID" class="form-select form-select-sm" aria-label=".form-select-sm example" style="width: 200px">
+                <option ${checkedStatus == '0' ? 'selected':''}>All status</option>
+                <option ${checkedStatus == '1' ? 'selected':''} value="1">Pending</option>
+                <option ${checkedStatus == '2' ? 'selected':''} value="2">Processing</option>
+                <option ${checkedStatus == '3' ? 'selected':''} value="3">Shipping</option>
+                <option ${checkedStatus == '4' ? 'selected':''} value="4">Delivered</option>
+                <option ${checkedStatus == '5' ? 'selected':''} value="5">Canceled</option>
             </select>
-        </div>
+        </form>
         
         <table class="table table-hover">
         <thead>
@@ -133,7 +137,9 @@
                 
                 <tr>
                     <th scope="row">${i}</th>
-                    <td>Bữa ăn sáng</td>
+                    <td>
+                        <button style="font-size: 13px" type="button" class="btn btn-lg btn-danger" data-bs-toggle="popover" title="Popover title" data-bs-content="Go to tracking order to view detail">${order.listDetails.size()} items</button>
+                    </td>
                     <td>${order.orderDate}</td>
                     <td>
                         <c:if test="${order.statusID == 1}">

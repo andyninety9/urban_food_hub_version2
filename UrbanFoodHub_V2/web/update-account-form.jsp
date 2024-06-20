@@ -24,7 +24,7 @@
                 <div class="container-input">
                     <label for="firstname">Firstname</label>
                     <input value="${account.firstname}" placeholder="Enter your firstname" type="text" name="firstname" id="firstname"/>
-                     <span style="color: red; font-size: 10px; height: 15px" id="firstnameError"></span>
+                    <span style="color: red; font-size: 10px; height: 15px" id="firstnameError"></span>
                 </div>
                 <div class="container-input">
                     <label for="lastname">Lastname</label>

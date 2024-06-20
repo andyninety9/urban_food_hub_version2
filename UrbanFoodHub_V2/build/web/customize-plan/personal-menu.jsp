@@ -142,7 +142,7 @@
                                         <td id="lunch-${mealDate.mealDate}">
                                             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                                                 <h6 style="color: #171725; font-weight: bold; margin: 0">${detail.meal.mealName}</h6>
-                                                <span class="badge bg-warning text-dark">550 Kcal</span>
+                                                <span class="badge bg-warning text-dark">${detail.meal.nutritionValue}</span>
                                                 <button 
                                                     type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#updateMealLunchModal${detail.detailID}">
                                                     <i class="fa-solid fa-rotate"></i>
@@ -191,7 +191,7 @@
                                         <td id="dinner-${mealDate.mealDate}">
                                             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
                                                 <h6 style="color: #171725; font-weight: bold; margin: 0">${detail.meal.mealName}</h6>
-                                                <span class="badge bg-warning text-dark">550 Kcal</span>
+                                                <span class="badge bg-warning text-dark">${detail.meal.nutritionValue}</span>
                                                 <button 
                                                     type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#updateMealDinnerModal${detail.detailID}">
                                                     <i class="fa-solid fa-rotate"></i>

@@ -150,7 +150,7 @@ public class OrderDAO {
 				ordDetail.setProduct(p);
 			    } else if (typeID == 3) {
 				PlanDAO planDAO = new PlanDAO();
-				Product p = planDAO.getMealPlanByID(productID);
+				Product p = planDAO.getPersonalPlanByID(-1, productID);
 				ordDetail.setProduct(p);
 			    }
 			    ord.addDetail(ordDetail);
@@ -257,7 +257,7 @@ public class OrderDAO {
 			product = new MealDAO().getMealByID(productID);
 			break;
 		    case 3:
-			product = new PlanDAO().getMealPlanByID(productID);
+			product = new PlanDAO().getPersonalPlanByID(-1, productID);
 			break;
 		    // Add more cases if necessary
 		    }

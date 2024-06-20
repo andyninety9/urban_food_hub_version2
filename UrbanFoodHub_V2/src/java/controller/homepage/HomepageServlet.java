@@ -65,10 +65,11 @@ public class HomepageServlet extends HttpServlet {
 		String cateID = request.getParameter("cateID");
 		int status = 1;
 		PlanDAO planDAO = new PlanDAO();
+//		List<MealPlan> listVegetatianPlans = planDAO.getMealPlanByCateID("CTM000123", status);
 		List<MealPlan> listMealWeekPlan = (List<MealPlan>) planDAO.getMealPlanByCateID(cateID, status);
 //		List<PlanDetail> listDetailsWeek = mealWeekPlan.getListPlanDetails();
 		request.setAttribute("listMealWeekPlan", listMealWeekPlan);
-//		request.setAttribute("listDetailsWeek", listDetailsWeek);
+//		request.setAttribute("listVegetatianPlans", listVegetatianPlans);
 
 		break;
 	    }
@@ -152,11 +153,24 @@ public class HomepageServlet extends HttpServlet {
 		AddressDAO addressDAO = new AddressDAO();
 
 		if (a != null) {
+		    String raw_statusID = request.getParameter("statusID");
+		    int statusID;
+		    if (raw_statusID == null) {
+			statusID = 0;
+		    } else {
+			try {
+			    statusID = Integer.parseInt(raw_statusID);
+			} catch (NumberFormatException e) {
+			    statusID = 0;
+			}
+		    }
 		    List<Address> listAddresses = addressDAO.getAllAddressByAccID(a.getAccID());
 		    request.setAttribute("listAddresses", listAddresses);
+
 		    OrderDAO orderDAO = new OrderDAO();
-		    List<Order> listOrders = orderDAO.getAllOrderByAccID(a.getAccID(), 0);
+		    List<Order> listOrders = orderDAO.getAllOrderByAccID(a.getAccID(), statusID);
 		    request.setAttribute("listOrder", listOrders);
+		    request.setAttribute("checkedStatus", statusID);
 		    url = IConstant.SERVLET_USER_INFO;
 		} else {
 		    url = "login";

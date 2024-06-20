@@ -57,7 +57,7 @@ function validateField(field, value, rule) {
     }
 
     if (rule.email && !validateEmail(value)) {
-        return `${field} is not a valid email.`;
+        return `${field} must follow format example@domain.com.`;
     }
 
     if (rule.password && !validatePassword(value)) {
@@ -65,7 +65,7 @@ function validateField(field, value, rule) {
     }
 
     if (rule.phone && !validatePhoneNumber(value)) {
-        return `${field} is not a valid phone number.`;
+        return `${field} must have 10 number format.`;
     }
 
     return "";

@@ -176,7 +176,7 @@ public class AddToCartServlet extends HttpServlet {
 	    if (planID != null) {
 		PersonalPlanDAO personalPlanDAO = new PersonalPlanDAO();
 		MealPlan plan = personalPlanDAO.getPersonalPlanByID(planID);
-		System.out.println(plan);
+//		System.out.println(plan);
 		if (listCart == null) {
 		    listCart = new HashMap<>();
 		    listCart.put(plan, 1);

@@ -9,7 +9,8 @@
 <c:set var="user" value="${sessionScope.user}"/>
 <c:set var="mealWeekPlan" value="${requestScope.listMealWeekPlan}"/>
 <c:forEach var="plan" items="${mealWeekPlan}">
-    <div style="display: flex; justify-content: space-between; align-items: center">
+    <c:if test="${plan.cateID != 'CTM000123'}">
+        <div style="display: flex; justify-content: space-between; align-items: center">
         <h3 style="font-weight: bold"><i class="fa-solid fa-calendar-days me-2"></i>${plan.planName}</h3>
         <nav aria-label="Page navigation example">
             <ul class="pagination">
@@ -78,4 +79,6 @@
             </c:forEach>
         </tbody>
     </table>
+    </c:if>
+    
 </c:forEach>

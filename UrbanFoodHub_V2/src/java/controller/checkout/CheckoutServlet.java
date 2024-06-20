@@ -8,17 +8,16 @@ package controller.checkout;
 import dao.MaterialDAO;
 import dao.MealDAO;
 import dao.OrderDAO;
+import dao.PlanDAO;
 import dto.Account;
 import dto.Material;
 import dto.Meal;
 import dto.MealPlan;
-import dto.PlanDetail;
 import dto.Product;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -120,6 +119,17 @@ public class CheckoutServlet extends HttpServlet {
 				}
 			    }
 
+			} else if (p instanceof MealPlan) {
+			    PlanDAO planDAO = new PlanDAO();
+			    MealPlan mealPlan = planDAO.getPersonalPlanByID(-1, p.getId());
+			    String orderDetailID = MyLibs.generateID("ORDERDETAIL");
+			    int isAddDetail = orderDAO.addOrderDetail(orderDetailID, orderID, p.getId(),
+				    listCart.get(p), p.getPrice(), 3);
+			    if (isAddDetail > 0) {
+
+				iterator.remove();
+
+			    }
 			}
 		    }
 		} else {

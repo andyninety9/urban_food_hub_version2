@@ -64,11 +64,11 @@ function validateField(field, value, rule) {
     }
 
     if (rule.username && !validateUsername(value)) {
-        return `Username is not a valid email.`;
+        return `Username must have more than 3 characters without space.`;
     }
 
     if (rule.password && !validatePassword(value)) {
-        return `Password is not a valid.`;
+        return `Password must have more than 8 characters include number and uppercase.`;
     }
     
     if (rule.confirmPass && !validateConfirmPassword(value, passwordValue)) {
