@@ -302,14 +302,14 @@ public class MaterialDAO {
 
     public List<Material> searchMaterial(String keyword) {
 	List<Material> list = null;
-	String sql = "SELECT [MateSKU]\n" + "      ,[CateName]\n" + "      ,[MateName]\n" + "      ,[MateDesc]\n"
-		+ "      ,[Price]\n" + "      ,[PackagingSpec]\n" + "      ,[Stock]\n" + "      ,[CreatedDate]\n"
-		+ "      ,[MateImg]\n" + "      ,[MateStatus]\n"
-		+ "  FROM [dbo].[Material] INNER JOIN CategoryMaterial ON Material.CateID = CategoryMaterial.CateID"
-		+ "  WHERE [MateSKU] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%'\n"
-		+ "     OR [MateName] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%'\n"
-		+ "     OR [CateName] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%'\n";
-	sql += " ORDER BY [MateStatus] ASC, [MateName] ASC, [CreatedDate] DESC ";
+	String sql = "SELECT [MateSKU],\n" + "       [CateName],\n" + "       [MateName],\n" + "       [MateDesc],\n"
+		+ "       [Price],\n" + "       [PackagingSpec],\n" + "       [Stock],\n" + "       [CreatedDate],\n"
+		+ "       [MateImg],\n" + "       [MateStatus]\n"
+		+ "  FROM [dbo].[Material] INNER JOIN CategoryMaterial ON Material.CateID = CategoryMaterial.CateID\n"
+		+ " WHERE ([MateSKU] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' OR\n"
+		+ "        [MateName] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' OR\n"
+		+ "        [CateName] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%')\n"
+		+ "   AND [MateStatus] != 2\n" + " ORDER BY [MateStatus] ASC, [MateName] ASC, [CreatedDate] DESC";
 	Connection cn = null;
 	try {
 	    cn = MyLibs.makeConnection();

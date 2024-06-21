@@ -11,6 +11,10 @@
 <c:set var="listOrder" value="${requestScope.listOrder}"/>
 <c:set var="listAccounts" value="${requestScope.listAccounts}"/>
 <c:set var="currentPage" value="${requestScope.statusID}"/>
+<c:set var="formDate" value="${requestScope.formDate}"/>
+<c:set var="toDate" value="${requestScope.toDate}"/>
+<c:set var="keyword" value="${requestScope.keyword}"/>
+<c:set var="selectSearch" value="${requestScope.selectSearch}"/>
 <link rel="stylesheet" href="css-dashboard/manage-order-stylesheet.css"/>
 
 <div class="container">
@@ -30,9 +34,9 @@
         
         <form action="admin-router" class="filter" style="display: flex; gap: 10px; align-items: center">
             <input name="action" value="manage-order" type="hidden"/>
-            <input style="outline: none; border: 1px solid #eee; background-color: transparent; border-radius: 20px; padding: 0 10px; height: 40px; font-size: 14px" name="fromDate" type="date"/>
+            <input style="outline: none; border: 1px solid #eee; background-color: transparent; border-radius: 20px; padding: 0 10px; height: 40px; font-size: 14px" value="${formDate}" name="fromDate" type="date"/>
             <p style="margin: 0;">to</p>
-            <input style="outline: none; border: 1px solid #eee; background-color: transparent; border-radius: 20px; padding: 0 10px; height: 40px; font-size: 14px" name="toDate" type="date"/>
+            <input style="outline: none; border: 1px solid #eee; background-color: transparent; border-radius: 20px; padding: 0 10px; height: 40px; font-size: 14px" value="${toDate}" name="toDate" type="date"/>
             <input style="outline: none; border: none; border-radius: 20px; padding: 5px 10px; font-size: 14px; background-color: #4ACD8D; color: white" type="submit" value="Apply"/>
         </form>
         <form action="admin-router" class="input-group mb-3" style="width: 40%; height: 40px">
@@ -40,10 +44,12 @@
             <span class="input-group-text" id="basic-addon1">
                 <select name="selectSearch" style="border: none; outline: none; background-color: transparent" class="search-options form-select-sm" aria-label="Default select example">
                     <option value="all" selected="">Choose search option</option>
-                    <option value="orderID">Order number</option>
+                    <option ${selectSearch == 'orderID' ? 'selected' : ''} value="orderID">Order number</option>
+                    <option ${selectSearch == 'username' ? 'selected' : ''} value="username">Username</option>
+                    <option ${selectSearch == 'email' ? 'selected' : ''} value="email">Email</option>
                 </select>
             </span>
-            <input name="keyword" style="font-size: 14px" type="text" class="form-control" placeholder="Search orders" aria-label="Username" aria-describedby="basic-addon1">
+            <input value="${keyword}" name="keyword" style="font-size: 14px" type="text" class="form-control" placeholder="Search orders" aria-label="Username" aria-describedby="basic-addon1">
         </form>
     </div>
     

@@ -137,6 +137,42 @@ public class AccountDao {
 	return account;
     }
 
+    public Account searchAccountByEmail(String email) {
+	Account account = null;
+	String sql = "SELECT TOP 1 [accID]\n" + "      ,[firstname]\n" + "      ,[lastname]\n" + "      ,[birthday]\n"
+		+ "      ,[email]\n" + "      ,[phone]\n" + "      ,[avatar]\n" + "      ,[statusID]\n"
+		+ "      ,[createdDate]\n" + "  FROM [dbo].[Account]\n"
+		+ "  WHERE [email] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%'";
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		st.setString(1, email);
+		ResultSet rs = st.executeQuery();
+		if (rs != null) {
+		    while (rs.next()) {
+			account = new Account(rs.getString("accID"), rs.getString("firstname"),
+				rs.getString("lastname"), rs.getDate("birthday"), rs.getString("email"),
+				rs.getString("phone"), rs.getString("avatar"), rs.getInt("statusID"),
+				rs.getDate("createdDate"));
+		    }
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return account;
+    }
+
     public Account getAccountByPhone(String phone) {
 	Account account = null;
 	String sql = "SELECT [accID]\n" + "      ,[firstname]\n" + "      ,[lastname]\n" + "      ,[birthday]\n"

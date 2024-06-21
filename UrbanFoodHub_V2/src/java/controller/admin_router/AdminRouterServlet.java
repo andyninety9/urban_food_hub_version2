@@ -64,11 +64,23 @@ public class AdminRouterServlet extends HttpServlet {
 		String raw_statusID = request.getParameter("statusID");
 		String selectSearch = request.getParameter("selectSearch");
 		String keyword = request.getParameter("keyword");
-
+		request.setAttribute("keyword", keyword);
 		if (selectSearch != null && selectSearch.equals("orderID")) {
 		    orderID = keyword;
+		} else if (selectSearch != null && selectSearch.equals("username")) {
+		    UserDAO userDAO = new UserDAO();
+		    User user = userDAO.searchUser(keyword);
+		    if (user != null) {
+			accID = user.getAccID();
+		    }
+		} else if (selectSearch != null && selectSearch.equals("email")) {
+		    AccountDao accountDao = new AccountDao();
+		    Account acc = accountDao.searchAccountByEmail(keyword);
+		    if (acc != null) {
+			accID = acc.getAccID();
+		    }
 		}
-
+		request.setAttribute("selectSearch", selectSearch);
 		int statusID = 0;
 		Date fromDate = null;
 		Date toDate = null;
@@ -88,9 +100,11 @@ public class AdminRouterServlet extends HttpServlet {
 		try {
 		    if (raw_fromDate != null && !raw_fromDate.isEmpty()) {
 			fromDate = new java.sql.Date(dateFormat.parse(raw_fromDate).getTime());
+			request.setAttribute("form", fromDate);
 		    }
 		    if (raw_toDate != null && !raw_toDate.isEmpty()) {
 			toDate = new java.sql.Date(dateFormat.parse(raw_toDate).getTime());
+			request.setAttribute("toDate", toDate);
 		    }
 		} catch (ParseException e) {
 		    e.printStackTrace(); // Log error for debugging

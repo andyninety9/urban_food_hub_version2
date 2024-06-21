@@ -115,6 +115,37 @@ public class UserDAO {
 	return user;
     }
 
+    public User searchUser(String username) {
+	String sql = "SELECT TOP 1 [accID]\n" + "      ,[username]\n" + "      ,[password], [roleID]\n"
+		+ "  FROM [dbo].[User]\n"
+		+ "  WHERE [username] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%'";
+	User user = null;
+	Connection cn = null;
+	try {
+	    cn = MyLibs.makeConnection();
+	    if (cn != null) {
+		PreparedStatement st = cn.prepareStatement(sql);
+		st.setString(1, username);
+		ResultSet rs = st.executeQuery();
+		if (rs != null && rs.next()) {
+		    user = new User(rs.getString("accID"), rs.getString("username"), rs.getString("password"),
+			    rs.getInt("roleID"));
+		}
+	    }
+	} catch (Exception e) {
+	    e.printStackTrace();
+	} finally {
+	    try {
+		if (cn != null) {
+		    cn.close();
+		}
+	    } catch (SQLException e) {
+		e.printStackTrace();
+	    }
+	}
+	return user;
+    }
+
     public User getUserByIDAndPass(String accID, String password) {
 	String sql = "SELECT [accID]\n" + "      ,[username]\n" + "      ,[password]\n" + "      ,[roleID]\n"
 		+ "  FROM [dbo].[User]\n"

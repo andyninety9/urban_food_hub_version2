@@ -249,7 +249,7 @@ public class PlanDAO {
 	    sql1 += " WHERE";
 	    boolean isFirstCondition = true;
 	    if (searchKeyword != null) {
-		sql1 += " ([planName] LIKE ? OR [mealPlanID] LIKE ? OR [planDesc] LIKE ?)";
+		sql1 += " ([planName] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' OR [mealPlanID] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%' OR [planDesc] COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%')";
 		isSetSearchKeyword = true;
 		isFirstCondition = false;
 	    }

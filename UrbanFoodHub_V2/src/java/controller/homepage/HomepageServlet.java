@@ -281,6 +281,21 @@ public class HomepageServlet extends HttpServlet {
 		url = IConstant.URL_FAQS;
 		break;
 	    }
+	    case IConstant.PATH_SEARCH: {
+		url = IConstant.URL_SEARCH;
+		String keyword = request.getParameter("keyword");
+		List<Material> listMaterials = materialDAO.searchMaterial(keyword);
+
+		MealDAO mealDAO = new MealDAO();
+		List<Meal> listMeal = mealDAO.searchMeal(keyword);
+		PlanDAO planDAO = new PlanDAO();
+		List<MealPlan> listMealPlans = planDAO.getMealPlanBySearch(keyword, null, 1);
+		request.setAttribute("listMaterials", listMaterials);
+		request.setAttribute("listMeals", listMeal);
+		request.setAttribute("listMealPlans", listMealPlans);
+		request.setAttribute("keyword", keyword);
+		break;
+	    }
 	    default: {
 		url = IConstant.URL_HOME;
 		List<Material> listTop10 = materialDAO.getTop10Material();

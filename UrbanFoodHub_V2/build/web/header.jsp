@@ -4,6 +4,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         <c:set var="user" value="${sessionScope.user}"/>
         <c:set var="listCart" value="${sessionScope.listCart}"/>
+        <c:set var="keyword" value="${requestScope.keyword}"/>
         <c:set var="cartSize" value="${fn:length(listCart)}" />
         
 
@@ -29,12 +30,18 @@ Klarna: betaal in 30 dagen</p> </marquee> </div> </div>
                     <img src="./images/Logo.png" alt="logo"/>
                     <a style="color: white" href="home">Urban Food Hub</a>
                 </div>
-                <div class="wrapper-searchbar col-md-4">
-                    <form class="searchbar">
-                        <input placeholder="Search materials or plan..." type="text" name="searchbar"/>
-                        <button type="submit">
+                <div class="wrapper-searchbar col-md-4" novalidate>
+                    <form action="home" class="searchbar needs-validation" novalidate style="display: flex; gap: 10px; align-items: center">
+                        <input type="hidden" name="action" value="search"/>
+                        <!--<div style="display: flex; flex-direction: column; gap: 5px">-->
+                        <input value="${keyword}" style="height: 30px; font-size: 13px; border-radius: 20px; outline: none; border: none" class="form-control" placeholder="Search materials or plan..." type="text" name="keyword" required/>
+                        <!--</div>--> 
+                        <button type="submit" style="">
                             <i class="fa-solid fa-magnifying-glass"></i>
                         </button>
+                        <div class="invalid-feedback" style="font-size: 10px">
+                              Please enter keyword
+                        </div>
                     </form>
                 </div>
             
@@ -118,4 +125,24 @@ Klarna: betaal in 30 dagen</p> </marquee> </div> </div>
                     cart.style.display = 'none';
                 }
             }
+            
+            (function () {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                var forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.prototype.slice.call(forms)
+                  .forEach(function (form) {
+                    form.addEventListener('submit', function (event) {
+                      if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                      }
+
+                      form.classList.add('was-validated')
+                    }, false)
+                  })
+              })()
         </script>

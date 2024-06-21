@@ -24,6 +24,7 @@ public interface IConstant {
 
     // Path
     public static String PATH_MEAL_PLAN = "plans";
+    public static String PATH_SEARCH = "search";
     public static String PATH_MATERIAL = "materials";
     public static String PATH_HOME = "home";
     public static String PATH_FOODS = "foods";
@@ -54,6 +55,7 @@ public interface IConstant {
     public static String URL_MANAGE_PLANS = "manage-plans/manage-plans-page.jsp";
     public static String URL_UPDATE_PLANS = "manage-plans/manage-plans-page.jsp";
     public static String URL_CREATE_USER = "manage-user/register-form-admin.jsp";
+    public static String URL_SEARCH = "search-page/search-page.jsp";
     public static String URL_HOME = "homepage.jsp";
     public static String URL_USER_INFO = "home";
     public static String URL_FAQS = "FAQs.jsp";

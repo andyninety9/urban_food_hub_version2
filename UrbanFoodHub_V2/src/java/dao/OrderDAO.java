@@ -195,7 +195,7 @@ public class OrderDAO {
 		sql.append(" AND orderDate BETWEEN ? AND ?");
 	    }
 	    if (i_orderID != null) {
-		sql.append(" AND orderID = ?");
+		sql.append(" AND orderID COLLATE SQL_Latin1_General_CP1_CI_AI LIKE '%' + ? + '%'");
 	    }
 	    sql.append(" ORDER BY statusID ASC, orderDate ASC");
 
