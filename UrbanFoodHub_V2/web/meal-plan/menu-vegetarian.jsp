@@ -50,7 +50,7 @@
                                     <c:when test="${detail.mealTime == 1}">
                                         <td id="breakfast-${mealDate.mealDate}">
                                             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                                                <h6 style="color: #171725; font-weight: bold; margin: 0">${detail.meal.mealName}</h6>
+                                                <h6 style="color: #171725; font-weight: bold; margin: 0"><a style="font-style: none; text-decoration: none; color: inherit" href="home?action=view-food&mealID=${detail.meal.id}" target="target">${detail.meal.mealName}</a></h6>
                                                 <span class="badge bg-warning text-dark">${detail.meal.nutritionValue}</span>
                                             </div>
                                         </td>
@@ -58,7 +58,7 @@
                                     <c:when test="${detail.mealTime == 2}">
                                         <td id="lunch-${mealDate.mealDate}">
                                             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                                                <h6 style="color: #171725; font-weight: bold; margin: 0">${detail.meal.mealName}</h6>
+                                                <h6 style="color: #171725; font-weight: bold; margin: 0"><a style="font-style: none; text-decoration: none; color: inherit" href="home?action=view-food&mealID=${detail.meal.id}" target="target">${detail.meal.mealName}</a></h6>
                                                 <span class="badge bg-warning text-dark">${detail.meal.nutritionValue}</span>
                                             </div>
                                         </td>
@@ -66,7 +66,7 @@
                                     <c:when test="${detail.mealTime == 3}">
                                         <td id="dinner-${mealDate.mealDate}">
                                             <div style="display: flex; justify-content: center; align-items: center; flex-direction: column;">
-                                                <h6 style="color: #171725; font-weight: bold; margin: 0">${detail.meal.mealName}</h6>
+                                                <h6 style="color: #171725; font-weight: bold; margin: 0"><a style="font-style: none; text-decoration: none; color: inherit" href="home?action=view-food&mealID=${detail.meal.id}" target="target">${detail.meal.mealName}</a></h6>
                                                 <span class="badge bg-warning text-dark">${detail.meal.nutritionValue}</span>
                                             </div>
                                         </td>
