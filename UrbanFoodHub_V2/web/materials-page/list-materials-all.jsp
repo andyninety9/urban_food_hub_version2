@@ -97,7 +97,7 @@
         </c:forEach>
     </c:if>
     <c:if test="${paginationListMaterials == null}">
-        <!--<h5 class="card-title">Nothing</h5>-->
+        <h5 class="card-title">Nothing to display</h5>
     </c:if>
                     
 

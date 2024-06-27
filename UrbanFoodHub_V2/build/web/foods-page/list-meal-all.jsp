@@ -38,6 +38,9 @@
                             value="${category.cateID}">${category.cateName}</option>
                     </c:forEach>
                 </c:if>
+                    <c:if test="${allCategory == null}" >
+                        <h6>Nothing to display</h6>
+                    </c:if>
     </select>
 </form>
 <div style="display: flex; gap: 1.5rem; flex-wrap: wrap; margin-top: 20px; ">
