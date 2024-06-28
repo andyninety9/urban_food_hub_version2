@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <div style="display: flex; flex-direction: column; justify-content: center; align-items: center">
-    <h1 style="">HOW IT WORKS</h1>
+    <h1 style="">HOW WE WORKS</h1>
     <div style="height: 10px; width: 5%;background-color: #4acd8e"></div>
     <div style="display: flex; justify-content: space-between; margin-top: 10px; gap: 10px">
         <div class="card border-info mb-3" style="max-width: 18rem;">

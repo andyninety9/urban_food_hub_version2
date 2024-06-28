@@ -30,23 +30,6 @@
                 
                 <jsp:include page="how-it-works.jsp"/>
                 <jsp:include page="list-meal-all.jsp"/>
-                
-<!--                <h1 style="font-weight: bold; margin-top: 20px">Latest Menu</h1>
-                <div style="height: 10px; width: 10%; background-color: red"></div>
-                <br/>
-                <p style="font-size: 14px; color: #808191">Enjoy a fusion of Asian and Western cuisine<br/>
-                    Each meal is designed by a 5-star hotel chef to ensure a right balance of diet while keep the standard at the highest. All meals are low in sugar and free from MSG</p>-->
-                <%--<jsp:include page="menu.jsp"/>--%>
-<!--                 <h1 style="font-weight: bold; margin-top: 20px">Vegetarian Menu</h1>
-                <div style="height: 10px; width: 10%; background-color: #4acd8e"></div>
-                <br/>-->
-                <%--<jsp:include page="menu-vegetarian.jsp"/>--%>
-                
-<!--                <h4 style="color: #4acd8e; font-weight: bold ">Note</h4>
-                <p style="font-size: 14px; color: #808191">Macronutrients of all meals are provided as Carb, Fat, Protein.<br/>
-To ensure your meals stay fresh, they are delivered in a chilled condition. Once you receive your package, please refrigerate it. When it's time to eat, a quick 2-3 minutes in the microwave will have your meal ready .
-<br/>
-All meals only include Meats and Vegetables. Complex Carbs (brown rice, veggie noodles, brown bread) will be included in the meals with carb note.-->
             </div>
         </div>
                 <jsp:include page="../footer.jsp"/>
