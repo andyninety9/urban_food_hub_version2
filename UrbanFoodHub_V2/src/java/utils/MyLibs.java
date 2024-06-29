@@ -25,7 +25,7 @@ public class MyLibs {
 	String uid = "sa";
 //	String pwd = "12345";
 	String pwd = "12345678";
-	String db = "URBAN_FOOD_HUB_V2";
+	String db = "URBAN_FOOD_HUB";
 	String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	String url = "jdbc:sqlserver://" + IP + "\\" + instanceName + ":" + port + ";databasename=" + db + ";user="
 		+ uid + ";password=" + pwd + ";useUnicode=true;characterEncoding=UTF-8";
