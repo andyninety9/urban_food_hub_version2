@@ -17,15 +17,16 @@ import java.util.List;
 public class MyLibs {
     public static Connection makeConnection() throws Exception {
 	Connection cn = null;
-//	String IP = "localhost";
-	String IP = "dburbanfoodhubv2.c7ye8i8gyk9p.ap-southeast-1.rds.amazonaws.com";
-//	String instanceName = "DUYMA\\SQLEXPRESS_DUYMA";
-	String instanceName = "EC2AMAZ-69ISC80";
+	String IP = "localhost";
+//	String IP = "dburbanfoodhubv2.c7ye8i8gyk9p.ap-southeast-1.rds.amazonaws.com";
+	String instanceName = "DUYMA\\SQLEXPRESS_DUYMA";
+//	String instanceName = "EC2AMAZ-69ISC80";
 	String port = "1433";
 	String uid = "sa";
-//	String pwd = "12345";
-	String pwd = "12345678";
-	String db = "URBAN_FOOD_HUB";
+	String pwd = "12345";
+//	String pwd = "12345678";
+//	String db = "URBAN_FOOD_HUB";
+	String db = "URBAN_FOOD_HUB_V2";
 	String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	String url = "jdbc:sqlserver://" + IP + "\\" + instanceName + ":" + port + ";databasename=" + db + ";user="
 		+ uid + ";password=" + pwd + ";useUnicode=true;characterEncoding=UTF-8";

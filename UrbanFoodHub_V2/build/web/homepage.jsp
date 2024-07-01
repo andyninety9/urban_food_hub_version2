@@ -30,10 +30,10 @@
                 <jsp:include page="carousel-homepage.jsp"/>
                 <h3 style="font-weight: bold; color: #4ACD8D; font-size: 34px; margin-top: 30px;">
                 #New arrival
-                 <small class="text-muted">100% Organic</small>
+                <small class="text-muted">100% Organic</small>
                 </h3>
                 <jsp:include page="list-material-homepage.jsp"/>
-                 <h3 style="font-weight: bold; color: #4ACD8D; font-size: 34px; margin-top: 30px;">
+                <h3 style="font-weight: bold; color: #4ACD8D; font-size: 34px; margin-top: 30px;">
                 #Personal meal plan
                  <small class="text-muted">Everyday</small>
                 </h3>
