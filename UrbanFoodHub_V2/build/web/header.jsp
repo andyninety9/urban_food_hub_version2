@@ -8,45 +8,50 @@
         <c:set var="cartSize" value="${fn:length(listCart)}" />
         
 
-        <header class="row" style="background-color: #22222C; height: 80px; border-radius: 0">
-        <div class="ticker" style="width: 100%"> <div class="title"></div> <div style="background: #22222C" class="news"> <marquee class="news-content"> <p style="margin: 0; color: white; font-size: 10px">**Welcome to Urban Foods Hub Gratis verzending vanaf €100
+<header class="row" style="background-color: #22222C; height: 80px; border-radius: 0">
+    <div class="ticker col-12" style="width: 100%"> 
+        <!--<div class="title"></div>--> 
+        <div style="background: #22222C" class="news"> 
+                <marquee class="news-content"> <p style="margin: 0; color: white; font-size: 10px">**Welcome to Urban Foods Hub Gratis verzending vanaf €100
+                    Fresh, not frozen
 
-Fresh, not frozen
+                    Klarna: betaal in 30 dagen
 
-Klarna: betaal in 30 dagen
+                    Gratis verzending vanaf €100
 
-Gratis verzending vanaf €100
+                    Fresh, not frozen
 
-Fresh, not frozen
+                    Klarna: betaal in 30 dagen
 
-Klarna: betaal in 30 dagen
+                    Gratis verzending vanaf €100
 
-Gratis verzending vanaf €100
+                    Fresh, not frozen
 
-Fresh, not frozen
-
-Klarna: betaal in 30 dagen</p> </marquee> </div> </div>
-                <div class="wrapper-logo col-md-3">
-                    <img src="./images/Logo.png" alt="logo"/>
-                    <a style="color: white" href="home">Urban Food Hub</a>
-                </div>
-                <div class="wrapper-searchbar col-md-4" novalidate>
-                    <form action="home" class="searchbar needs-validation" novalidate style="display: flex; gap: 10px; align-items: center">
-                        <input type="hidden" name="action" value="search"/>
-                        <!--<div style="display: flex; flex-direction: column; gap: 5px">-->
-                        <input value="${keyword}" style="height: 30px; font-size: 13px; border-radius: 20px; outline: none; border: none" class="form-control" placeholder="Search materials or plan..." type="text" name="keyword" required/>
-                        <!--</div>--> 
-                        <button type="submit" style="">
-                            <i class="fa-solid fa-magnifying-glass"></i>
-                        </button>
-                        <div class="invalid-feedback" style="font-size: 10px">
-                              Please enter keyword
-                        </div>
-                    </form>
-                </div>
+                    Klarna: betaal in 30 dagen</p> 
+                </marquee> 
+        </div>
+    </div>
+    <div class="wrapper-logo col-md-3 col-12">
+        <img src="./images/Logo.png" alt="logo"/>
+        <a style="color: white" href="home">Urban Food Hub</a>
+    </div>
+    <div class="wrapper-searchbar col-md-4 col-12" novalidate>
+        <form action="home" class="searchbar needs-validation" novalidate style="display: flex; gap: 10px; align-items: center">
+            <input type="hidden" name="action" value="search"/>
+            <!--<div style="display: flex; flex-direction: column; gap: 5px">-->
+            <input value="${keyword}" style="height: 30px; font-size: 13px; border-radius: 20px; outline: none; border: none" class="form-control" placeholder="Search materials or plan..." type="text" name="keyword" required/>
+            <!--</div>--> 
+            <button type="submit" style="">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+            <div class="invalid-feedback" style="font-size: 10px">
+                  Please enter keyword
+            </div>
+        </form>
+    </div>
             
                 
-                <div class="information col-md-5">
+                <div class="information col-md-5 col-12">
                     <c:if test="${user == null}" >
                         <a href="login">Sign-in</a>
                     </c:if>

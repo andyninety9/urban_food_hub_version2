@@ -106,6 +106,8 @@
                                                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                         </div>
                                                         <div class="modal-body">
+                                                            <!--Modal breakfast-->
+                                                            
                                                             <table class="table table-hover" style="font-size: 10px">
                                                             <thead>
                                                               <tr>
@@ -115,7 +117,7 @@
                                                                 <th scope="col">Action</th>
                                                               </tr>
                                                             </thead>
-                                                            <tbody>
+                                                            <tbody id="mealTableBody">
                                                                 <c:forEach var="mate" items="${listMeal}">
                                                                     <tr>
                                                                         <th scope="row">${mate.id}</th>
@@ -258,5 +260,8 @@
     <li class="page-item ${checkedPage == (((sizeListMate % 2) == 0) ? (sizeListMate / 2) : ((sizeListMate / 2) + 1)) ? 'disabled' : ''}">
       <a style="color: #808191" class="page-link" href="home?action=customize&page=${checkedPage + 1}&cateID=${selectedCate}">Next</a>
     </li>
-</ul>            
+</ul>           
+    
+
+    
 

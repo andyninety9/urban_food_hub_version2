@@ -2,9 +2,13 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/C:/Users/duyma/Documents/PRJ301/urban_food_hub_version2/UrbanFoodHub_V2/src/java/dao/MaterialDAO.java</file>
             <file>file:/C:/Users/duyma/Documents/PRJ301/urban_food_hub_version2/UrbanFoodHub_V2/src/java/utils/MyLibs.java</file>
         </group>
+=======
+        <group/>
+>>>>>>> 6b4b0d6fbc43a98a6c1eefafc1c013f6d5591130
     </open-files>
 </project-private>
