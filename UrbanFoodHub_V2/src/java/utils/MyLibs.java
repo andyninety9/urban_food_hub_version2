@@ -17,11 +17,11 @@ import java.util.List;
 public class MyLibs {
     public static Connection makeConnection() throws Exception {
 	Connection cn = null;
-	String IP = "localhost";
-	String instanceName = "DUYMA\\SQLEXPRESS_DUYMA";
+	String IP = "urbanfoodhub.database.windows.net";
+	String instanceName = "urbanfoodhub";
 	String port = "1433";
-	String uid = "sa";
-	String pwd = "12345";
+	String uid = "urbanfoodhub.sa";
+	String pwd = "Andy@2699";
 	String db = "URBAN_FOOD_HUB_V2";
 	String driver = "com.microsoft.sqlserver.jdbc.SQLServerDriver";
 	String url = "jdbc:sqlserver://" + IP + "\\" + instanceName + ":" + port + ";databasename=" + db + ";user="
