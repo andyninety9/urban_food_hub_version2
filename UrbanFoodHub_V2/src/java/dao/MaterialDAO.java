@@ -186,7 +186,7 @@ public class MaterialDAO {
     }
 
     public int addMaterial(String sku, String cateID, String mateName, String mateDesc, double price, String packaging,
-	    double stock, Date createdDate, byte[] mateImg, int mateStatus) {
+	    double stock, Date createdDate, String mateImg, int mateStatus) {
 	String sql = "INSERT INTO [dbo].[Material]\n" + "           ([MateSKU]\n" + "           ,[CateID]\n"
 		+ "           ,[MateName]\n" + "           ,[MateDesc]\n" + "           ,[Price]\n"
 		+ "           ,[PackagingSpec]\n" + "           ,[Stock]\n" + "           ,[CreatedDate]\n"
@@ -207,7 +207,7 @@ public class MaterialDAO {
 		st.setString(6, packaging);
 		st.setDouble(7, stock);
 		st.setDate(8, createdDate);
-		st.setBytes(9, mateImg);
+		st.setString(9, mateImg);
 		st.setInt(10, mateStatus);
 		rs = st.executeUpdate();
 

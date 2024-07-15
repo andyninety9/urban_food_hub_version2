@@ -5,6 +5,8 @@
 
 package controller.filter;
 
+import dao.AccountDao;
+import dto.Account;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.io.PrintWriter;
@@ -102,7 +104,14 @@ public class AuthorizationFilter implements Filter {
 	HttpSession session = req.getSession();
 	if (session.getAttribute("user") == null) {
 	    res.sendRedirect("login");
-	}
+	}else if(session.getAttribute("user") != null){
+            Account acc = (Account) session.getAttribute("user");
+            if(acc.getStatusID() == 3){
+                req.setAttribute("error", "Account have been banned");
+                req.getRequestDispatcher("logout").forward(request, response);   
+            }
+            
+        }
 	Throwable problem = null;
 	try {
 	    chain.doFilter(request, response);

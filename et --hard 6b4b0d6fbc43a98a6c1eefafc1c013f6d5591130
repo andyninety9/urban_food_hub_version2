@@ -1,0 +1,149 @@
+[33mcommit 6b4b0d6fbc43a98a6c1eefafc1c013f6d5591130[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Mon Jul 1 09:03:45 2024 +0700
+
+    back up
+
+[33mcommit 12607b8e6db9ce143825d19e2fc49ed137d38c3a[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Sat Jun 29 09:10:14 2024 +0700
+
+    Database restore
+
+[33mcommit 1451060dbdcc8a0f91d204f8960e903ec88ace68[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Sat Jun 29 07:42:57 2024 +0700
+
+    Go cloud
+
+[33mcommit 3b2ccc4f7e8ad606da8426665c2548cb7bc62f67[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Fri Jun 28 13:58:12 2024 +0700
+
+    Update UI
+
+[33mcommit a50fad8ba7bd02c45679defbfa22fcfafdc972bf[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Thu Jun 27 20:14:32 2024 +0700
+
+    CleanBuild
+
+[33mcommit d39fa626e889486cb2e3ec17b675ea7485389226[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Thu Jun 27 20:11:41 2024 +0700
+
+    Upload libs
+
+[33mcommit 5094234fb7a1e426bc12bf6f15737c5671f007fa[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Thu Jun 27 20:05:09 2024 +0700
+
+    Push code
+
+[33mcommit 18538d1a4e2f57f6ab3c836f4d9a75cecd018c76[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Thu Jun 27 10:01:39 2024 +0700
+
+    Upload lib
+
+[33mcommit 1e98046bc0ac934a706b8c5c01dc8d10c33dceb3[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Mon Jun 24 21:34:46 2024 +0700
+
+    Push db
+
+[33mcommit e5000181d2cfef0c30f67351cadc06669d35fe59[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Mon Jun 24 21:33:18 2024 +0700
+
+    Push code
+
+[33mcommit 45fa061870508dbc56377691023f8a7c05cb897b[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Fri Jun 21 11:42:29 2024 +0700
+
+    Push code
+
+[33mcommit 231f95ea14cbd2257b248815a7784bbe2236a7e9[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Thu Jun 20 11:48:49 2024 +0700
+
+    Push code
+
+[33mcommit 93cd5b201c531d3de7ce94f25598d50588c9911d[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Thu Jun 20 00:15:26 2024 +0700
+
+    Push code
+
+[33mcommit 9512de16c3aa6b6ceb2568cc1ec6c541115864c1[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Wed Jun 19 00:22:22 2024 +0700
+
+    push code
+
+[33mcommit ee48a2ca7e24d75d1730a12c61dcf63e8f3d9b0b[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Sat Jun 15 11:04:55 2024 +0700
+
+    Push code
+
+[33mcommit 4e56a49bc40c5a0e5b5c30bede2b870e49a8c8ba[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Wed Jun 12 22:12:10 2024 +0700
+
+    Push code
+
+[33mcommit 2104650df64b64d70926bce988dfc79db2e8862a[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Fri Jun 7 00:09:22 2024 +0700
+
+    Push code
+
+[33mcommit 5c20f200e07288aff1176e766883a590eea156a8[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Thu May 30 22:32:32 2024 +0700
+
+    Push code
+
+[33mcommit 41f25a3ec7a64285bb388d7c13c13403053e8391[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Tue May 28 21:56:04 2024 +0700
+
+    Push code
+
+[33mcommit 6e9665f653ca56d1b2f8a91a2fc4866c264617a2[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Mon May 27 22:32:21 2024 +0700
+
+    Push code
+
+[33mcommit fc8ac39d0c840e8535455ad7760bbbd138830c88[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Fri May 24 19:25:25 2024 +0700
+
+    Push code
+
+[33mcommit df361cfa14005dcf7a1cb793a73bb11cdcc4b3a5[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Fri May 24 08:04:25 2024 +0700
+
+    Fix: update material
+
+[33mcommit 5473e8ec99199ab59b70250c20808cb5d0571a28[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Fri May 24 07:49:13 2024 +0700
+
+    Fix:Save UTF8 to DB
+
+[33mcommit 34368651d302dca4c56ecb1ca826beaacbea14ce[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Fri May 24 07:25:10 2024 +0700
+
+    Push code
+
+[33mcommit c4e09bcc95fd70157a53e1d855a23aedd985f6e1[m
+Author: Anh Duy Mai <duy.maianh26@gmail.com>
+Date:   Thu May 23 07:25:50 2024 +0700
+
+    Push: source code

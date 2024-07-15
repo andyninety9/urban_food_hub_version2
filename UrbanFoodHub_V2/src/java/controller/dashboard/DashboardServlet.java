@@ -5,12 +5,16 @@
 
 package controller.dashboard;
 
-import dao.MaterialDAO;
 import dao.OrderDAO;
-import dto.Material;
+import dao.ReportDAO;
+import dto.Account;
+import dto.Product;
+import dto.Report;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -44,6 +48,21 @@ public class DashboardServlet extends HttpServlet {
 	waitingShip = orderDAO.countOrderByStatusID(2);
 	countCancelOrder = orderDAO.countOrderByStatusID(5);
 	deliveredOrder = orderDAO.countOrderByStatusID(4);
+        ReportDAO reportDAO = new ReportDAO();
+        Report report = reportDAO.getReport();
+        HashMap<Product, Integer> listTopSellProduct = report.getListTopSellProduct();
+        HashMap<Account, Integer> listTopAccountCancelOrder = report.getListTopAccountCancelOrder();
+        List<Map.Entry<Product, Integer>> sortedList = listTopSellProduct.entrySet()
+            .stream()
+            .sorted(Map.Entry.<Product, Integer>comparingByValue().reversed())
+            .collect(Collectors.toList());
+        List<Map.Entry<Account, Integer>> sortedTopAccountsCancelOrder = listTopAccountCancelOrder.entrySet()
+            .stream()
+            .sorted(Map.Entry.<Account, Integer>comparingByValue().reversed())
+            .collect(Collectors.toList());
+        request.setAttribute("sortedListTopSellProduct", sortedList);
+        request.setAttribute("sortedListTopAccountCancelOrder", sortedTopAccountsCancelOrder);
+	request.setAttribute("report", report);
 	request.setAttribute("deliveredOrder", deliveredOrder);
 	request.setAttribute("countCancelOrderToday", countCancelOrder);
 	request.setAttribute("waitingConfirm", waitingConfirm);

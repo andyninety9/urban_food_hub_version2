@@ -48,14 +48,26 @@ public class ManageUserServlet extends HttpServlet {
 	    switch (action) {
 	    case "update-status": {
 		String accID = request.getParameter("accID");
-		AccountDao accountDao = new AccountDao();
-		Account acc = accountDao.getAccountByID(accID);
-		int statusAcc = acc.getStatusID();
-		if (statusAcc < 3) {
-		    statusAcc++;
-		} else if (statusAcc == 3) {
-		    statusAcc = 1;
-		}
+                String rawStatus = request.getParameter("statusAcc");
+                int statusAcc = 0;
+                AccountDao accountDao = new AccountDao();
+                if(rawStatus == null || rawStatus.isEmpty()){
+                    Account acc = accountDao.getAccountByID(accID);
+                    statusAcc = acc.getStatusID();
+                    if (statusAcc < 3) {
+                        statusAcc++;
+                    } else if (statusAcc == 3) {
+                        statusAcc = 1;
+                    }
+                }else{
+                    try {
+                        statusAcc = Integer.parseInt(rawStatus);
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                        statusAcc = 1;
+                    }
+                }
+		
 		int rs = accountDao.updateStatus(accID, statusAcc);
 		if (rs > 0) {
 		    response.sendRedirect(url);

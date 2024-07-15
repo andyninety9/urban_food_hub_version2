@@ -60,7 +60,7 @@
         </div>
         <div class="mb-3">
             <label for="formFile" class="form-label">Meal Image</label>
-            <input name="mealImg" class="form-control" type="file" id="formFile">
+            <input name="mealImg" class="form-control" type="text" id="formFile">
         </div>
         <div class="form-check form-switch mb-3">
             <input name="status" class="form-check-input" type="checkbox" role="switch"

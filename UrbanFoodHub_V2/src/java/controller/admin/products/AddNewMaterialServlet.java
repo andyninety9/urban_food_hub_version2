@@ -90,7 +90,7 @@ public class AddNewMaterialServlet extends HttpServlet {
 	String packaging = request.getParameter("packaging");
 	String raw_status = request.getParameter("status");
 	String raw_stock = request.getParameter("stock");
-	byte[] mateImg = null;
+	String mateImg = request.getParameter("mateImg");
 	double price, stock;
 	int status;
 	try {

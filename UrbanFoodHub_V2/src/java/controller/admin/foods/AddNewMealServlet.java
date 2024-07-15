@@ -84,6 +84,7 @@ public class AddNewMealServlet extends HttpServlet {
 	String raw_price = request.getParameter("price");
 	String raw_stock = request.getParameter("stock");
 	String raw_status = request.getParameter("status");
+	String mealImg = request.getParameter("mealImg");
 	Date createdDate = new Date(System.currentTimeMillis());
 	double price;
 	int stock, status;
@@ -97,7 +98,7 @@ public class AddNewMealServlet extends HttpServlet {
 	    }
 	    MealDAO mealDAO = new MealDAO();
 	    int rs = mealDAO.addNewMeal(cateID, mealName, mealDesc, nutrition, shelfLife, prepareTime, price, stock,
-		    createdDate, null, status);
+		    createdDate, mealImg, status);
 	    if (rs > 0) {
 		response.sendRedirect("manage-foods?action=all");
 	    } else {

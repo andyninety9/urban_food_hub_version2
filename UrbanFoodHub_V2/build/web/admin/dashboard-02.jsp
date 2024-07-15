@@ -72,6 +72,14 @@
                         <div style="display: flex; gap: 15px">
                             <jsp:include page="../widget/calendar.jsp"/>
                             <jsp:include page="report-task.jsp"/>
+                            
+                        </div>
+                        <div style="display: flex; gap: 15px">
+                            <jsp:include page="report-income.jsp"/>
+                        </div>
+                        <div style="display: flex; gap: 15px">
+                            <jsp:include page="reportAccountCancel.jsp"/>
+                            <jsp:include page="reportTopSellProduct.jsp"/>
                         </div>
                         
                     </div>

@@ -30,15 +30,11 @@
                 Add new <i class="fa-solid fa-plus"></i>
             </a>
             <ul id="pagination" class="pagination justify-content-center pagination-sm" style="padding: 0; margin: 0">
-                <li class="page-item disabled">
-                  <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
-                </li>
+               
                 <c:forEach begin="${1}" end="${((sizeListMaterial % 10) == 0) ? (sizeListMaterial / 10) : ((sizeListMaterial / 10) + 1) }" var="i">
                     <li class="page-item ${i == checkedPage ? 'active' : ''}"><a class="page-link" href="manage-products?page=${i}">${i}</a></li>
                 </c:forEach>
-                <li class="page-item">
-                  <a class="page-link" href="#">Next</a>
-                </li>
+                
             </ul>                   
             <c:if test="${errorTableMaterial != null}">
                 <p style="color: red; font-size: 10px">${errorTableMaterial}</p>

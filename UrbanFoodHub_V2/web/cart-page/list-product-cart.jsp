@@ -25,7 +25,7 @@
     <table class="table" style="text-align: center">
         <thead>
           <tr>
-            <th scope="col"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></th>
+            <!--<th scope="col"><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></th>-->
             <th scope="col" colspan="4">Product</th>
             <th scope="col">Unit price</th>
             <th scope="col">Quantity</th>
@@ -49,7 +49,7 @@
                     <c:set var="total" value="${total + (entry.key.price * entry.value)}"/>
                     <c:set var="totalItem" value="${(entry.key.price * entry.value)}"/>
                      <tr>
-                         <td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>
+                         <!--<td><input class="form-check-input" type="checkbox" value="" id="flexCheckDefault"></td>-->
                          <td style="width: 40%" colspan="4">
                              <div class="row">
                                  <div class="col-md-4">

@@ -12,7 +12,7 @@
 <div style="padding: 20px; border: 1px solid #eee; border-radius: 10px; background-color: #C5B6FE">
     <div>
         <h5 style="text-align: center">Edit detail</h5>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+        <button type="button" <c:if test="${plan.listPlanDetails.size() >= 15}">disabled</c:if> class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
             Add new day plan
         </button>
     </div>
